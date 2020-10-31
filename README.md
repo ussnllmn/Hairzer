@@ -1,21 +1,21 @@
 # Front-end hairzer
 
-## Project setup
+#### Project setup
 ```
 npm install
 ```
 
-### Run server and hot-reloads for development
+#### Run server and hot-reloads for development
 ```
 npm run serve
 ```
 
-### Build project
+#### Build project
 ```
 npm run build
 ```
 
-### Customize configuration with vue.js
+###### Customize configuration with vue.js
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
@@ -24,12 +24,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 cd server
 ```
 
-## Project setup
+#### Project setup
 ```
 npm install
 ```
 
-## Run server 
+#### Run server 
 ```
 node server.js
 ```
@@ -38,5 +38,5 @@ or (require nodemon)
 nodemon server.js
 ```
 
-### Customize configuration with express.js
+###### Customize configuration with express.js
 See [Configuration Reference](https://expressjs.com/).
