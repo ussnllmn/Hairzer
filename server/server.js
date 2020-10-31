@@ -4,6 +4,7 @@ const port = 5000
 const admin = require('firebase-admin')
 const serviceAccount = require('./path/to/aboutheadproject-firebase-adminsdk-8f6w7-21431f7897.json')
 
+//Firebase Config
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://aboutheadproject.firebaseio.com"
@@ -45,11 +46,11 @@ async function readData() {
     }
 }
 
-//Call function
+//Callback function
 //addData().then(() => {console.log('[Process 2] Add Data success')})
 //readData().then(() => {console.log('[Process 3] Read Data success')})
 
-//Hello world
+//Home page
 app.get('/', (req, res) => {
     res.send('Hairzer')
 })
