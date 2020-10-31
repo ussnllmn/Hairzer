@@ -1,9 +1,13 @@
+<!--/src/Home.vue-->
+
 <template>
+  <!--Banner-->
   <div class="home">
     <div class="pt-4">
     <img src="" width="100%" height="480px">
     </div>
 
+    <!--Promotion-->
     <div class="py-4">
       <h3><b-icon icon="tag-fill" aria-hidden="true"></b-icon> โปรโมชั่น</h3>
       <div class="row" align="center">
@@ -19,6 +23,7 @@
       </div>
     </div>
 
+    <!--Barber-->
     <div class="pb-4">
       <h3><b-icon icon="scissors" aria-hidden="true"></b-icon> ช่างตัดผมที่แนะนำ</h3>
       <div class="row" align="center">
@@ -34,6 +39,7 @@
       </div>
     </div>
 
+    <!--Location-->
     <div class="pb-4">
       <h3><b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon> สถานที่ที่แนะนำ</h3>
       <div class="row" align="center">
@@ -48,9 +54,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
-
-<style>
-</style>

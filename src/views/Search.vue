@@ -1,3 +1,5 @@
+<!--/src/Search.vue-->
+
 <template>
     <div class="search">
         <h1>Search</h1>
@@ -64,37 +66,37 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            //data ที่ต้องใช้ค้นหา location, service, date, time
-            location:'',
-            serviceChecked: [],
-            date: '',
-            time: '',
-            //date picker
-            minDate: new Date(),
-            //Example Data
-            services: [
-                {id:1, name: 'ตัดผม'},
-                {id:2, name: 'ทำสีผม'},
-                {id:3, name: 'โกนหนวด'},
-                {id:4, name: 'ดัดผม'},
-                {id:5, name: 'สระผม'},
-                {id:6, name: 'ซอยผม'},
-                {id:7, name: 'ยืดผม'},
-                {id:8, name: 'อบไอน้ำ'},
-                {id:9, name: 'ออกแบบทรงผม'},
-                {id:10, name: 'จัดแต่งทรงผม'}
-            ]
-        } 
+    export default {
+        data() {
+            return {
+                //data ที่ต้องใช้ค้นหา location, service, date, time
+                location:'',
+                serviceChecked: [],
+                date: '',
+                time: '',
+                //date picker
+                minDate: new Date(),
+                //Example Data
+                services: [
+                    {id:1, name: 'ตัดผม'},
+                    {id:2, name: 'ทำสีผม'},
+                    {id:3, name: 'โกนหนวด'},
+                    {id:4, name: 'ดัดผม'},
+                    {id:5, name: 'สระผม'},
+                    {id:6, name: 'ซอยผม'},
+                    {id:7, name: 'ยืดผม'},
+                    {id:8, name: 'อบไอน้ำ'},
+                    {id:9, name: 'ออกแบบทรงผม'},
+                    {id:10, name: 'จัดแต่งทรงผม'}
+                ]
+            } 
+        }
     }
-}
 </script>
 
 <style scoped>
-.serviceBox, .dateBox {
-    border: 1px solid #CED4DA;
-    border-radius: 5px;
-}
+    .serviceBox, .dateBox {
+        border: 1px solid #CED4DA;
+        border-radius: 5px;
+    }
 </style>

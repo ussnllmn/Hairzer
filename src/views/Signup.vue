@@ -1,3 +1,5 @@
+<!--/src/Signup.vue-->
+
 <template>
     <div class="signup">
         <div class="m-5">
@@ -34,20 +36,20 @@
 </template>
 
 <style scoped>
-img {
-    display: block;
-}
-.signup {
-    height: 720px;
-}
-.signupBox {
-    border: 1px solid #CED4DA;
-    border-radius: 5px;
-    color: #495057;
-}
-@media (max-width:640px){
-    img:first-child{
-        display:none;
+    img {
+        display: block;
     }
-}
+    .signup {
+        height: 720px;
+    }
+    .signupBox {
+        border: 1px solid #CED4DA;
+        border-radius: 5px;
+        color: #495057;
+    }
+    @media (max-width:640px){
+        img:first-child{
+            display:none;
+        }
+    }
 </style>

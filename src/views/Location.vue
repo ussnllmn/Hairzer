@@ -1,3 +1,5 @@
+<!--/src/Location.vue-->
+
 <template>
     <div class="location">
         <h1>Location</h1>
@@ -45,43 +47,43 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            selectedLocation: '',
-            totalCost: 0,
-            locations: [
-                {image:'', id:'0001', name:'ร้านตัดผม 1', score: 9, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3',], cost: 150},
-                {image:'', id:'0002', name:'ร้านตัดผม 2', score: 10, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3', ], cost: 350},
-                {image:'', id:'0003', name:'ร้านตัดผม 3', score: 7, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3',], cost: 120},
-                {image:'', id:'0004', name:'ร้านตัดผม 4', score: 6, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2'], cost: 200},
-            ]
-        }
-    },
-    methods: {
-    }    
-}
+    export default {
+        data() {
+            return {
+                selectedLocation: '',
+                totalCost: 0,
+                locations: [
+                    {image:'', id:'0001', name:'ร้านตัดผม 1', score: 9, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3',], cost: 150},
+                    {image:'', id:'0002', name:'ร้านตัดผม 2', score: 10, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3', ], cost: 350},
+                    {image:'', id:'0003', name:'ร้านตัดผม 3', score: 7, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3',], cost: 120},
+                    {image:'', id:'0004', name:'ร้านตัดผม 4', score: 6, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2'], cost: 200},
+                ]
+            }
+        },
+        methods: {
+        }    
+    }
 </script>
 
 <style scoped>
-.locationList {
-    border: solid 1px  #CED4DA;
-    border-radius: 5px;
-}
-.summary {
-    border: solid 1px  #CED4DA;
-    border-radius: 5px;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 30px;
+    .locationList {
+        border: solid 1px  #CED4DA;
+        border-radius: 5px;
+    }
+    .summary {
+        border: solid 1px  #CED4DA;
+        border-radius: 5px;
+        position: sticky;
+        position: -webkit-sticky;
+        top: 30px;
 
-}
-label {
-    position: absolute;
-    /*border: 1px solid black;*/
-    width: 100%;
-    height: 22%;
-    z-index: 100;
-    cursor: pointer;
-}
+    }
+    label {
+        position: absolute;
+        /*border: 1px solid black;*/
+        width: 100%;
+        height: 22%;
+        z-index: 100;
+        cursor: pointer;
+    }
 </style>

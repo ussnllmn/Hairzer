@@ -1,3 +1,5 @@
+<!--/src/SignupCustomer.vue-->
+
 <template>
     <div class="signupCustomer">
         <div class="m-5">
@@ -44,71 +46,71 @@
 </template>
 
 <script>
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore'
+    import firebase from 'firebase/app';
+    import 'firebase/auth';
+    import 'firebase/firestore'
 
-export default {
-    name: "SignupCustomer",
-    beforeCreate() {
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                this.$router.replace({name: 'Profile'}).catch(()=>{})
-            }
-        })
-    },
-    data() {
-        return {
-            Email: '',
-            Password: '',
-            Fname: '',
-            Lname: '',
-            Address: '',
-            Phone: '',
-            showDismissibleAlert: false
-        }
-    },
-    methods: {
-        //สมัครสมาชิกผ่าน firebase auth
-        registerWithEmail() {
-            firebase.auth().createUserWithEmailAndPassword(this.Email, this.Password)
-            .then(() => {
-                //เก็บข้อมูล user ใน firestore
-                firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
-                .set({
-                    cus_id: firebase.auth().currentUser.uid,
-                    cus_firstName: this.Fname,
-                    cus_lastName: this.Lname,
-                    cus_email: this.Email,
-                    cus_address: this.Address,
-                    cus_phone: this.Phone,
-                    status: 'customer'
-                })
-                .then(() => {
+    export default {
+        name: "SignupCustomer",
+        beforeCreate() {
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
                     this.$router.replace({name: 'Profile'}).catch(()=>{})
-                })
-                .catch(err => {
-                    console.log('wrong with add user to firestore',err)
-                })
+                }
             })
-            .catch(function(error) {
-                console.log('wrong with firebase auth', error)
-                var errorCode = error.code
-                var errorMessage = error.message
-                alert(errorMessage)
-            })
+        },
+        data() {
+            return {
+                Email: '',
+                Password: '',
+                Fname: '',
+                Lname: '',
+                Address: '',
+                Phone: '',
+                showDismissibleAlert: false
+            }
+        },
+        methods: {
+            //สมัครสมาชิกผ่าน firebase auth
+            registerWithEmail() {
+                firebase.auth().createUserWithEmailAndPassword(this.Email, this.Password)
+                .then(() => {
+                    //เก็บข้อมูล user ใน firestore
+                    firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
+                    .set({
+                        cus_id: firebase.auth().currentUser.uid,
+                        cus_firstName: this.Fname,
+                        cus_lastName: this.Lname,
+                        cus_email: this.Email,
+                        cus_address: this.Address,
+                        cus_phone: this.Phone,
+                        status: 'customer'
+                    })
+                    .then(() => {
+                        this.$router.replace({name: 'Profile'}).catch(()=>{})
+                    })
+                    .catch(err => {
+                        console.log('wrong with add user to firestore',err)
+                    })
+                })
+                .catch(function(error) {
+                    console.log('wrong with firebase auth', error)
+                    var errorCode = error.code
+                    var errorMessage = error.message
+                    alert(errorMessage)
+                })
+            }
         }
     }
-}
 </script>
 
 <style scoped>
-.signupBox {
-    border: 1px solid #CED4DA;
-    border-radius: 5px;
-    color: #495057;
-}
-label {
-    font-weight: bold;
-}
+    .signupBox {
+        border: 1px solid #CED4DA;
+        border-radius: 5px;
+        color: #495057;
+    }
+    label {
+        font-weight: bold;
+    }
 </style>

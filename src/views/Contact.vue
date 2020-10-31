@@ -1,3 +1,5 @@
+<!--/src/Contact.vue-->
+
 <template>
     <div class="contact">
         <div class="m-5">
@@ -22,20 +24,20 @@
 </template>
 
 <style scoped>
-img {
+  img {
     display: block;
-}
-.contact {
+  }
+  .contact {
     height: 720px;
-}
-.contactBox {
+  }
+  .contactBox {
     border: 1px solid #CED4DA;
     border-radius: 5px;
     color: #495057;
-}
-@media (max-width:640px){
+  }
+  @media (max-width:640px){
     img:first-child{
         display:none;
     }
-}
+  }
 </style>

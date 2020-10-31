@@ -1,3 +1,5 @@
+<!--/src/404.vue-->
+
 <template>
     <div class="PageNotFound">
         <div class="text-center centered text-danger">
@@ -10,14 +12,14 @@
 </template>
 
 <style>
-.PageNotFound {
-    height: 900px;
-}
+    .PageNotFound {
+        height: 900px;
+    }
 
-.centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 </style>

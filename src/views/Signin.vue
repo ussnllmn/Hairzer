@@ -1,3 +1,5 @@
+<!--/src/Signin.vue-->
+
 <template>
     <div class="signin">
         <div class="m-5">
@@ -48,58 +50,58 @@
 </template>
 
 <script>
-import firebase from 'firebase/app';
-import 'firebase/auth';
+    import firebase from 'firebase/app';
+    import 'firebase/auth';
 
-export default {
-    name: "Signin",
-    beforeCreate() {
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                this.$router.replace({name: 'Home'}).catch(()=>{})
+    export default {
+        name: "Signin",
+        beforeCreate() {
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    this.$router.replace({name: 'Home'}).catch(()=>{})
+                }
+            })
+        },
+        data() {
+            //เก็บค่า email กับ password
+                return {
+                    showDismissibleAlert: false,
+                    email:'', 
+                    password:''
+                }
+        },
+        methods: {
+            //Login ด้วย Email และ Password
+            loginWithEmail(e) {
+                firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+                .then(
+                    //redirect ไปหน้า profile ถ้า login สำเร็จ
+                    user => { this.$router.replace({name: 'Home'}).catch(()=>{}) },
+                    //alert message ถ้ามีปัญหา
+                    err => { this.showDismissibleAlert = true } 
+                )
+                e.preventDefault();
             }
-        })
-    },
-    data() {
-        //เก็บค่า email กับ password
-            return {
-                showDismissibleAlert: false,
-                email:'', 
-                password:''
-            }
-    },
-    methods: {
-        //Login ด้วย Email และ Password
-        loginWithEmail(e) {
-            firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-            .then(
-                //redirect ไปหน้า profile ถ้า login สำเร็จ
-                user => { this.$router.replace({name: 'Home'}).catch(()=>{}) },
-                //alert message ถ้ามีปัญหา
-                err => { this.showDismissibleAlert = true } 
-            )
-            e.preventDefault();
         }
     }
-}
 </script>
 
 <style scoped>
-img {
-    display: block;
-}
-@media (max-width:640px){
-    img:first-child{
-        display:none;
+    img {
+        display: block;
     }
-}
+    @media (max-width:640px){
+        img:first-child{
+            display:none;
+        }
+    }
 
-.signin {
-    height: 720px;
-}
-.signinBox {
-    border: 1px solid #CED4DA;
-    border-radius: 5px;
-    color: #495057;
-}
+    .signin {
+        height: 720px;
+    }
+    .signinBox {
+        border: 1px solid #CED4DA;
+        border-radius: 5px;
+        color: #495057;
+    }
 </style>
