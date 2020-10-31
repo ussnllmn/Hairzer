@@ -1,3 +1,5 @@
+<!--/src/components/Footer.vue-->
+
 <template>
     <div class="footer">
         <!--About us-->

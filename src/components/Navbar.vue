@@ -1,3 +1,5 @@
+<!--/src/components/Navbar.vue-->
+
 <template>
     <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-success">

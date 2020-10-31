@@ -1,3 +1,5 @@
+<!--/src/components/Loading.vue-->
+
 <template>
     <div class="Loading">
         <div class="text-center centered text-danger">
@@ -7,14 +9,14 @@
 </template>
 
 <style>
-.Loading {
-    height: 900px;
-}
+    .Loading {
+        height: 900px;
+    }
 
-.centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 </style>
