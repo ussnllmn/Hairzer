@@ -1,4 +1,9 @@
-# Front-end hairzer
+# Run Front-end and Back-end
+```
+npm run dev
+```
+
+## Front-end hairzer
 
 #### Project setup
 ```
@@ -19,7 +24,7 @@ npm run build
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-# Back-end hairzer
+## Back-end hairzer
 ```
 cd server
 ```
@@ -31,11 +36,7 @@ npm install
 
 #### Run server 
 ```
-node server.js
-```
-or (require nodemon)
-```
-nodemon server.js
+npm run dev
 ```
 
 ###### Customize configuration with express.js
