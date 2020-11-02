@@ -5,7 +5,7 @@
         <!--About us-->
         <div class="container-fluid text-light bg-success pt-3">
             <div class="container">
-                <h4>About us</h4>
+                <h4>เกี่ยวกับเรา</h4>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo maiores optio repellendus fuga beatae doloribus nulla eius earum accusamus ipsam exercitationem enim saepe cum, a hic perferendis reprehenderit labore sit!
             </div>
         </div>

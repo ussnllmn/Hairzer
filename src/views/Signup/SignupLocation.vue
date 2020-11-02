@@ -18,27 +18,41 @@
                     <center><h3>สมัครสมาชิกสำหรับสถานที่</h3></center>
                     <div class="form-group mt-4">
                         <form @submit.prevent="registerWithEmail">
-                            <label for="emailInput">Email address</label>
-                            <input type="email" class="form-control" id="emailInput" placeholder="Email" v-model="Email" required>
-                            <small id="emailHelp" class="form-text text-muted mb-4">Example: name@example.com</small>
+                            <label for="emailInput">Email</label>
+                            <input type="email" class="form-control mb-2" id="emailInput" placeholder="อีเมล" v-model="Email" required>
+                            <small id="emailHelp" class="form-text text-muted mb-4">ตัวอย่าง: name@example.com</small>
 
                             <label for="passwordInput">Password</label>
-                            <input type="password" class="form-control mb-2" id="passwordInput" placeholder="Password" v-model="Password" required>
-                            <small id="emailHelp" class="form-text text-muted mb-4">Password: ต้องประกอบด้วยตัวเลขและตัวอักษร 6 ตัวขึ้นไป</small>
+                            <input type="password" class="form-control mb-2" id="passwordInput" placeholder="รหัสผ่าน" v-model="Password" required>
+                            <small id="passwordHelp" class="form-text text-muted mb-4">รหัสผ่าน: ต้องประกอบด้วยตัวเลขและตัวอักษร 6 ตัวขึ้นไป</small>
 
-                            <label for="locationNameInput">Location Name</label>
-                            <input type="text" class="form-control mb-2" id="locationNameInput" placeholder="Location name" v-model="LocationName" required>
-                            <small id="emailHelp" class="form-text text-muted mb-4">Location name: ชื่อสถานที่ของคุณ</small>
+                            <label for="locationNameInput">ชื่อสถานที่</label>
+                            <input type="text" class="form-control mb-4" id="locationNameInput" placeholder="ชื่อสถานที่" v-model="LocationName" required>
 
-                            <label >Name</label>
-                            <input type="text" class="form-control mb-2" id="FnameInput" placeholder="First name" v-model="Fname" required>
-                            <input type="text" class="form-control mb-4" id="LnameInput" placeholder="Last name" v-model="Lname" required>
+                            <label >ชื่อ-นามสกุล</label>
+                            <input type="text" class="form-control mb-2" id="FnameInput" placeholder="ชื่อ" v-model="Fname" required>
+                            <input type="text" class="form-control mb-2" id="LnameInput" placeholder="นามสกุล" v-model="Lname" required>
+                            <small id="nameHelp" class="form-text text-muted mb-4">ชื่อ: ไม่ต้องใส่คำนำหน้า</small>
 
-                            <label for="addressInput">Address</label>
-                            <input type="text" class="form-control mb-4" id="addressInput" placeholder="Address" v-model="Address" required> 
+                            <div class="mb-4">
+                                <label >เพศ</label>
+                                <br>
+                                <input type="radio" id="male" value="male" v-model="Sex" class="mr-1" required>
+                                <label for="male" class="mr-4 font-weight-normal">ชาย</label>
 
-                            <label for="phoneInput">Phone number</label>
-                            <input type="tel" class="form-control mb-4" id="phoneInput" placeholder="Phone number" v-model="Phone" required>
+                                <input type="radio" id="female" value="female" v-model="Sex" class="mr-1" required>
+                                <label for="female" class="mr-4 font-weight-normal">หญิง</label>
+
+                                <input type="radio" id="other" value="other" v-model="Sex" class="mr-1" required>
+                                <label for="other" class="mr-4 font-weight-normal">อื่นๆ</label>
+                                <br>
+                            </div>
+
+                            <label for="addressInput">ที่อยู่</label>
+                            <input type="text" class="form-control mb-4" id="addressInput" placeholder="ที่อยู่" v-model="Address" required> 
+
+                            <label for="phoneInput">หมายเลขโทรศัพท์</label>
+                            <input type="tel" class="form-control mb-4" id="phoneInput" placeholder="หมายเลขโทรศัพท์" v-model="Phone" required>
 
                             <button type="submit" value="submit" class="btn btn-outline-success btn-block">ยืนยัน</button>
                         </form>
@@ -72,6 +86,7 @@
                 Address: '',
                 Phone: '',
                 LocationName: '',
+                Sex: 'อื่นๆ',
                 showDismissibleAlert: false
             }
         },
@@ -90,6 +105,7 @@
                         lo_address: this.Address,
                         lo_phone: this.Phone,
                         lo_locationName: this.LocationName,
+                        lo_sex: this.Sex,
                         status: 'location'
                     })
                     .then(() => {

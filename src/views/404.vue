@@ -11,7 +11,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
     .PageNotFound {
         height: 900px;
     }

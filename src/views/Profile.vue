@@ -19,6 +19,7 @@
     export default {
         name: 'Profile',
         beforeCreate() {
+            //check สถานะการเข้าสู่ระบบ
             firebase.auth().onAuthStateChanged(user => {
                 if (!user) {
                     this.$router.replace({name: 'Home'}).catch(()=>{})

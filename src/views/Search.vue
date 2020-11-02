@@ -2,7 +2,7 @@
 
 <template>
     <div class="search">
-        <h1>Search</h1>
+        <h1>ค้นหา</h1>
         <form action="/location">
             <!--Search Box-->
             <div class="pb-4 searchBox">

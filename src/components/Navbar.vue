@@ -14,19 +14,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <!--Home Search Contact-->
-                    <router-link class="nav-link" :to="{ name: 'Home' }">Home</router-link>
-                    <router-link class="nav-link" :to="{ name: 'Search' }">Search</router-link>
-                    <router-link class="nav-link" :to="{ name: 'Contact' }">Contact</router-link>
+                    <router-link class="nav-link" :to="{ name: 'Home' }">หน้าแรก</router-link>
+                    <router-link class="nav-link" :to="{ name: 'Search' }">ค้นหา</router-link>
+                    <router-link class="nav-link" :to="{ name: 'Contact' }">ช่องทางการติดต่อ</router-link>
                 </ul>
 
                 <ul class="navbar-nav ml-auto">
                     <!--ปุ่ม Sign-in และ Profile-->
-                    <router-link class="nav-link" v-if="user.loggedIn" :to="{ name: 'Profile' }">Profile</router-link>
-                    <router-link class="nav-link" v-else :to="{ name: 'Signin' }">Sign-in </router-link>
+                    <router-link class="nav-link" v-if="user.loggedIn" :to="{ name: 'Profile' }">โปรไฟล์</router-link>
+                    <router-link class="nav-link" v-else :to="{ name: 'Signin' }">เข้าสู่ระบบ</router-link>
 
                     <!--ปุ่ม Sign-out และ Sign-up-->
-                    <a style="cursor: pointer;" class="nav-link" v-if="user.loggedIn" @click="signOut" >Sign-out</a>
-                    <router-link class="nav-link" v-else :to="{ name: 'Signup' }">Sign-up</router-link>
+                    <a style="cursor: pointer;" class="nav-link" v-if="user.loggedIn" @click="signOut" >ออกจากระบบ</a>
+                    <router-link class="nav-link" v-else :to="{ name: 'Signup' }">สมัครสมาชิก</router-link>
                     
                 </ul>
             </div>

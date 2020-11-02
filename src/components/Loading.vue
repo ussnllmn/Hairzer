@@ -8,7 +8,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
     .Loading {
         height: 900px;
     }
