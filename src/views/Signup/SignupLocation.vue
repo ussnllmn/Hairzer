@@ -8,7 +8,7 @@
                 dismissible
                 fade
                 :show="showDismissibleAlert"
-                @dismissed="showDismissibleAlert=false"
+                :dismissed="showDismissibleAlert=false"
                 >
                 Email หรือ Password ที่คุณป้อนไม่ถูกต้อง
             </b-alert>
@@ -34,19 +34,17 @@
                             <input type="text" class="form-control mb-2" id="LnameInput" placeholder="นามสกุล" v-model="Lname" required>
                             <small id="nameHelp" class="form-text text-muted mb-4">ชื่อ: ไม่ต้องใส่คำนำหน้า</small>
 
-                            <div class="mb-4">
-                                <label >เพศ</label>
-                                <br>
-                                <input type="radio" id="male" value="male" v-model="Sex" class="mr-1" required>
-                                <label for="male" class="mr-4 font-weight-normal">ชาย</label>
+                            <label >เพศ</label> 
+                            <br>
+                            <input type="radio" id="male" value="male" v-model="Sex" class="mr-1" required />
+                            <label for="male" class="mr-4 font-weight-normal">ชาย</label>
 
-                                <input type="radio" id="female" value="female" v-model="Sex" class="mr-1" required>
-                                <label for="female" class="mr-4 font-weight-normal">หญิง</label>
+                            <input type="radio" id="female" value="female" v-model="Sex" class="mr-1" required />
+                            <label for="female" class="mr-4 font-weight-normal">หญิง</label>
 
-                                <input type="radio" id="other" value="other" v-model="Sex" class="mr-1" required>
-                                <label for="other" class="mr-4 font-weight-normal">อื่นๆ</label>
-                                <br>
-                            </div>
+                            <input type="radio" id="other" value="other" v-model="Sex" class="mr-1" checked required />
+                            <label for="other" class="mr-4 font-weight-normal">อื่นๆ</label>
+                            <br>
 
                             <label for="addressInput">ที่อยู่</label>
                             <input type="text" class="form-control mb-4" id="addressInput" placeholder="ที่อยู่" v-model="Address" required> 
@@ -86,7 +84,7 @@
                 Address: '',
                 Phone: '',
                 LocationName: '',
-                Sex: 'อื่นๆ',
+                Sex: 'other',
                 showDismissibleAlert: false
             }
         },
