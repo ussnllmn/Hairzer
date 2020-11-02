@@ -4,7 +4,7 @@
     <div class="profile">
         <h1>Profile</h1>
         <div class="my-4">
-            <p>{{userData}}</p>
+            <p>{{userData}}:</p>
         </div>
     </div>
 </template>
