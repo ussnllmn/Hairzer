@@ -2,11 +2,29 @@
 
 <template>
     <div class="location">
-        <h1>Location</h1>
+        <h1>Locations</h1>
+        <!--Head-->
+        <div class="row m-2">
+            <div class="col-sm-4">
+                <p>ขั้นตอนที่ 1/3 เลือกสถานที่ที่คุณต้องการ</p>
+            </div>
+            <div class="col-sm-3 ml-5">
+                <b-dropdown id="district" 
+                    :text="'Sort by '+sortBy"
+                    block
+                    split
+                    variant="outline-dark"
+                    menu-class="w-100"
+                >
+                    <b-dropdown-item>เรียงตาม ชื่อ</b-dropdown-item>
+                </b-dropdown>
+            </div>
+        </div>
+    
         <div class="row m-2">
             <!--Location List-->
             <div class="col-sm-7 mx-4 p-2">
-                <div class="locationList my-4 row"  v-for="location in locations" :key="location.id" :for="location.id">
+                <div class="locationList mb-4 row"  v-for="location in locations" :key="location.id" :for="location.id">
                     <label :for="location.id"></label>
                         <!--Radio-->
                         <div class="col-sm-1 my-auto text-center">
@@ -52,6 +70,7 @@
     export default {
         data() {
             return {
+                sortBy:'Date',
                 selectedLocation: '',
                 totalCost: 0,
                 locations: [

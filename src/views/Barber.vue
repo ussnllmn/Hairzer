@@ -2,7 +2,25 @@
 
 <template>
     <div class="barber">
-        <h1>Barber</h1>
+        <h1>Barbers</h1>
+        <!--Head-->
+        <div class="row m-2">
+            <div class="col-sm-4">
+                <p>ขั้นตอนที่ 1/3 เลือกสถานที่ที่คุณต้องการ</p>
+            </div>
+            <div class="col-sm-3 ml-5">
+                <b-dropdown id="district" 
+                    :text="'Sort by '+sortBy"
+                    block
+                    split
+                    variant="outline-dark"
+                    menu-class="w-100"
+                >
+                    <b-dropdown-item>เรียงตาม ชื่อ</b-dropdown-item>
+                </b-dropdown>
+            </div>
+        </div>
+        
         <div class="row m-2">
             <!--Barber List-->
             <div class="col-sm-7 mx-4 p-2">
@@ -33,15 +51,17 @@
 
             <!--Side bar-->
             <div class="col-sm-4">
-                <div class="summary my-4 p-2">
-                    <h3>ราคารวม {{selectedBarber.cost}}฿</h3> 
-                    <div><p><b>วันที่:</b> </p></div>
-                    <div><p><b>เวลา:</b> </p></div>
-                    <div><p><b>สถานที่:</b></p></div>
-                    <div><p><b>ช่างตัดผม:</b>{{selectedBarber.name}}</p></div>
-                    <div><p><b>บริการที่เลือก:</b> </p></div>
-                    <button class="btn btn-success btn-block">ถัดไป</button>
-                </div>
+                <form action="/service">
+                    <div class="summary my-4 p-2">
+                        <h3>ราคารวม {{selectedBarber.cost}}฿</h3> 
+                        <div><p><b>วันที่:</b> </p></div>
+                        <div><p><b>เวลา:</b> </p></div>
+                        <div><p><b>สถานที่:</b></p></div>
+                        <div><p><b>ช่างตัดผม:</b> {{selectedBarber.name}}</p></div>
+                        <div><p><b>บริการที่เลือก:</b> </p></div>
+                        <button class="btn btn-success btn-block">ถัดไป</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
