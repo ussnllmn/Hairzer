@@ -9,14 +9,16 @@
                 <p>ขั้นตอนที่ 1/3 เลือกสถานที่ที่คุณต้องการ</p>
             </div>
             <div class="col-sm-3 ml-5">
-                <b-dropdown id="district" 
+                <b-dropdown id="sortLocation" 
                     :text="'Sort by '+sortBy"
                     block
                     split
                     variant="outline-dark"
                     menu-class="w-100"
                 >
-                    <b-dropdown-item>เรียงตาม ชื่อ</b-dropdown-item>
+                    <b-dropdown-item @click="sortBy='Date'">Sort by Date</b-dropdown-item>
+                    <b-dropdown-item @click="sortBy='Score'">Sort by Score</b-dropdown-item>
+                    <b-dropdown-item @click="sortBy='Price'">Sort by Price</b-dropdown-item>
                 </b-dropdown>
             </div>
         </div>
