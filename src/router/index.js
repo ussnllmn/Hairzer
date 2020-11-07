@@ -10,67 +10,72 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue')
   },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
-  },
   
   //Search
   {
     path: '/search',
     name: 'Search',
-    component: () => import('../views/Search.vue')
+    component: () => import('../views/Search.vue'),
+    meta: {title: 'Hairzer | ค้นหา'}
   },
   {
     path: '/location',
     name: 'Location',
-    component: () => import('../views/Location.vue')
+    component: () => import('../views/Location.vue'),
+    meta: {title: 'Hairzer | เลือกสถานที่ที่คุณต้องการ'}
   },
   {
     path: '/barber',
     name: 'Barber',
-    component: () => import('../views/Barber.vue')
+    component: () => import('../views/Barber.vue'),
+    meta: {title: 'Hairzer | เลือกช่างตัดผมที่คุณต้องการ'}
   },
 
   //Contact
   {
     path: '/contact',
     name: 'Contact',
-    component: () => import('../views/Contact.vue')
+    component: () => import('../views/Contact.vue'),
+    meta: {title: 'Hairzer | ช่องทางการติดต่อ'}
   },
   {
     path: '/signin',
     name: 'Signin',
-    component: () => import('../views/Signin.vue')
+    component: () => import('../views/Signin.vue'),
+    meta: {title: 'Hairzer | เข้าสู่ระบบ'}
   },
 
   //Signup
   {
     path: '/signup-customer',
     name: 'SignupCustomer',
-    component: () => import('../views/Signup/SignupCustomer.vue')
+    component: () => import('../views/Signup/SignupCustomer.vue'),
+    meta: {title: 'Hairzer | สมัครสมาชิกสำหรับลูกค้า'}
   },
   {
     path: '/signup-location',
     name: 'SignupLocation',
-    component: () => import('../views/Signup/SignupLocation.vue')
+    component: () => import('../views/Signup/SignupLocation.vue'),
+    meta: {title: 'Hairzer | สมัครสมาชิกสำหรับสถานที่'}
   },
   {
     path: '/signup-barber',
     name: 'SignupBarber',
-    component: () => import('../views/Signup/SignupBarber.vue')
+    component: () => import('../views/Signup/SignupBarber.vue'),
+    meta: {title: 'Hairzer | สมัครสมาชิกสำหรับช่างตัดผม'}
   },
 
   {
     path: '/signup',
     name: 'Signup',
-    component: () => import('../views/Signup.vue')
+    component: () => import('../views/Signup.vue'),
+    meta: {title: 'Hairzer | สมัครสมาชิก'}
   },
   {
     path: '/profile',
     name: 'Profile',
     component: () => import('../views/Profile.vue'),
+    meta: {title: 'Hairzer | หน้าการจัดการโปรไฟล์'}
   },
   {
     path: '*',
@@ -80,12 +85,13 @@ const routes = [
     path: '/error',
     name: 'PageNotFound',
     component: () => import('../views/404.vue'),
+    meta: {title: 'Hairzer | ขออภัยไม่พบหน้าที่คุณต้องการ'}
   },
-
   {
     path: '/paymentsuccess',
     name: 'PaymentSuccess',
     component: () => import('../views/PaymentSuccess.vue'),
+    meta: {title: 'Hairzer | จ่ายเงินสำเร็จ'}
   },
 
 ]
@@ -94,6 +100,15 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+//Title
+const DEFAULT_TITLE = 'Hairzer | ระบบจัดการบริการเกี่ยวกับผม'
+
+router.afterEach((to, from) => {
+  Vue.nextTick(() => {
+    document.title = to.meta.title || DEFAULT_TITLE
+  })
 })
 
 export default router
