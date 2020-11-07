@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <!--Image contact-->
                 <div class="col-sm-3">
-                    <img src="" width="100%" height="480px">
+                    <img src="../assets/hairzer-image/contact.jpg" width="100%">
                 </div>
 
                 <!--Contact box-->
@@ -26,6 +26,7 @@
 <style scoped>
   img {
     display: block;
+    border: 1px solid #212121;
   }
   .contact {
     height: 677px;

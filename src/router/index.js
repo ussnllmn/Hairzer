@@ -27,7 +27,13 @@ const routes = [
     name: 'Location',
     component: () => import('../views/Location.vue')
   },
+  {
+    path: '/barber',
+    name: 'Barber',
+    component: () => import('../views/Barber.vue')
+  },
 
+  //Contact
   {
     path: '/contact',
     name: 'Contact',

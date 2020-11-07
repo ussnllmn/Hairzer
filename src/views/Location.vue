@@ -14,7 +14,7 @@
                              
                         </div>
                         <!--Image-->
-                        <div class="col-sm-4 "> 
+                        <div class="col-sm-5"> 
                             <img src="location.image" width="100%" height="250px">
                         </div>
                         <!--Detail-->
@@ -24,7 +24,7 @@
                             <li v-for="equipment in location.equipment" :key="equipment">{{equipment}}</li>
                         </div>
                         <!--Price-->
-                        <div class="col-sm-3 mr-3 align-self-end text-right">
+                        <div class="col-sm-2 mr-auto align-self-end text-right">
                             <h2>฿{{location.cost}}</h2>
                         </div>
                 </div>
@@ -32,15 +32,17 @@
 
             <!--Side bar-->
             <div class="col-sm-4">
-                <div class="summary my-4 p-2">
-                    <h3>ราคารวม {{selectedLocation.cost}}฿</h3> 
-                    <div><p><b>วันที่:</b> </p></div>
-                    <div><p><b>เวลา:</b> </p></div>
-                    <div><p><b>สถานที่:</b> {{selectedLocation.name}}</p></div>
-                    <div><p><b>ช่างตัดผม:</b> </p></div>
-                    <div><p><b>บริการที่เลือก:</b> </p></div>
-                    <button class="btn btn-success btn-block">ถัดไป</button>
-                </div>
+                <form action="/barber">
+                    <div class="summary my-4 p-2">
+                        <h3>ราคารวม {{selectedLocation.cost}}฿</h3> 
+                        <div><p><b>วันที่:</b> </p></div>
+                        <div><p><b>เวลา:</b> </p></div>
+                        <div><p><b>สถานที่:</b> {{selectedLocation.name}}</p></div>
+                        <div><p><b>ช่างตัดผม:</b> </p></div>
+                        <div><p><b>บริการที่เลือก:</b> </p></div>
+                        <button class="btn btn-success btn-block" type="sumbit">ถัดไป</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -61,6 +63,10 @@
             }
         },
         methods: {
+            findBarber() {
+                window.location.href = '/barber';
+
+            }
         }    
     }
 </script>
