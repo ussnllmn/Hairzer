@@ -8,22 +8,27 @@
                     <center><h3>สมัครสมาชิกสำหรับสถานที่</h3></center>
                     <div class="form-group mt-4">
                         <form @submit.prevent="registerWithEmail">
+                            <!--Email-->
                             <label for="emailInput">Email</label>
                             <input type="email" class="form-control mb-2" id="emailInput" placeholder="อีเมล" v-model="Email" required>
                             <small id="emailHelp" class="form-text text-muted mb-4">ตัวอย่าง: name@example.com</small>
 
+                            <!--Password-->
                             <label for="passwordInput">Password</label>
                             <input type="password" class="form-control mb-2" id="passwordInput" placeholder="รหัสผ่าน" v-model="Password" required>
                             <small id="passwordHelp" class="form-text text-muted mb-4">รหัสผ่าน: ต้องประกอบด้วยตัวเลขและตัวอักษร 6 ตัวขึ้นไป</small>
 
+                            <!--Location Name-->
                             <label for="locationNameInput">ชื่อสถานที่</label>
                             <input type="text" class="form-control mb-4" id="locationNameInput" placeholder="ชื่อสถานที่" v-model="LocationName" required>
 
+                            <!--Name-->
                             <label >ชื่อ-นามสกุล</label>
                             <input type="text" class="form-control mb-2" id="FnameInput" placeholder="ชื่อ" v-model="Fname" required>
                             <input type="text" class="form-control mb-2" id="LnameInput" placeholder="นามสกุล" v-model="Lname" required>
                             <small id="nameHelp" class="form-text text-muted mb-4">ชื่อ: ไม่ต้องใส่คำนำหน้า</small>
-
+                            
+                            <!--Sex-->
                             <label >เพศ</label> 
                             <br>
                             <input type="radio" id="male" value="male" v-model="Sex" class="mr-1" required />
@@ -33,15 +38,18 @@
                             <label for="female" class="mr-4 font-weight-normal">หญิง</label>
 
                             <input type="radio" id="other" value="other" v-model="Sex" class="mr-1" checked required />
-                            <label for="other" class="mr-4 font-weight-normal">อื่นๆ</label>
+                            <label for="other" class="mr-4 mb-4 font-weight-normal">อื่นๆ</label>
                             <br>
 
+                            <!--Address-->
                             <label for="addressInput">ที่อยู่</label>
                             <input type="text" class="form-control mb-4" id="addressInput" placeholder="ที่อยู่" v-model="Address" required> 
 
+                            <!--Phone-->
                             <label for="phoneInput">หมายเลขโทรศัพท์</label>
                             <input type="tel" class="form-control mb-4" id="phoneInput" placeholder="หมายเลขโทรศัพท์" v-model="Phone" required>
-
+                            
+                            <!--Submit-->
                             <button type="submit" value="submit" class="btn btn-outline-success btn-block">ยืนยัน</button>
                         </form>
                     </div>
