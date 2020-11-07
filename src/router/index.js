@@ -68,10 +68,10 @@ const routes = [
   },
   {
     path: '*',
-    redirect: '/404'
+    redirect: '/error'
   },
   {
-    path: '/404',
+    path: '/error',
     name: 'PageNotFound',
     component: () => import('../views/404.vue'),
   },

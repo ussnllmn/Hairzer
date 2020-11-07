@@ -2,10 +2,10 @@
 
 <template>
     <div class="PageNotFound">
-        <div class="text-center centered text-danger">
-            <h1><b-spinner style="width: 4rem; height: 4rem;" label="Large Spinner"></b-spinner></h1>
-            <h1>Error 404 Not Found</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quaerat, natus quis beatae dolorem aliquam delectus a suscipit ullam provident officia laborum repudiandae, dolore quae. Reiciendis temporibus itaque similique deserunt.</p>
+        <div class="text-center centered">
+            <h1><b-icon font-scale="3" variant="danger" icon="exclamation-diamond"></b-icon></h1>
+            <h1>ขออภัยไม่พบหน้าที่คุณต้องการ</h1>
+            <p>หากพบปัญหาในการใช้งานโปรดติดต่อผู้ดูแลระบบ</p>
         </div>
         
     </div>
@@ -13,7 +13,7 @@
 
 <style scoped>
     .PageNotFound {
-        height: 900px;
+        height: 725px;
     }
 
     .centered {
