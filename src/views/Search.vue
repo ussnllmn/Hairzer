@@ -71,8 +71,10 @@
                 serviceChecked: [],
                 date: '',
                 time: '',
+
                 //date picker
                 minDate: new Date(),
+                
                 //Example Data
                 districts: [
                     {id:1, name: 'แขวงลาดกระบัง	'},
