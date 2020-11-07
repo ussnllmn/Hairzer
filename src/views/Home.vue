@@ -12,13 +12,13 @@
       <h3><b-icon icon="tag-fill" aria-hidden="true"></b-icon> โปรโมชั่น</h3>
       <div class="row" align="center">
         <div class="col-sm m-1">
-          <img src="../assets/hairzer-image/promotion.jpg" width="100%">
+          <img src="../assets/promotion2.jpg" width="100%">
         </div>
         <div class="col-sm m-1">
-          <img src="../assets/hairzer-image/promotion.jpg" width="100%">
+          <img src="../assets/promotion3.jpg" width="100%">
         </div>
         <div class="col-sm m-1">
-          <img src="../assets/hairzer-image/promotion.jpg" width="100%">
+          <img src="../assets/promotion4.jpg" width="100%">
         </div>
       </div>
     </div>
