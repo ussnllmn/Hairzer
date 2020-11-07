@@ -30,7 +30,13 @@ const routes = [
     component: () => import('../views/Barber.vue'),
     meta: {title: 'Hairzer | เลือกช่างตัดผมที่คุณต้องการ'}
   },
-
+  {
+    path: '/service',
+    name: 'Service',
+    component: () => import('../views/Service.vue'),
+    meta: {title: 'Hairzer | เลือกบริการที่คุณต้องการ'}
+  },
+  
   //Contact
   {
     path: '/contact',
@@ -64,13 +70,14 @@ const routes = [
     component: () => import('../views/Signup/SignupBarber.vue'),
     meta: {title: 'Hairzer | สมัครสมาชิกสำหรับช่างตัดผม'}
   },
-
   {
     path: '/signup',
     name: 'Signup',
     component: () => import('../views/Signup.vue'),
     meta: {title: 'Hairzer | สมัครสมาชิก'}
   },
+
+  //Profile
   {
     path: '/profile',
     name: 'Profile',

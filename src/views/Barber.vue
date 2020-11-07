@@ -1,4 +1,4 @@
-<!--/src/Location.vue-->
+<!--/src/Barber.vue-->
 
 <template>
     <div class="barber">
@@ -61,7 +61,7 @@
                         <div><p><b>สถานที่:</b></p></div>
                         <div><p><b>ช่างตัดผม:</b> {{selectedBarber.name}}</p></div>
                         <div><p><b>บริการที่เลือก:</b> </p></div>
-                        <button class="btn btn-success btn-block">ถัดไป</button>
+                        <button class="btn btn-success btn-block" type="submit">ถัดไป</button>
                     </div>
                 </form>
             </div>
