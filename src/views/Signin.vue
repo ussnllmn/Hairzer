@@ -97,7 +97,7 @@
     }
 
     .signin {
-        height: 720px;
+        height: 677px;
     }
     .signinBox {
         border: 1px solid #CED4DA;

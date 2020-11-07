@@ -40,7 +40,7 @@
         display: block;
     }
     .signup {
-        height: 720px;
+        height: 677px;
     }
     .signupBox {
         border: 1px solid #CED4DA;

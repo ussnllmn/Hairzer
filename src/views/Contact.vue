@@ -28,7 +28,7 @@
     display: block;
   }
   .contact {
-    height: 720px;
+    height: 677px;
   }
   .contactBox {
     border: 1px solid #CED4DA;

@@ -4,14 +4,23 @@
     <div class="search">
         <h1>ค้นหา</h1>
         <form action="/location">
-            <!--Search Box-->
-            <div class="pb-4 searchBox">
-                <input type="text" class="form-control form-control-lg" id="searchBox" placeholder="ค้นหาชื่อ, สถานที่, เขต, จังหวัด, ประเทศ ที่คุณต้องการ" v-model="location">
+            <!--Location Box-->
+            <div class="mb-4 p-2 pb-4 locationBox">
+                <label><b>เลือกสถานที่ที่คุณต้องการค้นหา</b></label>
+                <b-dropdown id="district" 
+                    :text="location"
+                    block
+                    split
+                    variant="outline-dark"
+                    menu-class="w-100"
+                >
+                    <b-dropdown-item v-for="district in districts" :key="district.id" v-model="location" @click="location=district.name">{{district.name}}</b-dropdown-item>
+                </b-dropdown>
             </div>
 
             <!--Service Check Box-->
             <div class="mb-4 p-2 serviceBox">
-                <label for="serviceBox">คลิกเลือกบริการที่คุณต้องการ</label>
+                <label for="serviceBox"><b>คลิกเลือกบริการที่คุณต้องการค้นหา</b></label>
                 <form>
                 <div class="form-group form-check">
                     <div class="row">
@@ -27,7 +36,7 @@
 
             <!--Date & Time-->
             <div class="mb-4 p-2 dateBox">
-                <label for="serviceBox">วันที่และเวลา</label>
+                <label for="serviceBox"><b>วันที่และเวลา</b></label>
                 <div class="row mb-2">
                     <!--Date-->
                     <div class="col-sm-4">
@@ -48,18 +57,6 @@
                         <button value="submit" type="submit" class="btn btn-success btn-block">ตกลง</button>
                     </div>
                 </div>
-
-                <!--Summary-->
-                <div class="row">
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-                        <p>สถานที่ที่ค้นหา: {{location}}</p>
-                        <p>รายการที่เลือก: {{serviceChecked}} </p>
-                        <p>วันที่: {{date}}</p>
-                        <p>เวลา: {{time}}</p>
-                    </div>
-                </div>
             </div>
         </form>
     </div>
@@ -70,13 +67,21 @@
         data() {
             return {
                 //data ที่ต้องใช้ค้นหา location, service, date, time
-                location:'',
+                location:'แขวงลาดกระบัง',
                 serviceChecked: [],
                 date: '',
                 time: '',
                 //date picker
                 minDate: new Date(),
                 //Example Data
+                districts: [
+                    {id:1, name: 'แขวงลาดกระบัง	'},
+                    {id:2, name: 'แขวงคลองสองต้นนุ่น'},
+                    {id:3, name: 'แขวงคลองสามประเวศ	'},
+                    {id:4, name: 'แขวงลำปลาทิว'},
+                    {id:5, name: 'แขวงทับยาว'},
+                    {id:6, name: 'แขวงขุมทอง'},
+                ],
                 services: [
                     {id:1, name: 'ตัดผม'},
                     {id:2, name: 'ทำสีผม'},
@@ -95,7 +100,10 @@
 </script>
 
 <style scoped>
-    .serviceBox, .dateBox {
+    .search {
+        height: 725px;
+    }
+    .serviceBox, .dateBox, .locationBox {
         border: 1px solid #CED4DA;
         border-radius: 5px;
     }
