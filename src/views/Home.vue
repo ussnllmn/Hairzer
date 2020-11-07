@@ -4,7 +4,7 @@
   <!--Banner-->
   <div class="home">
     <div class="pt-4">
-    <img src="" width="100%" height="480px">
+      <Banner></Banner>
     </div>
 
     <!--Promotion-->
@@ -12,13 +12,13 @@
       <h3><b-icon icon="tag-fill" aria-hidden="true"></b-icon> โปรโมชั่น</h3>
       <div class="row" align="center">
         <div class="col-sm m-1">
-          <img src="" width="100%" height="240px">
+          <img src="../assets/hairzer-image/promotion.jpg" width="100%">
         </div>
         <div class="col-sm m-1">
-          <img src="" width="100%" height="240px">
+          <img src="../assets/hairzer-image/promotion.jpg" width="100%">
         </div>
         <div class="col-sm m-1">
-          <img src="" width="100%" height="240px">
+          <img src="../assets/hairzer-image/promotion.jpg" width="100%">
         </div>
       </div>
     </div>
@@ -28,13 +28,13 @@
       <h3><b-icon icon="scissors" aria-hidden="true"></b-icon> ช่างตัดผมที่แนะนำ</h3>
       <div class="row" align="center">
         <div class="col-sm m-1">
-          <img src="" width="100%" height="240px">
+          <img src="../assets/hairzer-image/barber.jpg" width="100%">
         </div>
         <div class="col-sm m-1">
-          <img src="" width="100%" height="240px">
+          <img src="../assets/hairzer-image/barber.jpg" width="100%">
         </div>
         <div class="col-sm m-1">
-          <img src="" width="100%" height="240px">
+          <img src="../assets/hairzer-image/barber.jpg" width="100%">
         </div>
       </div>
     </div>
@@ -44,15 +44,31 @@
       <h3><b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon> สถานที่ที่แนะนำ</h3>
       <div class="row" align="center">
         <div class="col-sm m-1">
-          <img src="" width="100%" height="240px">
+          <img src="../assets/hairzer-image/location.jpg" width="100%">
         </div>
         <div class="col-sm m-1">
-          <img src="" width="100%" height="240px">
+          <img src="../assets/hairzer-image/location.jpg" width="100%">
         </div>
         <div class="col-sm m-1">
-          <img src="" width="100%" height="240px">
+          <img src="../assets/hairzer-image/location.jpg" width="100%">
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import Banner from '../components/Banner.vue'
+
+export default {
+   components: {
+     Banner,
+   }
+}
+</script>
+
+<style scoped>
+  img {
+    border: 1px solid #212121;
+  }
+</style>
