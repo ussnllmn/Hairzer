@@ -15,7 +15,7 @@
             </div>
        </div>
 
-       <div class="text-center p-4 "><b-button variant="outline-primary" @click="$router.push({name: 'Home'})"> Back </b-button></div>
+       <div class="text-center p-4 "><b-button size="lg" variant="outline-primary" @click="$router.push({name: 'Home'})"> Back </b-button></div>
     </div>
 </template>
 
