@@ -3,16 +3,6 @@
 <template>
     <div class="signupCustomer">
         <div class="m-5">
-            <b-alert
-                variant="danger"
-                dismissible
-                fade
-                :show="showDismissibleAlert"
-                :dismissed="showDismissibleAlert=false"
-                >
-                Email หรือ Password ที่คุณป้อนไม่ถูกต้อง
-            </b-alert>
-
             <div class="row justify-content-center">
                 <div class="col-sm-6 signupBox">
                     <center><h3>สมัครสมาชิกสำหรับลูกค้า</h3></center>
@@ -80,8 +70,7 @@
                 Lname: '',
                 Address: '',
                 Phone: '',
-                Sex: 'other',
-                showDismissibleAlert: false
+                Sex: 'other'
             }
         },
         methods: {
