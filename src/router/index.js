@@ -81,6 +81,13 @@ const routes = [
     name: 'PageNotFound',
     component: () => import('../views/404.vue'),
   },
+
+  {
+    path: '/paymentsuccess',
+    name: 'PaymentSuccess',
+    component: () => import('../views/PaymentSuccess.vue'),
+  },
+
 ]
 
 const router = new VueRouter({
