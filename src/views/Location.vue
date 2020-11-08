@@ -35,18 +35,29 @@
                         </div>
                         <!--Image-->
                         <div class="col-sm-5"> 
-                            <img src="location.image" width="100%" height="250px">
+                            <img src="location.image" width="100%" height="275px">
                         </div>
                         <!--Detail-->
-                        <div class="col-sm-3 ml-3 my-2">
+                        <div class="col-sm-5 ml-3 my-2">
                             <h4>{{location.name}}</h4>
-                            <p>คะแนน {{location.score}}/10</p>
+
+                            <p>
+                                <small><b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon> {{location.address}}</small>
+                            </p>
+
+                            <p>
+                                <b-icon icon="star-fill" aria-hidden="true" variant="warning"></b-icon> คะแนน {{location.score}} /10
+                            </p>
+
                             <li v-for="equipment in location.equipment" :key="equipment">{{equipment}}</li>
+                        
+                            <!--Price-->
+                            <div class="mr-auto align-self-end text-right">
+                                <h2>฿{{location.cost}}</h2>
+                            </div>
                         </div>
-                        <!--Price-->
-                        <div class="col-sm-2 mr-auto align-self-end text-right">
-                            <h2>฿{{location.cost}}</h2>
-                        </div>
+                        
+                        
                 </div>
             </div>
 
@@ -76,10 +87,10 @@
                 selectedLocation: '',
                 totalCost: 0,
                 locations: [
-                    {image:'', id:'0001', name:'ร้านตัดผม 1', score: 9, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3',], cost: 150},
-                    {image:'', id:'0002', name:'ร้านตัดผม 2', score: 10, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3', ], cost: 350},
-                    {image:'', id:'0003', name:'ร้านตัดผม 3', score: 7, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3',], cost: 120},
-                    {image:'', id:'0004', name:'ร้านตัดผม 4', score: 6, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2'], cost: 200},
+                    {image:'', id:'0001', name:'ร้านตัดผม 1', score: 9, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3',], cost: 150,  address: '77 ซอยเกกี 10 ถนนฉลองกรุง1 เขตลาดกระบัง กรุงเทพมหานคร ประเทศไทย'},
+                    {image:'', id:'0002', name:'ร้านตัดผม 2', score: 10, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3', ], cost: 350, address: '58 ซอยเกกี 1 ถนนฉลองกรุง1 เขตลาดกระบัง กรุงเทพมหานคร ประเทศไทย'},
+                    {image:'', id:'0003', name:'ร้านตัดผม 3', score: 7, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3',], cost: 120, address: '33 ซอยเกกี 0 ถนนฉลองกรุง1 เขตลาดกระบัง กรุงเทพมหานคร ประเทศไทย'},
+                    {image:'', id:'0004', name:'ร้านตัดผม 4', score: 6, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2'], cost: 200, address: '999/70 ถนนลาดกระบัง 10/3 เขตลาดกระบัง กรุงเทพมหานคร ประเทศไทย'},
                 ]
             }
         },

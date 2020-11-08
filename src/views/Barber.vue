@@ -1,4 +1,4 @@
-<!--/src/Location.vue-->
+<!--/src/Barber.vue-->
 
 <template>
     <div class="barber">
@@ -40,7 +40,7 @@
                         <!--Detail-->
                         <div class="col-sm-3 ml-3 my-2">
                             <h4>{{barber.name}}</h4>
-                            <p>คะแนน {{barber.score}}/10</p>
+                            <p><b-icon icon="star-fill" aria-hidden="true" variant="warning"></b-icon> คะแนน {{barber.score}}/10</p>
                             <li v-for="(cost, service) in barber.services" :key="(cost, service)">{{service}}: {{cost}}฿</li>
                         </div>
                         <!--Price-->
@@ -61,7 +61,7 @@
                         <div><p><b>สถานที่:</b></p></div>
                         <div><p><b>ช่างตัดผม:</b> {{selectedBarber.name}}</p></div>
                         <div><p><b>บริการที่เลือก:</b> </p></div>
-                        <button class="btn btn-success btn-block">ถัดไป</button>
+                        <button class="btn btn-success btn-block" type="submit">ถัดไป</button>
                     </div>
                 </form>
             </div>
