@@ -2,7 +2,7 @@
 
 <template>
   <!--Banner-->
-  <div class="home">
+  <div class="home container">
     <div class="pt-4">
       <Banner></Banner>
     </div>

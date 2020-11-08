@@ -1,7 +1,7 @@
 <!--/src/SignupCustomer.vue-->
 
 <template>
-    <div class="signupCustomer">
+    <div class="signupCustomer container">
         <div class="m-5">
             <div class="row justify-content-center">
                 <div class="col-sm-6 signupBox">

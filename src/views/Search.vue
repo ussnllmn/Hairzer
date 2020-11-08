@@ -1,7 +1,7 @@
 <!--/src/Search.vue-->
 
 <template>
-    <div class="search">
+    <div class="search container">
         <h1>ค้นหา</h1>
         <form action="/location">
             <!--Location Box-->

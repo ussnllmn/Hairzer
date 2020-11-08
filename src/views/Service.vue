@@ -1,7 +1,7 @@
 <!--/src/Service.vue-->
 
 <template>
-    <div class="service">
+    <div class="service container">
         <h1>Services</h1>
         <!--Head-->
         <div class="row m-2">

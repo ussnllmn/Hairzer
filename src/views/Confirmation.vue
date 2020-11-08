@@ -1,5 +1,5 @@
 <template>
-    <div class="confirmation">
+    <div class="confirmation container">
         <h1>Confirmation</h1>
  
         <!--Summary Box-->
