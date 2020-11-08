@@ -9,7 +9,9 @@
 
     <!--Promotion-->
     <div class="my-4 p-2 box">
-      <h3><b-icon icon="tag-fill" aria-hidden="true"></b-icon> โปรโมชั่น<hr></h3>
+      <h3>โปรโมชั่น <b-icon icon="tag-fill" aria-hidden="true"></b-icon></h3>
+      <p>พบกับโปรโมชั่นสุดพิเศษได้ทุกวัน</p>
+      <hr>
       <div class="row" align="left">
         <!--Promotion 1-->
         <div class="col-sm m-1">
@@ -71,7 +73,9 @@
 
     <!--Barber-->
     <div class="mb-4 p-2 box">
-      <h3><b-icon icon="scissors" aria-hidden="true"></b-icon> ช่างตัดผมที่แนะนำ<hr></h3>
+      <h3>ช่างตัดผมที่แนะนำ <b-icon icon="scissors" aria-hidden="true"></b-icon></h3>
+      <p>ช่างตัดผมมืออาชีพที่พร้อมให้บริการคุณ</p>
+      <hr>
       <div class="row" align="left">
         <!--Barber 1-->
         <div class="col-sm m-1">
@@ -145,7 +149,9 @@
 
     <!--Location-->
     <div class="mb-4 p-2 box">
-      <h3><b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon> สถานที่ที่แนะนำ<hr></h3>
+      <h3>สถานที่ที่แนะนำ <b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon></h3>
+      <p>สถานที่ตัดผมพร้อมอุปกรณ์ที่ครบครัน</p>
+      <hr>
       <div class="row" align="left">
         <!--Location 1-->
         <div class="col-sm m-1">
