@@ -49,7 +49,7 @@
                     <center>
                         <img src="" width="150px" height="150px"> <br>
 
-                        <div class="upload">
+                        <div class="upload mt-2">
                             <label>Upload file
                                 <input type="file" id="file" ref="uploadFile"/>
                             </label>
