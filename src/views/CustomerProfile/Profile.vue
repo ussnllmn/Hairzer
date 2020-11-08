@@ -4,15 +4,17 @@
     <div class="profile">
         <b-row>
             <!--Nav-->
-            <b-col cols="3">
+            <b-col sm="2">
                 <ProfileBar></ProfileBar>
             </b-col>
+            <b-col sm="1"></b-col>
             <!--Router Views-->
-            <b-col cols="9" class="p-2">
+            <b-col sm="8" class="p-2">
                 <router-view></router-view>
+                <p>{{userData}}</p>
             </b-col>
         </b-row>
-        <p>{{userData}}</p>
+        
     </div>
 </template>
 

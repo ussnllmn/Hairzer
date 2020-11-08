@@ -1,7 +1,7 @@
 <template>
     <div class="profileBar p-4">
         <!--Image-->
-        <center><img src="" width="150px" height="150px"></center>
+        <center><img src="" width="120px" height="120px"></center>
         <center><p>{{userData.cus_firstName}} {{userData.cus_lastName}}</p></center>
         
         <!--Menu-->
@@ -35,10 +35,17 @@
 
 <style scoped>
     .profileBar { 
-        width: 250px;
+        width: 100%;
         height: 100%;
         position: relative;
         background-color: whitesmoke;
         left: 0;
     }
+    @media (max-width:640px){
+        .profileBar{
+            display:none;
+        }
+    }
+
+
 </style>

@@ -4,8 +4,8 @@
         <div class="editBox p-2">
             <h5>ข้อมูลของฉัน</h5> <hr>
             <!--Edit Profile-->
-            <b-row class="mb-4 pl-4">
-                <b-col cols="7" style="border-right: 1px solid #CED4DA;">
+            <b-row class="mb-4 px-4">
+                <b-col sm="7" style="border-right: 1px solid #CED4DA;" class="mb-4">
                     <!--First Name-->
                     <div class="mb-2">
                         <label for="firstName">ชื่อ</label>
@@ -45,7 +45,7 @@
                 </b-col>
                 
                 <!--Change image profile-->
-                <b-col cols="5">
+                <b-col sm="5">
                     <center>
                         <img src="" width="150px" height="150px"> <br>
 
@@ -61,8 +61,8 @@
 
             <!--Change Password-->
             <h5>เปลี่ยนรหัสผ่าน</h5> <hr>
-            <b-row class="mb-4 pl-4">
-                <b-col cols="7">
+            <b-row class="mb-4 p-2">
+                <b-col sm="7">
                     <!--present password-->
                     <div class="mb-2">
                         <label for="presentPWD">รหัสผ่านปัจจุบัน</label>
