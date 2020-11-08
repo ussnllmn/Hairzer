@@ -3,9 +3,9 @@
         <h1>Confirmation</h1>
  
         <!--Summary Box-->
-        <div class="confirmBox p-4">
+        <div class="confirmBox shadow-sm p-4">
             <!--Detail Box-->
-            <div class="detailBox">
+            <div class="detailBox ">
                 <b-row>
                     <b-col cols="3">
                         <p><b><b-icon icon="calendar3" aria-hidden="true"></b-icon> วัน/เดือน/ปี:</b> {{selectedDate}}</p>
@@ -53,6 +53,7 @@
                 <b-col class="text-right">ยอดชำระเงินทั้งหมด</b-col>
                 <b-col sm="3" class="text-center">฿{{totalCost}}</b-col>
             </b-row>
+            <hr>
         </div>
 
         <div>

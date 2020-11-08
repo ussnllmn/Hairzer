@@ -1,5 +1,5 @@
 <template>
-    <div class="profileBar p-4">
+    <div class="profileBar shadow-sm p-4">
         <!--Image-->
         <center><img src="" width="120px" height="120px"></center>
         <center><p>{{userData.cus_firstName}} {{userData.cus_lastName}}</p></center>

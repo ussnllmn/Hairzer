@@ -5,7 +5,7 @@
         <h1>ค้นหา</h1>
         <form action="/location">
             <!--Location Box-->
-            <div class="mb-4 p-2 pb-4 locationBox">
+            <div class="mb-4 p-2 pb-4 locationBox shadow-sm">
                 <label><b>เลือกสถานที่ที่คุณต้องการค้นหา</b></label>
                 <b-dropdown id="district" 
                     :text="location"
@@ -19,7 +19,7 @@
             </div>
 
             <!--Service Check Box-->
-            <div class="mb-4 p-2 serviceBox">
+            <div class="mb-4 p-2 serviceBox shadow-sm">
                 <label for="serviceBox"><b>คลิกเลือกบริการที่คุณต้องการค้นหา</b></label>
                 <form>
                 <div class="form-group form-check">
@@ -35,7 +35,7 @@
             </div>
 
             <!--Date & Time-->
-            <div class="mb-4 p-2 dateBox">
+            <div class="mb-4 p-2 dateBox shadow-sm">
                 <label for="serviceBox"><b>วันที่และเวลา</b></label>
                 <div class="row mb-2">
                     <!--Date-->
@@ -108,5 +108,6 @@
     .serviceBox, .dateBox, .locationBox {
         border: 1px solid #CED4DA;
         border-radius: 5px;
+        background-color: white;
     }
 </style>

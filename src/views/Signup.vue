@@ -10,7 +10,7 @@
                 </div>
 
                 <!--Sign-up box-->
-                <div class="col-sm-5 signupBox">
+                <div class="col-sm-5 signupBox shadow-sm">
                     <center><h3>สมัครสมาชิก</h3></center>
                     <div class="mt-4">
                         <button type="submit" value="submit" class="btn btn-outline-primary btn-block mb-4" 

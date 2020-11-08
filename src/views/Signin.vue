@@ -22,7 +22,7 @@
                 </div>
 
                 <!--Sign-in Box-->
-                <div class="col-sm-5 signinBox">
+                <div class="col-sm-5 signinBox shadow-sm">
                     <form @submit="loginWithEmail">
                         <center><h3>เข้าสู่ระบบ</h3></center>
                         <input class="form-control my-4" type="email" placeholder="Email" v-model="email" required>
@@ -37,6 +37,7 @@
                                 <button type="submit" value="submit" class="btn btn-outline-success btn-block mb-4"><b-icon icon="box-arrow-in-right" aria-hidden="true"></b-icon> เข้าสู่ระบบ</button>
                             </div>
                         </div>
+                        <hr>
                         <div class="mt-5 mb-2">
                             <center>
                                 หรือ <router-link :to="{ name: 'Signup' }">สมัครสมาชิก <b-icon icon="person-plus" aria-hidden="true"></b-icon></router-link>
