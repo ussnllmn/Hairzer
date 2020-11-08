@@ -40,7 +40,7 @@
                         <!--Detail-->
                         <div class="col-sm-3 ml-3 my-2">
                             <h4>{{barber.name}}</h4>
-                            <p>คะแนน {{barber.score}}/10</p>
+                            <p><b-icon icon="star-fill" aria-hidden="true" variant="warning"></b-icon> คะแนน {{barber.score}}/10</p>
                             <li v-for="(cost, service) in barber.services" :key="(cost, service)">{{service}}: {{cost}}฿</li>
                         </div>
                         <!--Price-->
@@ -53,7 +53,7 @@
 
             <!--Side bar-->
             <div class="col-sm-4">
-                <form action="/confirmation">
+                <form action="/service">
                     <div class="summary my-4 p-2">
                         <h3>ราคารวม {{selectedBarber.cost}}฿</h3> 
                         <div><p><b>วันที่:</b> </p></div>

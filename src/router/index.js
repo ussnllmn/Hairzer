@@ -10,8 +10,8 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue')
   },
-  
-  //Search
+
+  //Search => select location => select barber => select service => confirm => pay => success
   {
     path: '/search',
     name: 'Search',
@@ -35,6 +35,18 @@ const routes = [
     name: 'Service',
     component: () => import('../views/Service.vue'),
     meta: {title: 'Hairzer | เลือกบริการที่คุณต้องการ'}
+  },
+  {
+    path: '/confirmation',
+    name: 'Confirmation',
+    component: () => import('../views/Confirmation.vue'),
+    meta: {title: 'Hairzer | ยืนยันการทำรายการ'}
+  },
+  {
+    path: '/paymentsuccess',
+    name: 'PaymentSuccess',
+    component: () => import('../views/PaymentSuccess.vue'),
+    meta: {title: 'Hairzer | จ่ายเงินสำเร็จ'}
   },
   
   //Contact
@@ -94,12 +106,7 @@ const routes = [
     component: () => import('../views/404.vue'),
     meta: {title: 'Hairzer | ขออภัยไม่พบหน้าที่คุณต้องการ'}
   },
-  {
-    path: '/paymentsuccess',
-    name: 'PaymentSuccess',
-    component: () => import('../views/PaymentSuccess.vue'),
-    meta: {title: 'Hairzer | จ่ายเงินสำเร็จ'}
-  },
+
 
 ]
 

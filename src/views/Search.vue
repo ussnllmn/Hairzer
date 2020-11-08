@@ -41,7 +41,7 @@
                     <!--Date-->
                     <div class="col-sm-4">
                         <b-form-datepicker class="mb-2" id="datepicker" placeholder="เลือกวันที่ต้องการ" 
-                        v-model="date" 
+                        v-model="selectedDate" 
                         :min="minDate"
                         >
                         </b-form-datepicker>
@@ -49,7 +49,7 @@
 
                     <!--Time-->
                     <div class="col-sm-4 mb-2">
-                        <b-form-timepicker id="timepicker" placeholder="เลือกเวลาที่ต้องการ" v-model="time" locale="th"></b-form-timepicker>
+                        <b-form-timepicker id="timepicker" placeholder="เลือกเวลาที่ต้องการ" v-model="selectedTime" locale="th"></b-form-timepicker>
                     </div>
 
                     <!--Button-->
@@ -69,8 +69,8 @@
                 //data ที่ต้องใช้ค้นหา location, service, date, time
                 location:'แขวงลาดกระบัง',
                 serviceChecked: [],
-                date: '',
-                time: '',
+                selectedDate: '',
+                selectedTime: '',
 
                 //date picker
                 minDate: new Date(),
