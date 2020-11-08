@@ -1,6 +1,5 @@
-## Front-end hairzer
+## Front-end Hairzer
 
-#### Project setup
 ```
 npm install
 npm run serve
@@ -10,7 +9,7 @@ npm run serve
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-## Back-end hairzer
+## Back-end Hairzer
 ```
 cd server
 npm install
