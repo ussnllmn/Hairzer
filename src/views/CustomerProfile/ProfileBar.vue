@@ -5,7 +5,7 @@
         <center><p>{{userData.cus_firstName}} {{userData.cus_lastName}}</p></center>
         
         <!--Menu-->
-        <div class="mt-4">
+        <div class="mt-4 menu">
             <router-link :to="{name: 'EditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>
             <router-link :to="{name: 'Appointment'}">จัดการนัดหมาย</router-link> <hr>
             <router-link :to="{name: 'History'}">ประวัติการใช้บริการ</router-link> <hr>
@@ -46,6 +46,12 @@
             display:none;
         }
     }
-
+    .menu a {
+        color: #495057;
+        text-decoration: none;
+    }
+    .menu a:hover {
+        color:lightgray;
+    }
 
 </style>
