@@ -37,21 +37,28 @@
                         <div class="col-sm-5"> 
                             <img src="location.image" width="100%" height="250px">
                         </div>
-
-                        <div class="col-sm-3 ml-3 my-2">
-                            <h4>{{service.name}}</h4>
-                        </div>
+                        
 
                         <!--Price-->
-                        <div class="col-sm-2 mr-auto align-self-end text-right">
-                            <h2>฿{{service.cost}}</h2>
+                        <div class="col-sm-6">
+                            <b-row>
+                                <h3>{{service.name}}</h3>
+                            </b-row>
+                            <b-row>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa quasi, iusto quod cupiditate hic dolorem sunt ipsam ex laboriosam.</p>
+                            </b-row>
+                            <b-row >
+                                <b-col>
+                                    <h2>฿{{service.cost}}</h2>
+                                </b-col>
+                            </b-row>
                         </div>
                 </div>
             </div>
 
             <!--Side bar-->
             <div class="col-sm-4">
-                <form action="/barber">
+                <form action="/confirmation">
                     <div class="summary my-4 p-2">
                         <h3>ราคารวม {{totalCost}}฿</h3> 
                         <div><p><b>วันที่:</b> </p></div>
@@ -73,12 +80,12 @@
             return {
                 sortBy:'Date',
                 selectedService: [],
-                services: [{name:'บริการ 1',cost:150},{name:'บริการ 2',cost:260},{name:'บริการ 3',cost:350},{name:'บริการ 4',cost:420}]
-            }
-        },
-        methods: {
-            findBarber() {
-                window.location.href = '/barber';
+                services: [
+                    { name:'บริการ 1', cost:150 },
+                    { name:'บริการ 2', cost:260 },
+                    { name:'บริการ 3', cost:350 },
+                    { name:'บริการ 4', cost:420 }
+                ]
             }
         },
         computed: {

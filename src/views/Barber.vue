@@ -53,7 +53,7 @@
 
             <!--Side bar-->
             <div class="col-sm-4">
-                <form action="/service">
+                <form action="/confirmation">
                     <div class="summary my-4 p-2">
                         <h3>ราคารวม {{selectedBarber.cost}}฿</h3> 
                         <div><p><b>วันที่:</b> </p></div>
