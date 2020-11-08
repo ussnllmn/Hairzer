@@ -3,7 +3,7 @@
         <h1>ประวัติการใช้บริการ</h1>
         <div class="historyBox p-2">
             <!--Title-->
-            <b-table striped hover :items="items" :fields="fields">
+            <b-table striped hover :items="items" :fields="fields" class="shadow-sm">
                 <template #cell(การจัดการ)>
                     <b-button variant="outline-primary" size="sm" class="mb-2" style="width: 100%;">รายละเอียด</b-button> <br>
                     <b-button variant="outline-primary" size="sm" class="mb-2" style="width: 100%;">รีวิวสถานที่</b-button> <br>

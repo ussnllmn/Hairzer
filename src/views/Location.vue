@@ -26,7 +26,7 @@
         <div class="row m-2">
             <!--Location List-->
             <div class="col-sm-7 mx-4 p-2">
-                <div class="locationList mb-4 row"  v-for="location in locations" :key="location.id" :for="location.id">
+                <div class="locationList mb-4 row shadow-sm" v-for="location in locations" :key="location.id" :for="location.id">
                     <label :for="location.id"></label>
                         <!--Radio-->
                         <div class="col-sm-1 my-auto text-center">
@@ -62,10 +62,11 @@
             </div>
 
             <!--Side bar-->
-            <div class="col-sm-4">
+            <div class="col-sm-4 ">
                 <form action="/barber">
-                    <div class="summary my-4 p-2">
-                        <h3>ราคารวม {{selectedLocation.cost}}฿</h3> 
+                    <div class="summary my-4 p-2 shadow-sm">
+                        <h3>ราคารวม {{selectedLocation.cost}}฿</h3>
+                        <hr>
                         <div><p><b>วันที่:</b> </p></div>
                         <div><p><b>เวลา:</b> </p></div>
                         <div><p><b>สถานที่:</b> {{selectedLocation.name}}</p></div>
@@ -107,8 +108,10 @@
     .locationList {
         border: solid 1px  #CED4DA;
         border-radius: 5px;
+        background-color: white;
     }
     .summary {
+        background-color: white;
         border: solid 1px  #CED4DA;
         border-radius: 5px;
         position: sticky;

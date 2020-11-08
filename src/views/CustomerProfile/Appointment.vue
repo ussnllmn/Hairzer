@@ -1,9 +1,9 @@
 <template>
-    <div class="appointment">
+    <div class="appointment ">
         <h1>จัดการนัดหมาย</h1>
         <div class="appointmentBox p-2">
             <!--Title-->
-            <b-table striped hover :items="items" :fields="fields">
+            <b-table striped hover :items="items" :fields="fields" class="shadow-sm">
                 <template #cell(การจัดการ)>
                     <b-button variant="outline-primary" size="sm" class="mb-2" style="width: 100%;">รายละเอียด</b-button> <br>
                     <b-button variant="outline-success" size="sm" class="mb-2" style="width: 100%;">ยืนยัน</b-button> <br>
@@ -61,3 +61,9 @@
     }
   }
 </script>
+
+<style scoped>
+    .appointment {
+        height: 693px;
+    }
+</style>

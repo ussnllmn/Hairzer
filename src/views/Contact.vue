@@ -35,6 +35,7 @@
     border: 1px solid #CED4DA;
     border-radius: 5px;
     color: #495057;
+    background-color: white;
   }
   @media (max-width:640px){
     img:first-child{

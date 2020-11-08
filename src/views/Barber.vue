@@ -26,7 +26,7 @@
         <div class="row m-2">
             <!--Barber List-->
             <div class="col-sm-7 mx-4 p-2">
-                <div class="barberList my-4 row"  v-for="barber in barbers" :key="barber.id" :for="barber.id">
+                <div class="barberList mb-4 row shadow-sm" v-for="barber in barbers" :key="barber.id" :for="barber.id">
                     <label :for="barber.id"></label>
                         <!--Radio-->
                         <div class="col-sm-1 my-auto text-center">
@@ -54,8 +54,9 @@
             <!--Side bar-->
             <div class="col-sm-4">
                 <form action="/service">
-                    <div class="summary my-4 p-2">
+                    <div class="summary my-4 p-2 shadow-sm">
                         <h3>ราคารวม {{selectedBarber.cost}}฿</h3> 
+                        <hr>
                         <div><p><b>วันที่:</b> </p></div>
                         <div><p><b>เวลา:</b> </p></div>
                         <div><p><b>สถานที่:</b></p></div>

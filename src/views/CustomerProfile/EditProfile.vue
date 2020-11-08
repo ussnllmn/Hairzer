@@ -1,7 +1,7 @@
 <template>
     <div class="editprofile">
         <h1>แก้ไขข้อมูลส่วนตัว</h1>
-        <div class="editBox p-2">
+        <div class="editBox shadow-sm p-2">
             <h5>ข้อมูลของฉัน</h5> <hr>
             <!--Edit Profile-->
             <b-row class="mb-4 px-4">

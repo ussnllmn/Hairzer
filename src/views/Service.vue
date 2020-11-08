@@ -26,7 +26,7 @@
         <div class="row m-2">
             <!--Services List-->
             <div class="col-sm-7 mx-4 p-2">
-                <div class="serviceList mb-4 row"  v-for="service in services" :key="service.name" :for="service.name">
+                <div class="serviceList mb-4 row shadow-sm" v-for="service in services" :key="service.name" :for="service.name">
                     <label :for="service.name"></label>
                         <!--Checkbox-->
                         <div class="col-sm-1 my-auto text-center">
@@ -59,8 +59,9 @@
             <!--Side bar-->
             <div class="col-sm-4">
                 <form action="/confirmation">
-                    <div class="summary my-4 p-2">
+                    <div class="summary my-4 p-2 shadow-sm">
                         <h3>ราคารวม {{totalCost}}฿</h3> 
+                        <hr>
                         <div><p><b>วันที่:</b> </p></div>
                         <div><p><b>เวลา:</b> </p></div>
                         <div><p><b>สถานที่:</b> </p></div> 
