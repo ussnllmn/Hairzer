@@ -1,5 +1,5 @@
 <template>
-    <div class="PaymentSuccess">
+    <div class="PaymentSuccess container">
        <div class="text-center p-4 m-4" style="border:1px solid black;" >
             <h1>
                 ขอบคุณ!!

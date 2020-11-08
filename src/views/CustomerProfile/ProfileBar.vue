@@ -6,8 +6,8 @@
         
         <!--Menu-->
         <div class="mt-4">
-            <router-link :to="{name: 'EditProfile'}">แก้ไขข้อมูล</router-link> <hr>
-            <router-link :to="{name: 'Appointment'}">จัดการการใช้บริการ</router-link> <hr>
+            <router-link :to="{name: 'EditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>
+            <router-link :to="{name: 'Appointment'}">จัดการนัดหมาย</router-link> <hr>
             <router-link :to="{name: 'History'}">ประวัติการใช้บริการ</router-link> <hr>
         </div>
     </div>

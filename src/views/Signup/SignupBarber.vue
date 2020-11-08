@@ -1,7 +1,7 @@
 <!--/src/SignupBarber.vue-->
 
 <template>
-    <div class="signupBarber">
+    <div class="signupBarber container">
         <div class="m-5">
             <div class="row justify-content-center">
                 <div class="col-sm-6 signupBox">

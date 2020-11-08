@@ -1,7 +1,7 @@
 <!--/src/Location.vue-->
 
 <template>
-    <div class="location">
+    <div class="location container">
         <h1>Locations</h1>
         <!--Head-->
         <div class="row m-2">

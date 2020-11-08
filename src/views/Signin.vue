@@ -1,7 +1,7 @@
 <!--/src/Signin.vue-->
 
 <template>
-    <div class="signin">
+    <div class="signin container">
         <div class="m-5">
             <!--Alert for wrong password-->
             <b-alert

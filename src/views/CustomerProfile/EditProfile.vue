@@ -65,20 +65,20 @@
                 <b-col cols="7">
                     <!--present password-->
                     <div class="mb-2">
-                        <label for="firstName">รหัสผ่านปัจจุบัน</label>
-                        <b-input type="text" value="" id="firstName"></b-input>
+                        <label for="presentPWD">รหัสผ่านปัจจุบัน</label>
+                        <b-input type="text" value="" id="presentPWD"></b-input>
                     </div>
 
                     <!--new password-->
                     <div class="mb-2">
-                        <label for="firstName">รหัสผ่านใหม่</label>
-                        <b-input type="text" value="" id="firstName"></b-input>
+                        <label for="newPWD">รหัสผ่านใหม่</label>
+                        <b-input type="text" value="" id="newPWD"></b-input>
                     </div>
 
                     <!--new password again-->
                     <div class="mb-2">
-                        <label for="firstName">ยืนยันรหัสผ่านใหม่</label>
-                        <b-input type="text" value="" id="firstName"></b-input>
+                        <label for="renewPWD">ยืนยันรหัสผ่านใหม่</label>
+                        <b-input type="text" value="" id="remewPWD"></b-input>
                     </div>
 
                     <!--Button-->

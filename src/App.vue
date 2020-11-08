@@ -3,7 +3,7 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <div class="container">
+    <div class="container-fluid">
       <router-view/>
     </div>
     <Footer></Footer>

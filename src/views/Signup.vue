@@ -1,7 +1,7 @@
 <!--/src/Signup.vue-->
 
 <template>
-    <div class="signup">
+    <div class="signup container">
         <div class="m-5">
             <div class="row justify-content-center">
                 <!--Image sign-up-->

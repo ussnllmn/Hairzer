@@ -1,7 +1,7 @@
 <!--/src/Barber.vue-->
 
 <template>
-    <div class="barber">
+    <div class="barber container">
         <h1>Barbers</h1>
         <!--Head-->
         <div class="row m-2">

@@ -1,7 +1,7 @@
 <!--/src/SignupLocation.vue-->
 
 <template>
-    <div class="signupLocation">
+    <div class="signupLocation container">
         <div class="m-5">
             <div class="row justify-content-center">
                 <div class="col-sm-6 signupBox">

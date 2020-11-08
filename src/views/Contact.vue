@@ -1,7 +1,7 @@
 <!--/src/Contact.vue-->
 
 <template>
-    <div class="contact">
+    <div class="contact container">
         <div class="m-5">
             <div class="row justify-content-center">
                 <!--Image contact-->
