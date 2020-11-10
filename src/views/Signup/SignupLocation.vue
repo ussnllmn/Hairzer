@@ -17,6 +17,7 @@
                             <label for="passwordInput">Password</label>
                             <input type="password" class="form-control mb-2" id="passwordInput" placeholder="รหัสผ่าน" v-model="Password" required>
                             <small id="passwordHelp" class="form-text text-muted mb-4">รหัสผ่าน: ต้องประกอบด้วยตัวเลขและตัวอักษร 6 ตัวขึ้นไป</small>
+                            <hr>
 
                             <!--Location Name-->
                             <label for="locationNameInput">ชื่อสถานที่</label>
@@ -41,15 +42,56 @@
                             <label for="other" class="mr-4 mb-4 font-weight-normal">อื่นๆ</label>
                             <br>
 
-                            <!--Address-->
-                            <label for="addressInput">ที่อยู่</label>
-                            <input type="text" class="form-control mb-4" id="addressInput" placeholder="ที่อยู่" v-model="Address" required> 
-
                             <!--Phone-->
                             <label for="phoneInput">หมายเลขโทรศัพท์</label>
                             <input type="tel" class="form-control mb-4" id="phoneInput" placeholder="หมายเลขโทรศัพท์" v-model="Phone" required>
                             <hr>
 
+                            <!--Address-->
+                            <label for="addressInput">ที่อยู่</label>
+                            <b-row>
+                                <b-col sm="4" class="font-weight">
+                                    <label for="addr_no"><small>เลขที่</small></label>
+                                    <input type="text" class="form-control mb-4" id="addr_no" placeholder="เลขที่" v-model="address.addr_no" required> 
+                                </b-col>
+                                <b-col sm="4">
+                                    <label for="addr_soi"><small>ซอย</small></label>
+                                    <input type="text" class="form-control mb-4" id="addr_soi" placeholder="ซอย" v-model="address.addr_soi" required> 
+                                </b-col>
+                                <b-col sm="4">
+                                    <label for="addr_road"><small>ถนน</small></label>
+                                    <input type="text" class="form-control mb-4" id="addr_road" placeholder="ถนน" v-model="address.addr_road" required> 
+                                </b-col>
+                                <b-col sm="4">
+                                    <label for="addr_road"><small>แขวง</small></label>
+                                    <input type="text" class="form-control mb-4" id="addr_subDistrict" placeholder="แขวง" v-model="address.addr_subDistrict" required> 
+                                </b-col>
+                                <b-col sm="4">
+                                    <label for="addr_road"><small>เขต</small></label>
+                                    <b-dropdown id="district" 
+                                        :text="address.addr_district"
+                                        block
+                                        split
+                                        variant="outline-secondary"
+                                    >
+                                        <b-dropdown-item 
+                                            v-for="district in districts" 
+                                            :key="district.id" 
+                                            v-model="address.addr_district" 
+                                            @click="address.addr_district=district.name"
+                                        >
+                                            {{district.name}}
+                                        </b-dropdown-item>
+                                    </b-dropdown>
+                                </b-col>
+                                <b-col sm="4">
+                                    <label for="addr_road"><small>จังหวัด</small></label>
+                                    <input type="text" class="form-control mb-4" id="addr_district" placeholder="จังหวัด" v-model="address.addr_province" required disabled> 
+                                </b-col>
+                            </b-row>
+                            <small id="nameHelp" class="form-text text-muted mb-4">หมายเหตุ: ขณะนี้เปิดให้บริการเฉพาะในเขตพื้นที่กรุงเทพมหานครเท่านั้น</small>
+                            <hr>
+                            
                             <!--Submit-->
                             <button type="submit" value="submit" class="btn btn-outline-success btn-block">ยืนยัน</button>
                         </form>
@@ -80,10 +122,27 @@
                 Password: '',
                 Fname: '',
                 Lname: '',
-                Address: '',
+                address: {
+                    addr_no: '',
+                    addr_soi: '',
+                    addr_road: '',
+                    addr_subDistrict: '',
+                    addr_district: 'เลือกเขต',
+                    addr_province: 'กรุงเทพมหานคร'
+                },
                 Phone: '',
                 LocationName: '',
                 Sex: 'other',
+
+                //Data
+                districts: [
+                    {id:1, name: 'ลาดกระบัง'},
+                    {id:2, name: 'แขวงคลองสองต้นนุ่น'},
+                    {id:3, name: 'แขวงคลองสามประเวศ	'},
+                    {id:4, name: 'แขวงลำปลาทิว'},
+                    {id:5, name: 'แขวงทับยาว'},
+                    {id:6, name: 'แขวงขุมทอง'},
+                ],
             }
         },
         methods: {
@@ -92,17 +151,22 @@
                 firebase.auth().createUserWithEmailAndPassword(this.Email, this.Password)
                 .then(() => {
                     //เก็บข้อมูล user ใน firestore
-                    firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
+                    firebase.firestore().collection('location').doc(firebase.auth().currentUser.uid)
                     .set({
                         lo_id: firebase.auth().currentUser.uid,
                         lo_firstName: this.Fname,
                         lo_lastName: this.Lname,
                         lo_email: this.Email,
-                        lo_address: this.Address,
+                        lo_address: this.address,
                         lo_phone: this.Phone,
                         lo_locationName: this.LocationName,
                         lo_sex: this.Sex,
-                        status: 'location'
+                        lo_cost: 0,
+                        lo_equipment: [],
+                        lo_img: '',
+                        lo_score: 0,
+                        lo_status: false
+
                     })
                     .then(() => {
                         this.$router.replace({name: 'Profile'}).catch(()=>{})

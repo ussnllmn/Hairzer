@@ -4,7 +4,7 @@
   <!--Banner-->
   <div class="home container">
     <div class="mt-4 shadow-sm">
-      <Banner></Banner>
+      <Banner class="shadow-sm"></Banner>
     </div>
 
     <!--Promotion-->
@@ -20,7 +20,6 @@
             :img-src="require('../assets/promotion/promotion2.jpg')"
             img-alt="promotion1"
             img-top
-            tag="promotion"
             style="width: 100%;"
             class="shadow-sm"
           >
@@ -37,7 +36,6 @@
             :img-src="require('../assets/promotion/promotion3.jpg')"
             img-alt="promotion2"
             img-top
-            tag="promotion"
             style="width: 100%;"
             class="shadow-sm"
           >
@@ -54,12 +52,11 @@
             :img-src="require('../assets/promotion/promotion4.jpg')"
             img-alt="promotion3"
             img-top
-            tag="promotion"
             style="width: 100%;"
             class="shadow-sm"
           >
             <b-card-text>
-              รับส่วนลดทันที 25% เมื่อใช้บริการทำสีผม
+                รับส่วนลดทันที 25% เมื่อใช้บริการทำสีผม
             </b-card-text>
           </b-card>
         </div>
@@ -84,7 +81,6 @@
             :img-src="require('../assets/Barber/santok.jpg')"
             img-alt="barber1"
             img-top
-            tag="barber"
             style="width: 100%;"
             class="shadow-sm"
           >
@@ -101,7 +97,6 @@
             :img-src="require('../assets/Barber/sekson.jpg')"
             img-alt="barber2"
             img-top
-            tag="barber"
             style="width: 100%;"
             class="shadow-sm"
           >
@@ -118,7 +113,6 @@
             :img-src="require('../assets/Barber/joy.jpg')"
             img-alt="barber3"
             img-top
-            tag="barber"
             style="width: 100%;"
             class="shadow-sm"
           >
@@ -135,7 +129,6 @@
             :img-src="require('../assets/Barber/shibasan.jpg')"
             img-alt="barber4"
             img-top
-            tag="barber"
             style="width: 100%;"
             class="shadow-sm"
           >
@@ -160,7 +153,6 @@
             :img-src="require('../assets/hairzer-image/location.jpg')"
             img-alt="location1"
             img-top
-            tag="location"
             style="width: 100%;"
             class="shadow-sm"
           >
@@ -177,7 +169,6 @@
             :img-src="require('../assets/hairzer-image/location.jpg')"
             img-alt="location2"
             img-top
-            tag="location"
             style="width: 100%;"
             class="shadow-sm"
           >
@@ -194,7 +185,6 @@
             :img-src="require('../assets/hairzer-image/location.jpg')"
             img-alt="location3"
             img-top
-            tag="location"
             style="width: 100%;"
             class="shadow-sm"
           >
@@ -211,7 +201,6 @@
             :img-src="require('../assets/hairzer-image/location.jpg')"
             img-alt="location4"
             img-top
-            tag="location"
             style="width: 100%;"
             class="shadow-sm"
           >

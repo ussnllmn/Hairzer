@@ -15,6 +15,7 @@
                     split
                     variant="outline-dark"
                     menu-class="w-100"
+                    disabled
                 >
                     <b-dropdown-item @click="sortBy='Date'">Sort by Date</b-dropdown-item>
                     <b-dropdown-item @click="sortBy='Score'">Sort by Score</b-dropdown-item>
@@ -26,45 +27,50 @@
         <div class="row m-2">
             <!--Barber List-->
             <div class="col-sm-7 mx-4 p-2">
-                <div class="barberList mb-4 row shadow-sm" v-for="barber in barbers" :key="barber.id" :for="barber.id">
-                    <label :for="barber.id"></label>
-                        <!--Radio-->
-                        <div class="col-sm-1 my-auto text-center">
-                            <input type="radio" :value="barber" :id="barber.id" v-model="selectedBarber"/>
+                <div class="barberList mb-4 row shadow-sm" v-for="barber in barbers" :key="barber.barb_id" :for="barber.barb_id">
+                    <label :for="barber.barb_id"></label>
+                    <!--Radio-->
+                    <div class="col-sm-1 my-auto text-center">
+                        <input type="radio" :value="barber" :id="barber.barb_id" v-model="selectedBarber" />
                              
-                        </div>
-                        <!--Image-->
-                        <div class="col-sm-5"> 
-                            <img src="barber.image" width="100%" height="250px">
-                        </div>
-                        <!--Detail-->
-                        <div class="col-sm-3 ml-3 my-2">
-                            <h4>{{barber.name}}</h4>
-                            <p><b-icon icon="star-fill" aria-hidden="true" variant="warning"></b-icon> คะแนน {{barber.score}}/10</p>
-                            <li v-for="(cost, service) in barber.services" :key="(cost, service)">{{service}}: {{cost}}฿</li>
-                        </div>
-                        <!--Price-->
-                        <div class="col-sm-2 mr-auto align-self-end text-right">
-                            <small>ราคาเริ่มต้นที่</small>
-                            <h2>฿{{Object.values(barber.services)[0]}}</h2>
-                        </div>
+                    </div>
+                    
+                    <!--Image-->
+                    <div class="col-sm-5"> 
+                        <img :src="barber.barb_img" width="100%" height="100%" style="object-fit: cover;">
+                    </div>
+                        
+                    <!--Detail-->
+                    <div class="col-sm-6">        
+                        <b-row class="p-2 pt-4 mb-5">
+                            <b-col sm="12" >
+                                <h4>{{barber.barb_firstName}} {{barber.barb_lastName}}</h4>
+                                <p><b-icon icon="star-fill" aria-hidden="true" variant="warning"></b-icon> คะแนน {{barber.barb_score}}/10</p>
+                                <li v-for="(cost, service) in barber.barb_service" :key="(cost, service)">{{service}}: {{cost}}฿</li>
+                            </b-col>
+                        </b-row>
+                        <b-row class="p-2">
+                            <b-col sm="12" class="text-right">
+                                <small>ราคาเริ่มต้นที่</small>
+                                <h2>฿{{Object.values(barber.barb_service)[0]}}</h2>
+                            </b-col>
+                        </b-row>
+                    </div>
                 </div>
             </div>
 
             <!--Side bar-->
             <div class="col-sm-4">
-                <form action="/service">
-                    <div class="summary my-4 p-2 shadow-sm">
-                        <h3>ราคารวม {{selectedBarber.cost}}฿</h3> 
-                        <hr>
-                        <div><p><b>วันที่:</b> </p></div>
-                        <div><p><b>เวลา:</b> </p></div>
-                        <div><p><b>สถานที่:</b></p></div>
-                        <div><p><b>ช่างตัดผม:</b> {{selectedBarber.name}}</p></div>
-                        <div><p><b>บริการที่เลือก:</b> </p></div>
-                        <button class="btn btn-success btn-block" type="submit">ถัดไป</button>
-                    </div>
-                </form>
+                <div class="summary my-4 p-2 shadow-sm">
+                    <h3>ราคารวม {{totalCost}}฿</h3> 
+                    <hr>
+                    <div><p><b>วันที่:</b> {{selectedDate}}</p></div>
+                    <div><p><b>เวลา:</b> {{selectedTime}}</p></div>
+                    <div><p><b>สถานที่:</b> {{selectedLocation.lo_locationName}}</p></div>
+                    <div><p><b>ช่างตัดผม:</b> {{selectedBarber.barb_firstName}} {{selectedBarber.barb_lastName}}</p></div>
+                    <div><p><b>บริการที่เลือก:</b> </p></div>
+                    <button class="btn btn-success btn-block" type="submit">ถัดไป</button>
+                </div>
             </div>
         </div>
     </div>
@@ -72,21 +78,36 @@
 
 <script>
     export default {
+        created() {
+            this.barbers = JSON.parse(localStorage.getItem('barberList'))
+            this.selectedDate = localStorage.getItem('selectedDate')
+            this.selectedTime = localStorage.getItem('selectedTime')
+            this.selectedLocation = JSON.parse(localStorage.getItem('selectedLocation'))
+        },
         data() {
             return {
-                sortBy: 'Date',
+                //sort menu
+                sortBy:'Date',
+
+                //location from search
+                locations: [],
+
+                //barber from search
+                barbers: [],
+
+                //selected items
+                selectedLocation: '',
                 selectedBarber: '',
-                totalCost: 0,
-                barbers: [
-                   {image:'', id:'0001', name:'ช่างตัดผม 1', score: 6, services: {"บริการ 1":140, "บริการ 2":150, "บริการ 3":350}},
-                   {image:'', id:'0002', name:'ช่างตัดผม 2', score: 10, services: {"บริการ 1":100, "บริการ 2":150, "บริการ 3":400}},
-                   {image:'', id:'0003', name:'ช่างตัดผม 3', score: 9, services: {"บริการ 1":150, "บริการ 2":280}},
-                    {image:'', id:'0004', name:'ช่างตัดผม 4', score: 7, services: {"บริการ 1":110, "บริการ 2":320}},
-                ]
+                selectedDate: '',
+                selectedTime: '',
+
             }
         },
-        methods: {
-        }    
+        computed: {
+            totalCost() {
+                return localStorage.getItem('totalCost')
+            }
+        }
     }
 </script>
 
@@ -105,8 +126,8 @@
     label {
         position: absolute;
         /*border: 1px solid black;*/
-        width: 100%;
-        height: 22%;
+        width: 102%;
+        height: 75%;
         z-index: 100;
         cursor: pointer;
     }

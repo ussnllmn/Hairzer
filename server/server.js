@@ -1,88 +1,66 @@
 const express = require('express')
-const app = express()
-const port = 5000
 const admin = require('firebase-admin')
 const serviceAccount = require('./path/to/aboutheadproject-firebase-adminsdk-8f6w7-21431f7897.json')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+
+const app = express()
+const port = 5000
+
+app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //Firebase Config
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://aboutheadproject.firebaseio.com"
 })
-
 const db = admin.firestore()
 
-/*
-Async Function เขียน async หน้า function แล้วเรียกใช้
-ใส่ try, catch ใน function
-ใส่ .then() ต่อท้ายตอนเรียก function
-*/
+//Search//
+//Location Search
+app.post('/location', (req, res) => {
+    var locationList = []
 
-//[ADD data] async callback
-async function addData() {
-    try {
-        const docRef = db.collection('users').doc('Sekson');
-        await docRef.set({
-            first: 'Sekson',
-            last: 'Thongon',
-            born: 1999
-          });
-    }
-    catch(err) {
-        console.log(err)
-    }
-}
-
-//[READ data] async function
-async function readData() {
-    try {
-        const snapshot = await db.collection('users').get();
-        snapshot.forEach((doc) => {
-            console.log(doc.id, '=>', doc.data());
-        });
-    }
-    catch(err) {
-        console.log(err)
-    }
-}
-
-//Callback function
-//addData().then(() => {console.log('[Process 2] Add Data success')})
-//readData().then(() => {console.log('[Process 3] Read Data success')})
-
-//Home page
-app.get('/', (req, res) => {
-    res.send('Hairzer')
-})
-
-//GET userinfo by /edit/:uid
-app.get('/profile/:uid', (req, res) => {
-    db.collection('user').doc(req.params.uid).get().then(doc => {
-        userData = doc.data()
-        if (!userData) {
-            res.status(404).send('Not Found')
-        }
-        else {
-            res.status(200).json(userData)
-        }
-    }).catch(err => {
-        console.log(err)
+    db.collection('location').where("lo_address.addr_district", "==", req.body.location).where("lo_status", "==", true).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            locationList.push(doc.data())
+        })
+        
+        return res.status(200).json({
+            title: 'location search result',
+            location: locationList,
+            barber: '',
+            service: req.body.service,
+            date: req.body.date,
+            time: req.body.time
+        })
+    })
+    .catch(error => {
+        console.log(error)
     })
 })
 
-//Test POST
-app.post('/', function (req, res) {
-    res.send('Got a POST request')
-})
+//Barber Search
+app.post('/barber', (req, res) => {
+    var barberList = []
 
-//Test PUT
-app.put('/user', function (req, res) {
-    res.send('Got a PUT request at /user')
-})
+    db.collection('barber').where("barb_addressService", "==", req.body.location).where("barb_status", "==", true).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            barberList.push(doc.data())
+        })
 
-//Test DELETE
-app.delete('/user', function (req, res) {
-    res.send('Got a DELETE request at /user')
+        return res.status(200).json({
+            title: 'barber search result',
+            barber: barberList
+        })
+    })
+    .catch(error => {
+        console.log(error)
+    })
 })
 
 app.listen(port, () => {
