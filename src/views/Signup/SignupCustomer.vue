@@ -82,7 +82,7 @@
                 firebase.auth().createUserWithEmailAndPassword(this.Email, this.Password)
                 .then(() => {
                     //เก็บข้อมูล user ใน firestore
-                    firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
+                    firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid)
                     .set({
                         cus_id: firebase.auth().currentUser.uid,
                         cus_firstName: this.Fname,
