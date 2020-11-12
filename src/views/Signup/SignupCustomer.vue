@@ -1,10 +1,10 @@
 <!--/src/SignupCustomer.vue-->
 
 <template>
-    <div class="signupCustomer">
+    <div class="signupCustomer container">
         <div class="m-5">
             <div class="row justify-content-center">
-                <div class="col-sm-6 signupBox">
+                <div class="col-sm-6 signupBox shadow-sm">
                     <center><h3>สมัครสมาชิกสำหรับลูกค้า</h3></center>
                     <div class="form-group mt-4">
                         <form @submit.prevent="registerWithEmail">
@@ -40,6 +40,7 @@
                             <!--Phone-->
                             <label for="phoneInput">หมายเลขโทรศัพท์</label>
                             <input type="tel" class="form-control mb-4" id="phoneInput" placeholder="หมายเลขโทรศัพท์" v-model="Phone" required/>
+                            <hr>
                             
                             <!--Submit-->
                             <button type="submit" value="submit" class="btn btn-outline-success btn-block">ยืนยัน</button>
@@ -81,7 +82,7 @@
                 firebase.auth().createUserWithEmailAndPassword(this.Email, this.Password)
                 .then(() => {
                     //เก็บข้อมูล user ใน firestore
-                    firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
+                    firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid)
                     .set({
                         cus_id: firebase.auth().currentUser.uid,
                         cus_firstName: this.Fname,

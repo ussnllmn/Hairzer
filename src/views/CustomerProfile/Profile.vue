@@ -2,10 +2,19 @@
 
 <template>
     <div class="profile">
-        <h1>Profile</h1>
-        <div class="my-4">
-            <p>{{userData}}:</p>
-        </div>
+        <b-row>
+            <!--Nav-->
+            <b-col sm="2">
+                <ProfileBar></ProfileBar>
+            </b-col>
+            <b-col sm="1"></b-col>
+            <!--Router Views-->
+            <b-col sm="8" class="p-2">
+                <router-view></router-view>
+                <p>{{userData}}</p>
+            </b-col>
+        </b-row>
+        
     </div>
 </template>
 
@@ -13,11 +22,14 @@
     import firebase from 'firebase/app';
     import 'firebase/auth';
     import 'firebase/firestore'
-
     import { mapGetters } from "vuex";
+    import ProfileBar from './ProfileBar.vue'
 
     export default {
         name: 'Profile',
+        components: {
+            ProfileBar
+        },
         beforeCreate() {
             //check สถานะการเข้าสู่ระบบ
             firebase.auth().onAuthStateChanged(user => {

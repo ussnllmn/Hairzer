@@ -1,7 +1,7 @@
 <!--/src/Location.vue-->
 
 <template>
-    <div class="location">
+    <div class="location container">
         <h1>Locations</h1>
         <!--Head-->
         <div class="row m-2">
@@ -15,6 +15,7 @@
                     split
                     variant="outline-dark"
                     menu-class="w-100"
+                    disabled
                 >
                     <b-dropdown-item @click="sortBy='Date'">Sort by Date</b-dropdown-item>
                     <b-dropdown-item @click="sortBy='Score'">Sort by Score</b-dropdown-item>
@@ -22,84 +23,124 @@
                 </b-dropdown>
             </div>
         </div>
-    
+
         <div class="row m-2">
             <!--Location List-->
             <div class="col-sm-7 mx-4 p-2">
-                <div class="locationList mb-4 row"  v-for="location in locations" :key="location.id" :for="location.id">
-                    <label :for="location.id"></label>
+                <div class="locationList mb-4 row shadow-sm" v-for="location in locations" :key="location.lo_id" :for="location.lo_id">
+                    <label :for="location.lo_id"></label>
                         <!--Radio-->
                         <div class="col-sm-1 my-auto text-center">
-                            <input type="radio" :value="location" :id="location.id" v-model="selectedLocation"/>
-                             
+                            <input type="radio" :value="location" :id="location.lo_id" v-model="selectedLocation" @click="slectedLocation = location"/>
                         </div>
+
                         <!--Image-->
                         <div class="col-sm-5"> 
-                            <img src="location.image" width="100%" height="275px">
+                            <img :src="location.lo_img" class="locationImg" width="100%" height="100%" style="object-fit: cover;">
                         </div>
                         <!--Detail-->
                         <div class="col-sm-5 ml-3 my-2">
-                            <h4>{{location.name}}</h4>
+                            <h4>{{location.lo_locationName}}</h4>
 
                             <p>
-                                <small><b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon> {{location.address}}</small>
+                                <small><b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon> 
+                                {{location.lo_address.addr_no}} 
+                                ซอย{{location.lo_address.addr_soi}} 
+                                ถนน{{location.lo_address.addr_road}} 
+                                แขวง{{location.lo_address.addr_subDistrict}} 
+                                เขต{{location.lo_address.addr_district}}
+                                {{location.lo_address.addr_province}}
+                                </small>
                             </p>
 
                             <p>
-                                <b-icon icon="star-fill" aria-hidden="true" variant="warning"></b-icon> คะแนน {{location.score}} /10
+                                <b-icon icon="star-fill" aria-hidden="true" variant="warning"></b-icon> คะแนน {{location.lo_score}} /10
                             </p>
 
-                            <li v-for="equipment in location.equipment" :key="equipment">{{equipment}}</li>
+                            <li v-for="equipment in location.lo_equipment" :key="equipment">{{equipment}}</li>
                         
                             <!--Price-->
                             <div class="mr-auto align-self-end text-right">
-                                <h2>฿{{location.cost}}</h2>
+                                <h2>฿{{location.lo_cost}}</h2>
                             </div>
                         </div>
-                        
-                        
                 </div>
             </div>
 
             <!--Side bar-->
-            <div class="col-sm-4">
-                <form action="/barber">
-                    <div class="summary my-4 p-2">
-                        <h3>ราคารวม {{selectedLocation.cost}}฿</h3> 
-                        <div><p><b>วันที่:</b> </p></div>
-                        <div><p><b>เวลา:</b> </p></div>
-                        <div><p><b>สถานที่:</b> {{selectedLocation.name}}</p></div>
-                        <div><p><b>ช่างตัดผม:</b> </p></div>
-                        <div><p><b>บริการที่เลือก:</b> </p></div>
-                        <button class="btn btn-success btn-block" type="sumbit">ถัดไป</button>
-                    </div>
-                </form>
+            <div class="col-sm-4 ">
+                <div class="summary my-4 p-2 shadow-sm">
+                    <h3>ราคารวม {{totalCost}}฿</h3>
+                    <hr>
+                    <div><p><b>วันที่:</b> {{selectedDate}}</p></div>
+                    <div><p><b>เวลา:</b> {{selectedTime}}</p></div>
+                    <div><p><b>สถานที่:</b> {{selectedLocation.lo_locationName}}</p></div>
+                    <div><p><b>ช่างตัดผม:</b> </p></div>
+                    <div><p><b>บริการที่เลือก:</b> </p></div>
+                    <button @click="searchBarber" class="btn btn-success btn-block">ถัดไป</button>
+                </div>
             </div>
         </div>
+        
     </div>
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
+        created() {
+            this.locations = JSON.parse(localStorage.getItem('locationList'))
+            this.selectedDate = localStorage.getItem('selectedDate')
+            this.selectedTime = localStorage.getItem('selectedTime')
+        },
         data() {
             return {
+                //sort menu
                 sortBy:'Date',
+
+                //location from search
+                locations: [],
+
+                //selected items
                 selectedLocation: '',
-                totalCost: 0,
-                locations: [
-                    {image:'', id:'0001', name:'ร้านตัดผม 1', score: 9, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3',], cost: 150,  address: '77 ซอยเกกี 10 ถนนฉลองกรุง1 เขตลาดกระบัง กรุงเทพมหานคร ประเทศไทย'},
-                    {image:'', id:'0002', name:'ร้านตัดผม 2', score: 10, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3', ], cost: 350, address: '58 ซอยเกกี 1 ถนนฉลองกรุง1 เขตลาดกระบัง กรุงเทพมหานคร ประเทศไทย'},
-                    {image:'', id:'0003', name:'ร้านตัดผม 3', score: 7, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2', 'อุปกรณ์ 3',], cost: 120, address: '33 ซอยเกกี 0 ถนนฉลองกรุง1 เขตลาดกระบัง กรุงเทพมหานคร ประเทศไทย'},
-                    {image:'', id:'0004', name:'ร้านตัดผม 4', score: 6, equipment: ['อุปกรณ์ 1', 'อุปกรณ์ 2'], cost: 200, address: '999/70 ถนนลาดกระบัง 10/3 เขตลาดกระบัง กรุงเทพมหานคร ประเทศไทย'},
-                ]
+                selectedDate: '',
+                selectedTime: '',
+            }
+        },
+        computed: {
+            totalCost() {
+                return this.selectedLocation.lo_cost
             }
         },
         methods: {
-            findBarber() {
-                window.location.href = '/barber';
+            searchBarber() {
+                let searchData = { 
+                    location: this.selectedLocation.lo_address.addr_district
+                }
 
+                axios.post('http://localhost:5000/barber', searchData)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            //ได้รับผลการ search barber => เก็บผลการ search barber => เพื่อแสดงในหน้าถัดไป
+                            var barber = res.data.barber
+                            localStorage.removeItem('barberList')
+                            localStorage.setItem('barberList', JSON.stringify(barber))
+
+                            //เก็บผลการนัดหมาย
+                            localStorage.setItem('selectedLocation', JSON.stringify(this.selectedLocation))
+                            localStorage.setItem('totalCost', this.totalCost)
+
+                            //redirect ไปหน้า location
+                            this.$router.push('/barber')
+                        }
+                    }
+                ).catch(err => {
+                    console.log(err)
+                })
             }
-        }    
+        }
     }
 </script>
 
@@ -107,8 +148,10 @@
     .locationList {
         border: solid 1px  #CED4DA;
         border-radius: 5px;
+        background-color: white;
     }
     .summary {
+        background-color: white;
         border: solid 1px  #CED4DA;
         border-radius: 5px;
         position: sticky;
@@ -119,8 +162,8 @@
     label {
         position: absolute;
         /*border: 1px solid black;*/
-        width: 100%;
-        height: 22%;
+        width: 102%;
+        height: 44%;
         z-index: 100;
         cursor: pointer;
     }

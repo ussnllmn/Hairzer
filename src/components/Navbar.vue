@@ -2,7 +2,8 @@
 
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <nav class="navbar navbar-expand-lg navbar-right navbar-dark bg-success">
+            <div class="container">
             <!--Logo-->
             <a class="navbar-brand" href="/">
                 <img src="../assets/salon.png" width="24px"> HAIRZER
@@ -19,16 +20,29 @@
                     <router-link class="nav-link" :to="{ name: 'Contact' }">ช่องทางการติดต่อ</router-link>
                 </ul>
 
-                <ul class="navbar-nav ml-auto">
-                    <!--ปุ่ม Sign-in และ Profile-->
-                    <router-link class="nav-link" v-if="user.loggedIn" :to="{ name: 'Profile' }">โปรไฟล์</router-link>
-                    <router-link class="nav-link" v-else :to="{ name: 'Signin' }">เข้าสู่ระบบ</router-link>
+                <ul class="navbar-nav ml-auto" v-if="user.loggedIn">
+                    <li class="nav-item dropdown dropdown" >
+                        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        โปรไฟล์
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <router-link class="dropdown-item" :to="{ name: 'EditProfile' }">แก้ไขข้อมูลส่วนตัว</router-link>
+                            <router-link class="dropdown-item" :to="{ name: 'Appointment' }">จัดการนัดหมาย</router-link>
+                            <router-link class="dropdown-item" :to="{ name: 'History' }">ประวัติการใช้บริการ</router-link>
+                            <div class="dropdown-divider"></div>
+                            <a style="cursor: pointer;" class="dropdown-item" v-if="user.loggedIn" @click="signOut" >ออกจากระบบ</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ml-auto" v-else>
+                <!--ปุ่ม Sign-in และ Profile-->
+                    <router-link class="nav-link" :to="{ name: 'Signin' }">เข้าสู่ระบบ</router-link>
 
                     <!--ปุ่ม Sign-out และ Sign-up-->
-                    <a style="cursor: pointer;" class="nav-link" v-if="user.loggedIn" @click="signOut" >ออกจากระบบ</a>
-                    <router-link class="nav-link" v-else :to="{ name: 'Signup' }">สมัครสมาชิก</router-link>
-                    
+                    <router-link class="nav-link" :to="{ name: 'Signup' }">สมัครสมาชิก</router-link>
                 </ul>
+            </div>
             </div>
         </nav>
     </div>

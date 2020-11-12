@@ -1,11 +1,10 @@
 <!--/src/Search.vue-->
 
 <template>
-    <div class="search">
+    <div class="search container">
         <h1>ค้นหา</h1>
-        <form action="/location">
             <!--Location Box-->
-            <div class="mb-4 p-2 pb-4 locationBox">
+            <div class="mb-4 p-2 pb-4 locationBox shadow-sm">
                 <label><b>เลือกสถานที่ที่คุณต้องการค้นหา</b></label>
                 <b-dropdown id="district" 
                     :text="location"
@@ -19,7 +18,7 @@
             </div>
 
             <!--Service Check Box-->
-            <div class="mb-4 p-2 serviceBox">
+            <div class="mb-4 p-2 serviceBox shadow-sm">
                 <label for="serviceBox"><b>คลิกเลือกบริการที่คุณต้องการค้นหา</b></label>
                 <form>
                 <div class="form-group form-check">
@@ -35,7 +34,7 @@
             </div>
 
             <!--Date & Time-->
-            <div class="mb-4 p-2 dateBox">
+            <div class="mb-4 p-2 dateBox shadow-sm">
                 <label for="serviceBox"><b>วันที่และเวลา</b></label>
                 <div class="row mb-2">
                     <!--Date-->
@@ -54,30 +53,34 @@
 
                     <!--Button-->
                     <div class="col-sm-4">
-                        <button value="submit" type="submit" class="btn btn-success btn-block">ตกลง</button>
+                        <button @click="searchLocation" class="btn btn-success btn-block">ตกลง</button>
                     </div>
                 </div>
             </div>
-        </form>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
     export default {
+        beforeCreate() {
+            localStorage.clear()
+        },
         data() {
             return {
                 //data ที่ต้องใช้ค้นหา location, service, date, time
-                location:'แขวงลาดกระบัง',
-                serviceChecked: [],
-                selectedDate: '',
-                selectedTime: '',
+                location:'ลาดกระบัง',
+                serviceChecked: ['ตัดผม'],
+                selectedDate: '2020-11-10',
+                selectedTime: '10:00:00',
 
                 //date picker
                 minDate: new Date(),
                 
                 //Example Data
                 districts: [
-                    {id:1, name: 'แขวงลาดกระบัง	'},
+                    {id:1, name: 'ลาดกระบัง'},
                     {id:2, name: 'แขวงคลองสองต้นนุ่น'},
                     {id:3, name: 'แขวงคลองสามประเวศ	'},
                     {id:4, name: 'แขวงลำปลาทิว'},
@@ -97,6 +100,45 @@
                     {id:10, name: 'จัดแต่งทรงผม'}
                 ]
             } 
+        },
+        methods: {
+            searchLocation() {
+                let searchData = { 
+                    location: this.location,
+                    service: this.serviceChecked,
+                    time: this.selectedTime,
+                    date: this.selectedDate
+                }
+
+                axios.post('http://localhost:5000/location', searchData)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+
+                            //ได้รับผลการ search location => เก็บผลการ search location => เพื่อแสดงในหน้าถัดไป
+                            var location = res.data.location
+                            localStorage.removeItem('locationList')
+                            localStorage.setItem('locationList', JSON.stringify(location))
+                            
+                            //เก็บผลการนัดหมาย Date, Time, selectedLocation, selectedBarber, selectedService, totalCost
+                            localStorage.setItem('selectedDate', res.data.date)
+                            localStorage.setItem('selectedTime', res.data.time)
+                            localStorage.setItem('selectedLocation', '')
+                            localStorage.setItem('selectedBarber', '')
+                            localStorage.setItem('selectedService', '')
+                            localStorage.setItem('totalCost', 0)
+
+                            //redirect ไปหน้า location
+                            this.$router.push('/location')
+                        }
+                        else {
+                            this.$router.push('/error')
+                        }
+                    }
+                ).catch(err => {
+                    console.log(err)
+                })
+            }
         }
     }
 </script>
@@ -108,5 +150,6 @@
     .serviceBox, .dateBox, .locationBox {
         border: 1px solid #CED4DA;
         border-radius: 5px;
+        background-color: white;
     }
 </style>

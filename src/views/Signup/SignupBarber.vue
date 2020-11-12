@@ -1,10 +1,10 @@
 <!--/src/SignupBarber.vue-->
 
 <template>
-    <div class="signupBarber">
+    <div class="signupBarber container">
         <div class="m-5">
             <div class="row justify-content-center">
-                <div class="col-sm-6 signupBox">
+                <div class="col-sm-6 signupBox shadow-sm">
                     <center><h3>สมัครสมาชิกสำหรับช่างตัดผม</h3></center>
                     <div class="form-group mt-4">
                         <form @submit.prevent="registerWithEmail">
@@ -17,6 +17,7 @@
                             <label for="passwordInput">Password</label>
                             <input type="password" class="form-control mb-2" id="passwordInput" placeholder="รหัสผ่าน" v-model="Password" required>
                             <small id="passwordHelp" class="form-text text-muted mb-4">รหัสผ่าน: ต้องประกอบด้วยตัวเลขและตัวอักษร 6 ตัวขึ้นไป</small>
+                            <hr>
 
                             <!--Name-->
                             <label >ชื่อ-นามสกุล</label>
@@ -37,10 +38,30 @@
                             <label for="other" class="mr-4 mb-4 font-weight-normal">อื่นๆ</label>
                             <br>
 
-
                             <!--Phone-->
                             <label for="phoneInput">หมายเลขโทรศัพท์</label>
                             <input type="tel" class="form-control mb-4" id="phoneInput" placeholder="หมายเลขโทรศัพท์" v-model="Phone" required>
+                            <hr>
+
+                            <label>เขตที่ให้บริการ</label> 
+                            <b-dropdown id="district" 
+                                :text="Address"
+                                block
+                                split
+                                variant="outline-secondary"
+                                class="mb-4"
+                            >
+                                <b-dropdown-item 
+                                    v-for="district in districts" 
+                                    :key="district.id" 
+                                    v-model="Address" 
+                                    @click="Address=district.name"
+                                >
+                                    {{district.name}}
+                                </b-dropdown-item>
+                            </b-dropdown>
+                            <small id="nameHelp" class="form-text text-muted mb-4">หมายเหตุ: ขณะนี้เปิดให้บริการเฉพาะในเขตพื้นที่กรุงเทพมหานครเท่านั้น</small>
+                            <hr>
 
                             <!--Submit-->
                             <button type="submit" value="submit" class="btn btn-outline-success btn-block">ยืนยัน</button>
@@ -73,7 +94,18 @@
                 Fname: '',
                 Lname: '',
                 Phone: '',
-                Sex: 'other'
+                Sex: 'other',
+                Address: 'ลาดกระบัง',
+
+                //Data
+                districts: [
+                    {id:1, name: 'ลาดกระบัง'},
+                    {id:2, name: 'แขวงคลองสองต้นนุ่น'},
+                    {id:3, name: 'แขวงคลองสามประเวศ	'},
+                    {id:4, name: 'แขวงลำปลาทิว'},
+                    {id:5, name: 'แขวงทับยาว'},
+                    {id:6, name: 'แขวงขุมทอง'},
+                ],
             }
         },
         methods: {
@@ -82,7 +114,7 @@
                 firebase.auth().createUserWithEmailAndPassword(this.Email, this.Password)
                 .then(() => {
                     //เก็บข้อมูล user ใน firestore
-                    firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
+                    firebase.firestore().collection('barber').doc(firebase.auth().currentUser.uid)
                     .set({
                         barb_id: firebase.auth().currentUser.uid,
                         barb_firstName: this.Fname,
@@ -90,7 +122,11 @@
                         barb_email: this.Email,
                         barb_phone: this.Phone,
                         barb_sex: this.Sex,
-                        status: 'barber'
+                        barb_addressService: this.Address,
+                        barb_status: false,
+                        barb_img: '',
+                        barb_score: 0,
+                        barb_service: []
                     })
                     .then(() => {
                         this.$router.replace({name: 'Profile'}).catch(()=>{})

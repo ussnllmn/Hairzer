@@ -93,8 +93,28 @@ const routes = [
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import('../views/Profile.vue'),
-    meta: {title: 'Hairzer | หน้าการจัดการโปรไฟล์'}
+    redirect: '/profile/editprofile',
+    component: () => import('../views/CustomerProfile/Profile.vue'),
+    children: [
+      {
+        path: '/profile/editprofile',
+        name: 'EditProfile',
+        component: () => import('../views/CustomerProfile/EditProfile.vue'),
+        meta: {title: 'Hairzer | แก้ไขข้อมูลส่วนตัว'}
+      },
+      {
+        path: '/profile/appointment',
+        name: 'Appointment',
+        component: () => import('../views/CustomerProfile/Appointment.vue'),
+        meta: {title: 'Hairzer | การใช้บริการ'}
+      },
+      {
+        path: '/profile/history',
+        name: 'History',
+        component: () => import('../views/CustomerProfile/History.vue'),
+        meta: {title: 'Hairzer | ประวัติการใช้บริการ'}
+      }
+    ]
   },
   {
     path: '*',

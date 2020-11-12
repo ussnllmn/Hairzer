@@ -1,16 +1,16 @@
 <!--/src/Signup.vue-->
 
 <template>
-    <div class="signup">
+    <div class="signup container">
         <div class="m-5">
             <div class="row justify-content-center">
                 <!--Image sign-up-->
                 <div class="col-sm-3">
-                    <img src="../assets/hairzer-image/signup.jpg" width="100%">
+                    <img src="../assets/asset_register.jpg" width="100%" class="shadow-sm">
                 </div>
 
                 <!--Sign-up box-->
-                <div class="col-sm-5 signupBox">
+                <div class="col-sm-5 signupBox shadow-sm">
                     <center><h3>สมัครสมาชิก</h3></center>
                     <div class="mt-4">
                         <button type="submit" value="submit" class="btn btn-outline-primary btn-block mb-4" 
@@ -38,7 +38,6 @@
 <style scoped>
     img {
         display: block;
-        border: 1px solid #212121;
     }
     .signup {
         height: 677px;
