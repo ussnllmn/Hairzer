@@ -28,7 +28,7 @@
       <h3><b-icon icon="scissors" aria-hidden="true"></b-icon> ช่างตัดผมที่แนะนำ</h3>
       <div class="row" align="center">
         <div class="col-sm m-1">
-          <img src="../assets/hairzer-image/barber.jpg" width="100%">
+          <img src="../assets/Barber/santok.jpg" width="100%">
         </div>
         <div class="col-sm m-1">
           <img src="../assets/hairzer-image/barber.jpg" width="100%">
