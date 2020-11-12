@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <!--Image sign-up-->
                 <div class="col-sm-3">
-                    <img src="../assets/hairzer-image/signup.jpg" width="100%">
+                    <img src="../assets/asset_register.jpg" width="100%" class="shadow-sm">
                 </div>
 
                 <!--Sign-up box-->
@@ -38,7 +38,6 @@
 <style scoped>
     img {
         display: block;
-        border: 1px solid #212121;
     }
     .signup {
         height: 677px;

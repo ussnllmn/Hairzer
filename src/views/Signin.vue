@@ -18,7 +18,7 @@
             <div class="row justify-content-center">
                 <!--Image sign-in-->
                 <div class="col-sm-3">
-                    <img src="../assets/hairzer-image/signin.jpg" width="100%">
+                    <img src="../assets/asset_login.jpg" width="100%" class="shadow-sm">
                 </div>
 
                 <!--Sign-in Box-->
@@ -90,7 +90,6 @@
 <style scoped>
     img {
         display: block;
-        border: 1px solid #212121;
     }
     @media (max-width:640px){
         img:first-child{

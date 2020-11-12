@@ -63,6 +63,26 @@ app.post('/barber', (req, res) => {
     })
 })
 
+//Service Search
+app.post('/service', (req, res) => {
+    var serviceList = []
+
+    db.collection('service').where("service_barber", "==", req.body.barber).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            serviceList.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'service search result',
+            service: serviceList
+        })
+    })
+    .catch(error => {
+        console.log(error)
+    })
+})
+
 app.listen(port, () => {
     console.log(`[Process 1] server running at http://localhost:${port}`)
 })
