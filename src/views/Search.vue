@@ -81,11 +81,6 @@ import axios from 'axios'
                 //Example Data
                 districts: [
                     {id:1, name: 'ลาดกระบัง'},
-                    {id:2, name: 'แขวงคลองสองต้นนุ่น'},
-                    {id:3, name: 'แขวงคลองสามประเวศ	'},
-                    {id:4, name: 'แขวงลำปลาทิว'},
-                    {id:5, name: 'แขวงทับยาว'},
-                    {id:6, name: 'แขวงขุมทอง'},
                 ],
                 services: [
                     {id:1, name: 'ตัดผม'},

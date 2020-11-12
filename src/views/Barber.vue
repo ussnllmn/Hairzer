@@ -49,12 +49,6 @@
                                 <li v-for="service in barber.barb_service" :key="service">{{service}}</li>
                             </b-col>
                         </b-row>
-                        <b-row class="p-2">
-                            <b-col sm="12" class="text-right">
-                                <small>ราคาเริ่มต้นที่</small>
-                                <h2>฿{{Object.values(barber.barb_service)[0]}}</h2>
-                            </b-col>
-                        </b-row>
                     </div>
                 </div>
             </div>
@@ -111,14 +105,11 @@
                     service: this.selectedBarber.barb_service,
                     barber: this.selectedBarber.barb_id
                 }
-                console.log(searchData)
-                
 
                 axios.post('http://localhost:5000/service', searchData)
                 .then(
                     res => {
                         if(res.status === 200) {
-                            console.log(res.data.service)
 
                             //ได้รับผลการ search barber => เก็บผลการ search barber => เพื่อแสดงในหน้าถัดไป
                             var service = res.data.service
