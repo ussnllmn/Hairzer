@@ -26,30 +26,30 @@
         <div class="row m-2">
             <!--Services List-->
             <div class="col-sm-7 mx-4 p-2">
-                <div class="serviceList mb-4 row shadow-sm" v-for="service in services" :key="service.name" :for="service.name">
-                    <label :for="service.name"></label>
+                <div class="serviceList mb-4 row shadow-sm" v-for="service in services" :key="service.service_name" :for="service.service_name">
+                    <label :for="service.service_name"></label>
                         <!--Checkbox-->
                         <div class="col-sm-1 my-auto text-center">
-                            <input type="checkbox" :value="service" :id="service.name" v-model="selectedService"/>
+                            <input type="checkbox" :value="service" :id="service.service_name" v-model="selectedService"/>
                         </div>
 
                         <!--Image-->
                         <div class="col-sm-5"> 
-                            <img src="location.image" width="100%" height="250px">
+                            <img :src="service.service_img" width="100%" height="100%" style="object-fit: cover;">
                         </div>
                         
-
+    
                         <!--Price-->
                         <div class="col-sm-6">
                             <b-row>
-                                <h3>{{service.name}}</h3>
+                                <h3>{{service.service_name}}</h3>
                             </b-row>
                             <b-row>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa quasi, iusto quod cupiditate hic dolorem sunt ipsam ex laboriosam.</p>
+                                <p>{{service.service_description}}</p>
                             </b-row>
                             <b-row >
                                 <b-col>
-                                    <h2>฿{{service.cost}}</h2>
+                                    <h2>฿{{service.service_cost}}</h2>
                                 </b-col>
                             </b-row>
                         </div>
@@ -62,11 +62,11 @@
                     <div class="summary my-4 p-2 shadow-sm">
                         <h3>ราคารวม {{totalCost}}฿</h3> 
                         <hr>
-                        <div><p><b>วันที่:</b> </p></div>
-                        <div><p><b>เวลา:</b> </p></div>
-                        <div><p><b>สถานที่:</b> </p></div> 
-                        <div><p><b>ช่างตัดผม:</b> </p></div>
-                        <div><p><b>บริการที่เลือก:</b> {{totalService.join()}}</p></div>
+                        <div><p><b>วันที่:</b> {{selectedDate}}</p></div>
+                        <div><p><b>เวลา:</b> {{selectedTime}}</p></div>
+                        <div><p><b>สถานที่:</b> {{selectedLocation.lo_locationName}}</p></div> 
+                        <div><p><b>ช่างตัดผม:</b> {{selectedBarber.barb_firstName}} {{selectedBarber.barb_lastName}}</p></div>
+                        <div><p><b>บริการที่เลือก:</b> {{showSelectedService.join()}}</p></div>
                         <button class="btn btn-success btn-block" type="sumbit">ถัดไป</button>
                     </div>
                 </form>
@@ -77,32 +77,50 @@
 
 <script>
     export default {
+        created() {
+            this.selectedDate = localStorage.getItem('selectedDate')
+            this.selectedTime = localStorage.getItem('selectedTime')
+            this.selectedLocation = JSON.parse(localStorage.getItem('selectedLocation'))
+            this.selectedBarber = JSON.parse(localStorage.getItem('selectedBarber'))
+            this.services = JSON.parse(localStorage.getItem('serviceList'))
+        },
         data() {
             return {
+                //sort menu
                 sortBy:'Date',
+
+                //location from search
+                locations: [],
+
+                //barber from search
+                barbers: [],
+
+                //service from barber selected
+                services: '',
+
+                //selected items
+                selectedLocation: '',
+                selectedBarber: '',
                 selectedService: [],
-                services: [
-                    { name:'บริการ 1', cost:150 },
-                    { name:'บริการ 2', cost:260 },
-                    { name:'บริการ 3', cost:350 },
-                    { name:'บริการ 4', cost:420 }
-                ]
+                selectedDate: '',
+                selectedTime: '',
             }
         },
         computed: {
+            showSelectedService() {
+                let select = []
+                for(var el in this.selectedService){
+                    select.push(this.selectedService[el].service_name)
+                }
+                return select
+            },
             totalCost() {
                 var sum = 0
                 for(var el in this.selectedService){
-                    sum += this.selectedService[el].cost
+                    sum += this.selectedService[el].service_cost
                 }
+                sum += this.selectedLocation.lo_cost
                 return sum
-            },
-            totalService() {
-                var service = []
-                for(let e in this.selectedService){
-                    service.push(this.selectedService[e].name)
-                }
-                return service
             }
         }
     }
