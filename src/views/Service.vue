@@ -2,7 +2,7 @@
 
 <template>
     <div class="service container">
-        <h1>Services</h1>
+        <h1>เลือกบริการ</h1>
         <!--Head-->
         <div class="row m-2">
             <div class="col-sm-4">

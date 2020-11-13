@@ -2,7 +2,7 @@
 
 <template>
     <div class="location container">
-        <h1>Locations</h1>
+        <h1>เลือกสถานที่</h1>
         <!--Head-->
         <div class="row m-2">
             <div class="col-sm-4">

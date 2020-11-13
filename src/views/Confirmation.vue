@@ -1,6 +1,6 @@
 <template>
     <div class="confirmation container">
-        <h1>Confirmation</h1>
+        <h1>ยืนยันการทำรายการ</h1>
  
         <!--Summary Box-->
         <div class="confirmBox shadow-sm p-4">
@@ -43,15 +43,15 @@
                 <b-col>{{selectedLocation.lo_locationName}}</b-col>
                 <b-col sm="3" class="text-center">฿{{selectedLocation.lo_cost}}</b-col>
             </b-row>
-            <!--Selected Barber-->
+            <!--Selected Barber
             <b-row>
                 <b-col sm="2" class="text-center">2</b-col>
                 <b-col>ช่างตัดผม {{selectedBarber.barb_firstName}} {{selectedBarber.barb_lastName}}</b-col>
-            </b-row>
+            </b-row>-->
 
              <!--Selected Service-->
             <b-row v-for="(service, index) in selectedService" :key="index">
-                <b-col sm="2" class="text-center">{{index+3}}</b-col>
+                <b-col sm="2" class="text-center">{{index+2}}</b-col>
                 <b-col>บริการ{{service.service_name}}</b-col>
                 <b-col sm="3" class="text-center">฿{{service.service_cost}}</b-col>
             </b-row>
@@ -65,9 +65,11 @@
             <hr>
         </div>
 
+        <!--Confirm-->
         <div>
-            <b-btn class="float-right mt-2" @click="confirm">ชำระเงิน</b-btn>
+            <b-btn class="float-right mt-2" @click="confirm">ยืนยันการทำรายการ</b-btn>
         </div>
+
     </div>
 </template>
 
@@ -128,12 +130,15 @@
                     appmt_barber : this.selectedBarber,
                     appmt_service : this.selectedService,
                     appmt_cost : this.totalCost,
-                    appmt_status : 'waiting'
+                    appmt_status : 'waiting',
+                    appmt_customer: this.userData.cus_id
                 }
-                console.log(confirmation)
 
                 localStorage.removeItem('appointment')
                 localStorage.setItem('appointment', JSON.stringify(confirmation))
+
+                //redirect to Payment
+                this.$router.replace('/payment').catch(()=>{})
                 
             }
         }

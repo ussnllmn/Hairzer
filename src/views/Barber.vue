@@ -2,7 +2,7 @@
 
 <template>
     <div class="barber container">
-        <h1>Barbers</h1>
+        <h1>เลือกช่างตัดผม</h1>
         <!--Head-->
         <div class="row m-2">
             <div class="col-sm-4">

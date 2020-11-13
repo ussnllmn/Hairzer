@@ -11,7 +11,7 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
 
-  //Search => select location => select barber => select service => confirm => pay => success
+  //search => select location => select barber => select service => confirm => pay => success
   {
     path: '/search',
     name: 'Search',
@@ -43,10 +43,10 @@ const routes = [
     meta: {title: 'Hairzer | ยืนยันการทำรายการ'}
   },
   {
-    path: '/paymentsuccess',
-    name: 'PaymentSuccess',
-    component: () => import('../views/PaymentSuccess.vue'),
-    meta: {title: 'Hairzer | จ่ายเงินสำเร็จ'}
+    path: '/payment',
+    name: 'Payment',
+    component: () => import('../views/Payment.vue'),
+    meta: {title: 'Hairzer | เลือกวิธีการชำระเงิน'}
   },
   
   //Contact

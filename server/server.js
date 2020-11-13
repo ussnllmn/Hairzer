@@ -18,6 +18,7 @@ admin.initializeApp({
 })
 const db = admin.firestore()
 
+
 //Search//
 //Location Search
 app.post('/location', (req, res) => {
@@ -76,6 +77,33 @@ app.post('/service', (req, res) => {
         return res.status(200).json({
             title: 'service search result',
             service: serviceList
+        })
+    })
+    .catch(error => {
+        console.log(error)
+    })
+})
+
+//Appointment when payment suceess
+app.post('/payment',(req, res) => {
+    //check conflict appointment
+
+    //create doc and save appointment to this doc
+    var ref = db.collection('appointment').doc()
+    ref.set({
+        appmt_id: ref.id,
+        appmt_customer: req.body.appmt_customer,
+        appmt_location: req.body.appmt_location,
+        appmt_barber: req.body.appmt_barber,
+        appmt_service: req.body.appmt_service,
+        appmt_date: req.body.appmt_date,
+        appmt_time: req.body.appmt_time,
+        appmt_status: req.body.appmt_status,
+        appmt_cost: req.body.appmt_cost
+    })
+    .then(() => {
+        return res.status(200).json({
+            title: 'appointment success'
         })
     })
     .catch(error => {
