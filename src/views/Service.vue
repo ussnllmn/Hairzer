@@ -108,14 +108,20 @@
         },
         methods: {
             confirm() {
-                //เก็บข้อมูลบริการที่เลือก
-                localStorage.setItem('selectedService', JSON.stringify(this.selectedService))
+                if (this.selectedService == ''){
+                    alert('โปรดเลือกบริการที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
+                }
 
-                //เก็บข้อมูลราคารวม
-                localStorage.setItem('totalCost', this.totalCost)
+                else{
+                    //เก็บข้อมูลบริการที่เลือก
+                    localStorage.setItem('selectedService', JSON.stringify(this.selectedService))
 
-                //redirect
-                this.$router.push('/confirmation')
+                    //เก็บข้อมูลราคารวม
+                    localStorage.setItem('totalCost', this.totalCost)
+
+                    //redirect
+                    this.$router.push('/confirmation')
+                }
             }
         },
         computed: {

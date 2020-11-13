@@ -101,34 +101,36 @@
         },
         methods: {
             searchService() {
-                let searchData = {
-                    service: this.selectedBarber.barb_service,
-                    barber: this.selectedBarber.barb_id
-                }
+                if (!this.selectedBarber) 
+                    alert('โปรดเลือกช่างตัดผมที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
 
-                axios.post('http://localhost:5000/service', searchData)
-                .then(
-                    res => {
-                        if(res.status === 200) {
-
-                            //ได้รับผลการ search barber => เก็บผลการ search barber => เพื่อแสดงในหน้าถัดไป
-                            var service = res.data.service
-                            localStorage.removeItem('serviceList')
-                            localStorage.setItem('serviceList', JSON.stringify(service))
-
-                            //เก็บผลการนัดหมาย
-                            localStorage.setItem('selectedBarber', JSON.stringify(this.selectedBarber))
-
-                            //redirect ไปหน้า service
-                            this.$router.push('/service')
-                        }
+                else {
+                    let searchData = {
+                        service: this.selectedBarber.barb_service,
+                        barber: this.selectedBarber.barb_id
                     }
-                ).catch(err => {
-                    console.log(err)
-                })
-                
-                
-                
+
+                    axios.post('http://localhost:5000/service', searchData)
+                    .then(
+                        res => {
+                            if(res.status === 200) {
+
+                                //ได้รับผลการ search barber => เก็บผลการ search barber => เพื่อแสดงในหน้าถัดไป
+                                var service = res.data.service
+                                localStorage.removeItem('serviceList')
+                                localStorage.setItem('serviceList', JSON.stringify(service))
+
+                                //เก็บผลการนัดหมาย
+                                localStorage.setItem('selectedBarber', JSON.stringify(this.selectedBarber))
+
+                                //redirect ไปหน้า service
+                                this.$router.push('/service')
+                            }
+                        }
+                    ).catch(err => {
+                        console.log(err)
+                    })
+                }
             }
         },
         computed: {

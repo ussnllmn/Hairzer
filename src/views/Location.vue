@@ -115,30 +115,35 @@
         },
         methods: {
             searchBarber() {
-                let searchData = { 
-                    location: this.selectedLocation.lo_address.addr_district
-                }
-
-                axios.post('http://localhost:5000/barber', searchData)
-                .then(
-                    res => {
-                        if(res.status === 200) {
-                            //ได้รับผลการ search barber => เก็บผลการ search barber => เพื่อแสดงในหน้าถัดไป
-                            var barber = res.data.barber
-                            localStorage.removeItem('barberList')
-                            localStorage.setItem('barberList', JSON.stringify(barber))
-
-                            //เก็บผลการนัดหมาย
-                            localStorage.setItem('selectedLocation', JSON.stringify(this.selectedLocation))
-                            localStorage.setItem('totalCost', this.totalCost)
-
-                            //redirect ไปหน้า location
-                            this.$router.push('/barber')
-                        }
+                if (!this.selectedLocation) 
+                    alert('โปรดเลือกสถานที่ที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
+                
+                else {
+                    let searchData = { 
+                        location: this.selectedLocation.lo_address.addr_district
                     }
-                ).catch(err => {
-                    console.log(err)
-                })
+
+                    axios.post('http://localhost:5000/barber', searchData)
+                    .then(
+                        res => {
+                            if(res.status === 200) {
+                                //ได้รับผลการ search barber => เก็บผลการ search barber => เพื่อแสดงในหน้าถัดไป
+                                var barber = res.data.barber
+                                localStorage.removeItem('barberList')
+                                localStorage.setItem('barberList', JSON.stringify(barber))
+
+                                //เก็บผลการนัดหมาย
+                                localStorage.setItem('selectedLocation', JSON.stringify(this.selectedLocation))
+                                localStorage.setItem('totalCost', this.totalCost)
+
+                                //redirect ไปหน้า location
+                                this.$router.push('/barber')
+                            }
+                        }
+                    ).catch(err => {
+                        console.log(err)
+                    })
+                }
             }
         }
     }

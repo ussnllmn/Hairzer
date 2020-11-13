@@ -67,7 +67,7 @@
 
         <!--Confirm-->
         <div>
-            <b-btn class="float-right mt-2" @click="confirm">ยืนยันการทำรายการ</b-btn>
+            <b-btn class="float-right mt-2" variant="success" @click="confirm">ยืนยันการทำรายการ</b-btn>
         </div>
 
     </div>

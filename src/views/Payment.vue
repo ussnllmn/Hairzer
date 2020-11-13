@@ -1,8 +1,10 @@
 <template>
     <div class="payment container">
-        <h1>ชำระเงิน</h1>
+        
+        <h1 v-if="!paymentResult">ชำระเงิน</h1>
+
         <div v-if="paymentResult">
-            <PaymentSuccess></PaymentSuccess>
+            <PaymentSuccess class="mt-5" v-bind:appointID="asdasdasd"></PaymentSuccess>
         </div>
 
         <!--Choose payment box-->
@@ -95,8 +97,9 @@
                             this.PaymentSuccess = true
                             this.$route.meta.title = 'Hairzer | ชำระเงินสำเร็จ'
                             
-                            //redirect ไปหน้า service
+                            //แสดง payment success
                             this.paymentResult = true
+                            localStorage.clear()
                         }
                     }
                 ).catch(err => {
@@ -124,5 +127,12 @@
     .payMenu:hover {
         cursor: pointer;
         border: 2px solid #28A745;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
     }
 </style>

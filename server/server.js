@@ -102,12 +102,14 @@ app.post('/payment',(req, res) => {
         appmt_cost: req.body.appmt_cost
     })
     .then(() => {
+        console.log(`[SUCCESS] appointment: ${ref.id}`)
         return res.status(200).json({
-            title: 'appointment success'
+            title: 'appointment success',
+            appointment: ref.id
         })
     })
     .catch(error => {
-        console.log(error)
+        console.log(`[FAIL] ${error}`)
     })
 })
 
