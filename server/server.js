@@ -10,6 +10,12 @@ const port = 5000
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8080')
+    res.header('Access-Control-Allow-Methods','POST, GET, PUT, PATCH, DELETE, OPTIONS')
+    res.header('Access-Control-Allow-Headers','Content-Type, Option, Authorization')
+    next()
+  })
 
 //Firebase Config
 admin.initializeApp({
@@ -138,6 +144,26 @@ app.post('/editCustomerInfo', (req, res) => {
 })
 
 
+//Appointment Search
+app.post('/appointment', (req, res, next) => {
+    var appointmentList = []
+
+    db.collection('appointment').where("appmt_customer", "==", req.body.id).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            appointmentList.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'show appointment',
+            appointment: appointmentList
+        })
+    })
+
+
+
+
+})
 
 
 app.listen(port, () => {
