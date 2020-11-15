@@ -148,7 +148,7 @@ app.post('/editCustomerInfo', (req, res) => {
 app.post('/appointment', (req, res, next) => {
     var appointmentList = []
 
-    db.collection('appointment').where("appmt_customer", "==", req.body.id).get()
+    db.collection('appointment').where("appmt_customer", "==", req.body.id).where("appmt_status","==","waiting").get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             appointmentList.push(doc.data())

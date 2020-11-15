@@ -8,8 +8,9 @@
                 <b-col sm="1">เวลา</b-col>
                 <b-col>สถานที่</b-col>
                 <b-col>ช่างตัดผม</b-col>
-                <b-col sm="2">สถานะ</b-col>
-                <b-col sm="2"></b-col>
+                <b-col>บริการ</b-col>
+                <b-col sm="1">สถานะ</b-col>
+                <b-col></b-col>
             </b-row>
             <b-row v-for="appointment in appointmentList" :key="appointment.apptmt_id" class="appointmentList py-4 align-items-center">
                 <b-col sm="1">{{appointment.appmt_date}}</b-col>
@@ -22,10 +23,13 @@
                     <b-img :src="appointment.appmt_barber.barb_img" rounded="circle" width="80px" height="80px" style="object-fit: cover;"></b-img>
                     <p> {{appointment.appmt_barber.barb_firstName}} {{appointment.appmt_barber.barb_lastName}}</p>
                 </b-col>
-                <b-col sm="2">{{appointment.appmt_status}}</b-col>
-                <b-col sm="2">
-                    <b-btn variant="primary"><b-icon icon="info"></b-icon></b-btn><br>
-                    <b-btn variant="success"><b-icon icon="check"></b-icon></b-btn><br>
+                <b-col>
+                    <p v-for="(service, index) in appointment.appmt_service" :key="service">{{index+1}}. {{service.service_name}}</p>
+                </b-col>
+                <b-col sm="1">{{appointment.appmt_status}}</b-col>
+                <b-col >
+                    <b-btn variant="primary"><b-icon icon="info"></b-icon></b-btn>
+                    <b-btn variant="success" class="m-2"><b-icon icon="check"></b-icon></b-btn>
                     <b-btn variant="danger"><b-icon icon="x"></b-icon></b-btn>
                 </b-col>
             </b-row>
