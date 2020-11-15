@@ -62,10 +62,13 @@ export default {
         })
     },
     methods: {
+        editProfile() {
+            
+        },
         signOut() {
             firebase.auth().signOut()
             .then(() => {
-                this.$router.replace({name: 'Home'})
+                this.$router.replace({name: 'Home'}).catch(()=>{})
             })
             .catch(() => {
                 alert(err)

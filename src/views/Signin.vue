@@ -61,7 +61,7 @@
                 if (user) {
                     this.$router.replace({name: 'Home'}).catch(()=>{})
                 }
-            })
+            })  
         },
         data() {
             //เก็บค่า email กับ password
@@ -77,7 +77,15 @@
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                 .then(
                     //redirect ไปหน้า profile ถ้า login สำเร็จ
-                    user => { this.$router.replace({name: 'Home'}).catch(()=>{}) },
+                    user => { 
+                        this.$router.replace({name: 'Home'}).catch(()=>{}) 
+
+                        firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
+                        .then(doc => {
+                            localStorage.setItem('userData', JSON.stringify(doc.data()))
+                        }).catch(err => { console.log(err) })
+                    
+                    },
                     //alert message ถ้ามีปัญหา
                     err => { this.showDismissibleAlert = true } 
                 )

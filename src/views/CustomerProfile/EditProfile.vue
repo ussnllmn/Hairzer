@@ -9,26 +9,26 @@
                     <!--First Name-->
                     <div class="mb-2">
                         <label for="firstName">ชื่อ</label>
-                        <b-input type="text" value="" id="firstName"></b-input>
+                        <b-input type="text" v-model="fname" id="firstName"></b-input>
                     </div>
 
                     <!--Last Name-->
                     <div class="mb-2">
                         <label for="lastName">นามสกุล</label>
-                        <b-input type="text" value="" id="lastName"></b-input>
+                        <b-input type="text" v-model="lname" id="lastName"></b-input>
                     </div>
 
                     <!--Sex-->
                     <div class="mb-2">
                         <label >เพศ</label> 
                         <br>
-                        <input type="radio" id="male" value="male" v-model="Sex" class="mr-1" required />
+                        <input type="radio" id="male" value="male" v-model="sex" class="mr-1" required />
                         <label for="male" class="mr-4 font-weight-normal">ชาย</label>
 
-                        <input type="radio" id="female" value="female" v-model="Sex" class="mr-1" required />
+                        <input type="radio" id="female" value="female" v-model="sex" class="mr-1" required />
                         <label for="female" class="mr-4 font-weight-normal">หญิง</label>
 
-                        <input type="radio" id="other" value="other" v-model="Sex" class="mr-1" checked required />
+                        <input type="radio" id="other" value="other" v-model="sex" class="mr-1" checked required />
                         <label for="other" class="mr-4 font-weight-normal">อื่นๆ</label>
                         <br>
                     </div>
@@ -36,7 +36,7 @@
                     <!--Phone-->
                     <div class="mb-2">
                         <label for="Phone">เบอร์โทรศัพท์</label>
-                        <b-input type="text" value="" id="Phone"></b-input>
+                        <b-input type="text" v-model="phone" id="Phone"></b-input>
                     </div>
 
                     <div class="mb-2">
@@ -90,6 +90,7 @@
                     <a href="#">ลืมรหัสผ่าน ?</a>
                 </b-col>
             </b-row>
+            {{userData}}
         </div>
     </div>
 </template>
@@ -97,9 +98,22 @@
 <script>
 export default {
     name: 'EditProfile',
+    created() {
+        this.userData = JSON.parse(localStorage.getItem('userData'))
+        this.fname = this.userData.cus_firstName
+        this.lname = this.userData.cus_lastName
+        this.sex = this.userData.cus_sex
+        this.phone = this.userData.cus_phone
+    },
     data() {
         return {
-            Sex: 'male',
+            userData: [],
+
+            //data in form
+            fname: '',
+            lname: '',
+            sex: '',
+            phone: '',
             uploadFile: ''
         }
     }

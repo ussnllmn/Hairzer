@@ -1,7 +1,7 @@
 <template>
     <div class="profileBar shadow-sm p-4">
         <!--Image-->
-        <center><img src="" width="120px" height="120px"></center>
+        <center><img src="" width="100%" height="100%"  style="object-fit: cover;"></center>
         <center><p>{{userData.cus_firstName}} {{userData.cus_lastName}}</p></center>
         
         <!--Menu-->
@@ -15,15 +15,13 @@
 
 <script>
     import firebase from 'firebase/app';
+    import 'firebase/auth';
+    import 'firebase/firestore'
 
     export default {
         name: 'ProfileBar',
-        beforeCreate() {
-            firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid).get()
-            .then(doc => {
-                console.log(doc.data())
-                this.userData = doc.data()
-            }).catch(err => { console.log(err) })  
+        created() {
+            this.userData = JSON.parse(localStorage.getItem('userData'))
         },
         data() {
             return {
@@ -41,7 +39,7 @@
         background-color: whitesmoke;
         left: 0;
     }
-    @media (max-width:640px){
+    @media (max-width:768px){
         .profileBar{
             display:none;
         }
