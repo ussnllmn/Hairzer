@@ -53,6 +53,7 @@
 <script>
     import firebase from 'firebase/app';
     import 'firebase/auth';
+    import 'firebase/firestore'
 
     export default {
         name: "Signin",
@@ -82,6 +83,7 @@
 
                         firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
                         .then(doc => {
+                            localStorage.clear()
                             localStorage.setItem('userData', JSON.stringify(doc.data()))
                         }).catch(err => { console.log(err) })
                     

@@ -114,10 +114,9 @@ app.post('/payment',(req, res) => {
 })
 
 
-//Edit Profile
+//Edit Profile//
 //edit customer infomation
 app.post('/editCustomerInfo', (req, res) => {
-    console.log(req.body)
     var ref = db.collection('customer').doc(req.body.id)
 
     ref.update({
@@ -128,7 +127,7 @@ app.post('/editCustomerInfo', (req, res) => {
         cus_img: req.body.img
     })
     .then(() => {
-        console.log(`[SUCCESS] update`)
+        console.log(`[SUCCESS] update ${req.body.id}`)
         return res.status(200).json({
             title: 'update success'
         })
@@ -137,6 +136,9 @@ app.post('/editCustomerInfo', (req, res) => {
         console.log(`[FAIL] ${error}`)
     })
 })
+
+
+
 
 app.listen(port, () => {
     console.log(`[Process 1] server running at http://localhost:${port}`)
