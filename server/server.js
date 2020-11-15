@@ -113,6 +113,31 @@ app.post('/payment',(req, res) => {
     })
 })
 
+
+//Edit Profile
+//edit customer infomation
+app.post('/editCustomerInfo', (req, res) => {
+    console.log(req.body)
+    var ref = db.collection('customer').doc(req.body.id)
+
+    ref.update({
+        cus_firstName: req.body.fname,
+        cus_lastName: req.body.lname,
+        cus_sex: req.body.sex,
+        cus_phone: req.body.phone,
+        cus_img: req.body.img
+    })
+    .then(() => {
+        console.log(`[SUCCESS] update`)
+        return res.status(200).json({
+            title: 'update success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
 app.listen(port, () => {
     console.log(`[Process 1] server running at http://localhost:${port}`)
 })

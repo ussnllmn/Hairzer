@@ -64,9 +64,6 @@
 import axios from 'axios'
 
     export default {
-        beforeCreate() {
-            localStorage.clear()
-        },
         data() {
             return {
                 //data ที่ต้องใช้ค้นหา location, service, date, time

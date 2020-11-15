@@ -4,7 +4,7 @@
         <h1 v-if="!paymentResult">ชำระเงิน</h1>
 
         <div v-if="paymentResult">
-            <PaymentSuccess class="mt-5" v-bind:appointID="asdasdasd"></PaymentSuccess>
+            <PaymentSuccess class="mt-5"></PaymentSuccess>
         </div>
 
         <!--Choose payment box-->

@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="mb-2">
-                        <b-btn class="float-right">บันทึก</b-btn>
+                        <b-btn class="float-right" @click="editInfo">บันทึก</b-btn>
                     </div>
                 </b-col>
                 
@@ -95,9 +95,20 @@
 </template>
 
 <script>
+import axios from 'axios'
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
 export default {
     name: 'EditProfile',
     created() {
+        //get customer data from firebase
+        firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
+        .then(doc => {
+            localStorage.setItem('userData', JSON.stringify(doc.data()))
+        }).catch(err => { console.log(err) })
+
+        //set data
         this.userData = JSON.parse(localStorage.getItem('userData'))
         this.fname = this.userData.cus_firstName
         this.lname = this.userData.cus_lastName
@@ -119,7 +130,27 @@ export default {
         }
     },
     methods: {
-        changeInfo() {
+        editInfo() {
+            let info = {
+                id: this.userData.cus_id,
+                fname: this.fname,
+                lname: this.lname,
+                sex: this.sex,
+                phone: this.phone,
+                img: this.img
+            }
+
+            console.log(info)
+
+            axios.post('http://localhost:5000/editCustomerInfo', info)
+            .then(
+                res => {
+                    if(res.status === 200) {
+                        alert('แก้ไขข้อมูลสำเร็จ')
+                        this.$router.replace({name: 'Customer'}).catch(() => {})
+                    }
+                }
+            )
 
         },
         changePassword() {
