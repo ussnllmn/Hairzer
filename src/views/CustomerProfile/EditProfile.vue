@@ -47,12 +47,12 @@
                 <!--Change image profile-->
                 <b-col sm="5">
                     <center>
-                        <img src="" width="150px" height="150px"> <br>
+                        <img :src="img" width="200px" height="200px" style="object-fit: cover;"> <br>
 
                         <div class="upload mt-2">
                             <label>Upload file
                                 <input type="file" id="file" ref="uploadFile"/>
-                            </label>
+                            </label><br>
                             <b-btn>อัพโหลดรูปภาพ</b-btn>
                         </div>
                     </center>
@@ -90,7 +90,6 @@
                     <a href="#">ลืมรหัสผ่าน ?</a>
                 </b-col>
             </b-row>
-            {{userData}}
         </div>
     </div>
 </template>
@@ -104,6 +103,7 @@ export default {
         this.lname = this.userData.cus_lastName
         this.sex = this.userData.cus_sex
         this.phone = this.userData.cus_phone
+        this.img = this.userData.cus_img
     },
     data() {
         return {
@@ -114,7 +114,16 @@ export default {
             lname: '',
             sex: '',
             phone: '',
+            img: '',
             uploadFile: ''
+        }
+    },
+    methods: {
+        changeInfo() {
+
+        },
+        changePassword() {
+            
         }
     }
 }

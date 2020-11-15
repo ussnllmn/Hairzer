@@ -21,7 +21,6 @@
     import firebase from 'firebase/app';
     import 'firebase/auth';
     import 'firebase/firestore'
-    import { mapGetters } from "vuex";
     import ProfileBar from './ProfileBar.vue'
 
     export default {
@@ -42,10 +41,5 @@
                 userData: ''
             }
         },
-        computed: {
-            ...mapGetters({
-            user: "user"
-            })
-        }
     }
 </script>

@@ -90,7 +90,7 @@
                         cus_email: this.Email,
                         cus_phone: this.Phone,
                         cus_sex: this.Sex,
-                        status: 'customer'
+                        cus_img: '',
                     })
                     .then(() => {
                         this.$router.replace({name: 'Profile'}).catch(()=>{})

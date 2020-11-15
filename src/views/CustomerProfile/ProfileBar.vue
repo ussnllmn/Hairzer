@@ -1,8 +1,8 @@
 <template>
-    <div class="profileBar shadow-sm p-4">
+    <div class="profileBar shadow-sm p-1">
         <!--Image-->
-        <center><img src="" width="100%" height="100%"  style="object-fit: cover;"></center>
-        <center><p>{{userData.cus_firstName}} {{userData.cus_lastName}}</p></center>
+        <center><img :src="userData.cus_img" width="90%" height="90%"  style="object-fit: cover;" class="p-3"></center>
+        <center><h4>{{userData.cus_firstName}} {{userData.cus_lastName}}</h4></center>
         
         <!--Menu-->
         <div class="mt-4 menu">
