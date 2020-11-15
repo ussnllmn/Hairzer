@@ -2,16 +2,17 @@
 
 <template>
     <div class="profile">
-        <b-row class="justify-content-center">
+        <b-row>
             <!--Nav-->
-            <b-col lg="2">
+            <b-col lg="2" class="">
                 <ProfileBar></ProfileBar>
             </b-col>
             <!--Router Views-->
-            <b-col lg="10" class="p-2">
+            <b-col lg="7" class="mb-4 mx-auto">
                 <router-view></router-view>
                 <p>{{userData}}</p>
             </b-col>
+            <b-col lg="2" class=""></b-col>
         </b-row>
         
     </div>

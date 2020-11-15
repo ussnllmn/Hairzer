@@ -1,9 +1,35 @@
 <template>
-    <div class="appointment ">
+    <div class="appointment">
         <h1>จัดการนัดหมาย</h1>
-        <div class="appointmentBox p-2">
+        <div class="px-2 text-center shadow-sm">
             <!--Title-->
-            <p v-for="appointment in appointmentList" :key="appointment.appmt_id">{{appointment.appmt_id}}</p>
+            <b-row class="font-weight-bold h5 py-4 titleAppmt mb-0">
+                <b-col sm="1">วันที่</b-col>
+                <b-col sm="1">เวลา</b-col>
+                <b-col>สถานที่</b-col>
+                <b-col>ช่างตัดผม</b-col>
+                <b-col sm="2">สถานะ</b-col>
+                <b-col sm="2"></b-col>
+            </b-row>
+            <b-row v-for="appointment in appointmentList" :key="appointment.apptmt_id" class="appointmentList py-4 align-items-center">
+                <b-col sm="1">{{appointment.appmt_date}}</b-col>
+                <b-col sm="1">{{appointment.appmt_time}}</b-col>
+                <b-col>
+                    <b-img :src="appointment.appmt_location.lo_img" rounded="circle" width="80px" height="80px"></b-img>
+                    <p> {{appointment.appmt_location.lo_locationName}}</p>
+                </b-col>
+                <b-col>
+                    <b-img :src="appointment.appmt_barber.barb_img" rounded="circle" width="80px" height="80px" style="object-fit: cover;"></b-img>
+                    <p> {{appointment.appmt_barber.barb_firstName}} {{appointment.appmt_barber.barb_lastName}}</p>
+                </b-col>
+                <b-col sm="2">{{appointment.appmt_status}}</b-col>
+                <b-col sm="2">
+                    <b-btn variant="primary"><b-icon icon="info"></b-icon></b-btn><br>
+                    <b-btn variant="success"><b-icon icon="check"></b-icon></b-btn><br>
+                    <b-btn variant="danger"><b-icon icon="x"></b-icon></b-btn>
+                </b-col>
+            </b-row>
+
         </div>
     </div>
 </template>
@@ -43,7 +69,21 @@
 </script>
 
 <style scoped>
-    .appointment {
-        height: 693px;
+    .titleAppmt {
+        background-color: whitesmoke;
+        border-bottom: 1px #EBEBEB solid;
+    }
+    .appointmentBox {
+        border: 1px solid #CED4DA;
+        border-radius: 5px;
+        color: #495057;
+    }
+
+    .appointmentList {
+        border-bottom: 1px #EBEBEB solid;
+    }
+    .appointmentList:hover {
+        background-color: whitesmoke;
+        cursor: pointer;
     }
 </style>
