@@ -91,25 +91,25 @@ const routes = [
 
   //Profile
   {
-    path: '/profile',
-    name: 'Profile',
-    redirect: '/profile/editprofile',
+    path: '/customer',
+    name: 'Customer',
+    redirect: '/customer/editprofile',
     component: () => import('../views/CustomerProfile/Profile.vue'),
     children: [
       {
-        path: '/profile/editprofile',
+        path: '/customer/editprofile',
         name: 'EditProfile',
         component: () => import('../views/CustomerProfile/EditProfile.vue'),
         meta: {title: 'Hairzer | แก้ไขข้อมูลส่วนตัว'}
       },
       {
-        path: '/profile/appointment',
+        path: '/customer/appointment',
         name: 'Appointment',
         component: () => import('../views/CustomerProfile/Appointment.vue'),
         meta: {title: 'Hairzer | การใช้บริการ'}
       },
       {
-        path: '/profile/history',
+        path: '/customer/history',
         name: 'History',
         component: () => import('../views/CustomerProfile/History.vue'),
         meta: {title: 'Hairzer | ประวัติการใช้บริการ'}
