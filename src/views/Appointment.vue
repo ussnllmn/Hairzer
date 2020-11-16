@@ -4,6 +4,15 @@
             <router-link :to="{name: 'appointmentManagement'}"><b-icon icon="chevron-left"></b-icon>กลับ</router-link>
         </h3>
         <div class="appointmentBox shadow-sm p-4">
+            <div class="mb-4">
+                <h4>หมายเลขการนัดหมาย: <small>{{appointment.appmt_id}}</small> 
+                    | สถานะ: 
+                    <small v-if="appointment.appmt_status === `success`" style="color: #28A745">{{appointment.appmt_status}}</small>
+                    <small v-if="appointment.appmt_status === `waiting`" style="color: #ffc107">{{appointment.appmt_status}}</small>
+                    <small v-if="appointment.appmt_status === `cancel`" style="color: #dc3545">{{appointment.appmt_status}}</small>
+                </h4>
+            </div>
+            
             <!--Detail Box-->
             <b-row>
                 <b-col sm="3">
