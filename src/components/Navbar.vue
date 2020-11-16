@@ -27,7 +27,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <router-link class="dropdown-item" :to="{ name: 'EditProfile' }">แก้ไขข้อมูลส่วนตัว</router-link>
-                            <router-link class="dropdown-item" :to="{ name: 'Appointment' }">จัดการนัดหมาย</router-link>
+                            <router-link class="dropdown-item" :to="{ name: 'appointmentManagement' }">จัดการนัดหมาย</router-link>
                             <router-link class="dropdown-item" :to="{ name: 'History' }">ประวัติการใช้บริการ</router-link>
                             <div class="dropdown-divider"></div>
                             <a style="cursor: pointer;" class="dropdown-item" v-if="user.loggedIn" @click="signOut" >ออกจากระบบ</a>

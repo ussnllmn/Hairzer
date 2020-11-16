@@ -117,7 +117,7 @@ const routes = [
     ]
   },
   {
-    path: '/appointment/:appmt_id',
+    path: '/customer/appointment/:appmt_id',
     name: 'Appointment',
     component: () => import('../views/Appointment.vue'),
     meta: {title: `Hairzer | การนัดหมาย`}

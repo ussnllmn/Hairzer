@@ -35,7 +35,6 @@
                     <b-btn variant="danger"><b-icon icon="x"></b-icon></b-btn>
                 </b-col>
             </b-row>
-
         </div>
     </div>
 </template>
@@ -73,7 +72,7 @@
     },
     methods: {
         appointmentInfo(appointmentID) {
-            this.$router.push({path: `/appointment/${appointmentID}`})
+            this.$router.push({path: `/customer/appointment/${appointmentID}`})
         }
     }
   }
