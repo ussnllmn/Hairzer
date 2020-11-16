@@ -69,8 +69,8 @@ import axios from 'axios'
                 //data ที่ต้องใช้ค้นหา location, service, date, time
                 location:'ลาดกระบัง',
                 serviceChecked: ['ตัดผม'],
-                selectedDate: '2020-11-10',
-                selectedTime: '10:00:00',
+                selectedDate: new Date(),
+                selectedTime: new Date().toLocaleTimeString('it-IT'),
 
                 //date picker
                 minDate: new Date(),
