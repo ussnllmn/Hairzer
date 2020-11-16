@@ -124,7 +124,7 @@
                         barb_service: []
                     })
                     .then(() => {
-                        this.$router.replace({name: 'Profile'}).catch(()=>{})
+                        this.$router.replace({name: 'Barber'}).catch(()=>{})
                     })
                     .catch(err => {
                         console.log('wrong with add user to firestore',err)

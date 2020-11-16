@@ -112,7 +112,7 @@
         beforeCreate() {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
-                    this.$router.replace({name: 'Profile'}).catch(()=>{})
+                    this.$router.replace({name: 'Location'}).catch(()=>{})
                 }
             })
         },
