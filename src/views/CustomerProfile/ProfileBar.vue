@@ -1,7 +1,7 @@
 <template>
-    <div class="profileBar shadow-sm p-1">
+    <div class="profileBar shadow-sm p-4">
         <!--Image-->
-        <center><img :src="userData.cus_img" width="90%" height="90%"  style="object-fit: cover;" class="p-3"></center>
+        <center><img :src="userData.cus_img" width="90%" height="90%" style="object-fit: cover;" class="p-3"></center>
         <center><h4>{{userData.cus_firstName}} {{userData.cus_lastName}}</h4></center>
         
         <!--Menu-->
@@ -36,8 +36,9 @@
         width: 100%;
         height: 100%;
         position: relative;
-        background-color: whitesmoke;
+        background-color: #343A40;
         left: 0;
+        color: whitesmoke;
     }
     @media (max-width:768px){
         .profileBar{
@@ -45,11 +46,11 @@
         }
     }
     .menu a {
-        color: #495057;
+        color: lightgray;
         text-decoration: none;
     }
     .menu a:hover {
-        color:lightgray;
+        color:gray;
     }
 
 </style>

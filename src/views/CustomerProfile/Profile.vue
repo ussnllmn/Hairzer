@@ -4,7 +4,7 @@
     <div class="profile">
         <b-row>
             <!--Nav-->
-            <b-col lg="2" class="">
+            <b-col lg="2">
                 <ProfileBar></ProfileBar>
             </b-col>
             <!--Router Views-->

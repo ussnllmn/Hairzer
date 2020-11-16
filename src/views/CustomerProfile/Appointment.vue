@@ -4,7 +4,7 @@
         <div class="px-2 text-center shadow-sm">
             <!--Title-->
             <b-row class="font-weight-bold h5 py-4 titleAppmt mb-0">
-                <b-col sm="1">วันที่</b-col>
+                <b-col sm="2">วันที่</b-col>
                 <b-col sm="1">เวลา</b-col>
                 <b-col>สถานที่</b-col>
                 <b-col>ช่างตัดผม</b-col>
@@ -12,8 +12,10 @@
                 <b-col sm="1">สถานะ</b-col>
                 <b-col></b-col>
             </b-row>
+
+            <!--Appointment-->
             <b-row v-for="appointment in appointmentList" :key="appointment.apptmt_id" class="appointmentList py-4 align-items-center">
-                <b-col sm="1">{{appointment.appmt_date}}</b-col>
+                <b-col sm="2">{{appointment.appmt_date}}</b-col>
                 <b-col sm="1">{{appointment.appmt_time}}</b-col>
                 <b-col>
                     <b-img :src="appointment.appmt_location.lo_img" rounded="circle" width="80px" height="80px"></b-img>
@@ -24,7 +26,7 @@
                     <p> {{appointment.appmt_barber.barb_firstName}} {{appointment.appmt_barber.barb_lastName}}</p>
                 </b-col>
                 <b-col>
-                    <p v-for="(service, index) in appointment.appmt_service" :key="service">{{index+1}}. {{service.service_name}}</p>
+                    <p v-for="(service, index) in appointment.appmt_service" :key="index">{{index+1}}. {{service.service_name}}</p>
                 </b-col>
                 <b-col sm="1">{{appointment.appmt_status}}</b-col>
                 <b-col >
