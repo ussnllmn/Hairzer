@@ -21,7 +21,7 @@
                 </b-col>
                 <b-col style="border-left: 1px solid  #CED4DA;">
                     <!--สถานที่-->
-                    <p><b><b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon> สถานที่:</b> {{appointment.appmt_location.lo_locationName}} 
+                    <p><b><b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon> สถานที่: </b> {{appointment.appmt_location.lo_locationName}}
                         (
                             {{appointment.appmt_location.lo_address.addr_no}}
                             ซอย{{appointment.appmt_location.lo_address.addr_soi}}
@@ -77,7 +77,6 @@
             <b-btn class="float-right mt-2" variant="primary">รีวิวสถานที่</b-btn>
             <b-btn class="float-right mt-2 mr-2" variant="primary">รีวิวช่างตัดผม</b-btn>
         </div>
-
     </div>
 </template>
 
@@ -98,7 +97,7 @@
         },
         data() {
             return {
-                appointment: []
+                appointment: ''
             }
         }
     }
