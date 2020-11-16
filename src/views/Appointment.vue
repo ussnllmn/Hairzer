@@ -1,6 +1,6 @@
 <template>
     <div class="appointment container">
-        <h1>หมายเลขนัดหมาย:</h1>
+        <h3>หมายเลขนัดหมาย: {{appointment.appmt_id}} | {{appointment.appmt_status}}</h3>
         <div>
             <p>{{appointment}}</p>
         </div>
@@ -13,14 +13,11 @@
     export default {
         name: 'AppointmentID',
         created() {
-            var appmt_id = this.$route.params.appmt_id
-
-            axios.get(`http://localhost:5000/appointment/${appmt_id}`)
+            axios.get(`http://localhost:5000/appointment/${this.$route.params.appmt_id}`)
             .then(
                 res => {
                     if (res.status === 200) {
                         this.appointment = res.data.appointment
-                        console.log(typeof this.appointment.appmt_id)
                     }
                 }
             )

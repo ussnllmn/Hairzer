@@ -166,13 +166,13 @@ app.post('/appointment', (req, res, next) => {
 
 //appointment ID
 app.get('/appointment/:appmt_id', (req, res) => {
-    var appointmentData = []
+    var appointmentData = ''
     var appointmentID = req.params.appmt_id
 
     db.collection('appointment').where('appmt_id', "==", appointmentID).get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            appointmentData.push(doc.data())
+            appointmentData = doc.data()
         })
 
         return res.status(200).json({
