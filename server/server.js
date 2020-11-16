@@ -185,6 +185,25 @@ app.get('/appointment/:appmt_id', (req, res) => {
     })
 })
 
+//appointment Success
+app.post('/appointmentSuccess', (req, res) => {
+    var ref = db.collection('appointment').doc(req.body.appmt_id)
+
+    ref.update({
+        appmt_status: 'success'
+    })
+    .then(() => {
+        console.log(`[SUCCESS] change status ${req.body.id} to success`)
+        return res.status(200).json({
+            title: 'appointment success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+
 app.listen(port, () => {
     console.log(`[Process 1] server running at http://localhost:${port}`)
 })

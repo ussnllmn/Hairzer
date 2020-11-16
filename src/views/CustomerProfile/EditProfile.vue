@@ -116,6 +116,13 @@ export default {
         this.phone = this.userData.cus_phone
         this.img = this.userData.cus_img
     },
+    updated() {
+        //get customer data from firebase
+        firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
+        .then(doc => {
+            localStorage.setItem('userData', JSON.stringify(doc.data()))
+        }).catch(err => { console.log(err) })
+    },
     data() {
         return {
             userData: [],

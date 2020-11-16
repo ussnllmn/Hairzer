@@ -43,13 +43,8 @@
                 <b-col>{{selectedLocation.lo_locationName}}</b-col>
                 <b-col sm="3" class="text-center">฿{{selectedLocation.lo_cost}}</b-col>
             </b-row>
-            <!--Selected Barber
-            <b-row>
-                <b-col sm="2" class="text-center">2</b-col>
-                <b-col>ช่างตัดผม {{selectedBarber.barb_firstName}} {{selectedBarber.barb_lastName}}</b-col>
-            </b-row>-->
 
-             <!--Selected Service-->
+            <!--Selected Service-->
             <b-row v-for="(service, index) in selectedService" :key="index">
                 <b-col sm="2" class="text-center">{{index+2}}</b-col>
                 <b-col>บริการ{{service.service_name}}</b-col>

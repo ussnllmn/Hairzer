@@ -31,7 +31,7 @@
                 <b-col sm="1">{{appointment.appmt_status}}</b-col>
                 <b-col >
                     <b-btn variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
-                    <b-btn variant="success" class="m-2"><b-icon icon="check"></b-icon></b-btn>
+                    <b-btn variant="success" v-on:click="appointmentSuccess(appointment.appmt_id)" class="m-2"><b-icon icon="check"></b-icon></b-btn>
                     <b-btn variant="danger"><b-icon icon="x"></b-icon></b-btn>
                 </b-col>
             </b-row>
@@ -64,6 +64,21 @@
             }
         )
     },
+    updated() {
+        var data = {
+            id: this.userData.cus_id
+        }
+
+        //request appointment data
+        axios.post('http://localhost:5000/appointment', data)
+        .then(
+            res => {
+                if(res.status === 200) {
+                    this.appointmentList = res.data.appointment
+                }
+            }
+        )
+    },
     data() {
         return {
             userData: '',
@@ -73,6 +88,21 @@
     methods: {
         appointmentInfo(appointmentID) {
             this.$router.push({path: `/customer/appointment/${appointmentID}`})
+        },
+        appointmentSuccess(appointmentID) {
+            var appointmentSuccess = {
+                appmt_id: appointmentID
+            }
+
+            axios.post('http://localhost:5000/appointmentSuccess', appointmentSuccess)
+            .then(
+                res => {
+                    if(res.status === 200) {
+                        alert('ยืนยันการใช้บริการสำเร็จ')
+                        //location.reload()
+                    }
+                }
+            )
         }
     }
   }

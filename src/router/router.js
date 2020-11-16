@@ -105,7 +105,7 @@ const routes = [
       {
         path: '/customer/appointment',
         name: 'appointmentManagement',
-        component: () => import('../views/CustomerProfile/Appointment.vue'),
+        component: () => import('../views/CustomerProfile/AppointmentManagement.vue'),
         meta: {title: 'Hairzer | การใช้บริการ'}
       },
       {
@@ -123,8 +123,6 @@ const routes = [
     meta: {title: `Hairzer | การนัดหมาย`}
   },
 
-
-/*
   {
     path: '*',
     redirect: '/error'
@@ -135,8 +133,6 @@ const routes = [
     component: () => import('../views/404.vue'),
     meta: {title: 'Hairzer | ขออภัยไม่พบหน้าที่คุณต้องการ'}
   },
-*/
-
 ]
 
 const router = new VueRouter({
