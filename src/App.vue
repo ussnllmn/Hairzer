@@ -26,4 +26,13 @@
   #app {
     color: #495057;
   }
+  .backBtn a{
+    text-decoration: none;
+    color: #495057;
+  }
+
+  .backBtn a:hover{
+    text-decoration: none;
+    color: darkgray;
+  }
 </style>

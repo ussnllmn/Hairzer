@@ -60,8 +60,9 @@
             <hr>
         </div>
 
-        <!--Confirm-->
+        <!--Confirm & Cancel-->
         <div>
+            <b-btn class="float-right mt-2 ml-2" variant="danger" @click="$router.replace({name: 'Search'})">ยกเลิก</b-btn>
             <b-btn class="float-right mt-2" variant="success" @click="confirm">ยืนยันการทำรายการ</b-btn>
         </div>
 

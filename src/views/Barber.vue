@@ -64,6 +64,7 @@
                     <div><p><b>ช่างตัดผม:</b> {{selectedBarber.barb_firstName}} {{selectedBarber.barb_lastName}}</p></div>
                     <div><p><b>บริการที่เลือก:</b> </p></div>
                     <button class="btn btn-success btn-block" @click="searchService">ถัดไป</button>
+                    <button class="btn btn-danger btn-block my-2" @click="$router.replace({name: 'Location'})">กลับ</button>
                 </div>
             </div>
         </div>

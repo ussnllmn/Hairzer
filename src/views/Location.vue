@@ -78,6 +78,7 @@
                     <div><p><b>ช่างตัดผม:</b> </p></div>
                     <div><p><b>บริการที่เลือก:</b> </p></div>
                     <button @click="searchBarber" class="btn btn-success btn-block">ถัดไป</button>
+                    <button class="btn btn-danger btn-block my-2" @click="$router.replace({name: 'Search'})">กลับ</button>
                 </div>
             </div>
         </div>

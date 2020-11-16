@@ -88,8 +88,6 @@
             cash() {
                 let appointment = this.appointment
                 
-                console.log(appointment)
-
                 axios.post('http://localhost:5000/payment', appointment)
                 .then(
                     res => {
