@@ -104,7 +104,7 @@ const routes = [
       },
       {
         path: '/customer/appointment',
-        name: 'Appointment',
+        name: 'appointmentManagement',
         component: () => import('../views/CustomerProfile/Appointment.vue'),
         meta: {title: 'Hairzer | การใช้บริการ'}
       },
@@ -117,6 +117,15 @@ const routes = [
     ]
   },
   {
+    path: '/appointment/:appmt_id',
+    name: 'Appointment',
+    component: () => import('../views/Appointment.vue'),
+    meta: {title: `Hairzer | การนัดหมาย`}
+  },
+
+
+/*
+  {
     path: '*',
     redirect: '/error'
   },
@@ -126,7 +135,7 @@ const routes = [
     component: () => import('../views/404.vue'),
     meta: {title: 'Hairzer | ขออภัยไม่พบหน้าที่คุณต้องการ'}
   },
-
+*/
 
 ]
 

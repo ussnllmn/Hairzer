@@ -30,7 +30,7 @@
                 </b-col>
                 <b-col sm="1">{{appointment.appmt_status}}</b-col>
                 <b-col >
-                    <b-btn variant="primary"><b-icon icon="info"></b-icon></b-btn>
+                    <b-btn variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
                     <b-btn variant="success" class="m-2"><b-icon icon="check"></b-icon></b-btn>
                     <b-btn variant="danger"><b-icon icon="x"></b-icon></b-btn>
                 </b-col>
@@ -69,6 +69,11 @@
         return {
             userData: '',
             appointmentList: []
+        }
+    },
+    methods: {
+        appointmentInfo(appointmentID) {
+            this.$router.push({path: `/appointment/${appointmentID}`})
         }
     }
   }
