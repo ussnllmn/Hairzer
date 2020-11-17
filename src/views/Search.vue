@@ -56,7 +56,6 @@
                         <button @click="searchLocation" class="btn btn-success btn-block">ตกลง</button>
                     </div>
                 </div>
-                {{selectedDate}} {{selectedTime}}
             </div>
     </div>
 </template>
@@ -67,12 +66,12 @@ import axios from 'axios'
     export default {
         name:'Search',
         created() {
+            //cal date
             let date = new Date()
             let year = date.getUTCFullYear()
             let month = date.getMonth()+1
             let day = date.getDate()
             date = year+'-'+month+'-'+day
-            console.log(date)
             this.selectedDate = date
         },
         data() {

@@ -98,16 +98,11 @@
 import axios from 'axios'
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { mapGetters } from "vuex";
 
 export default {
     name: 'EditProfile',
     created() {
-        //get customer data from firebase
-        firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
-        .then(doc => {
-            localStorage.setItem('userData', JSON.stringify(doc.data()))
-        }).catch(err => { console.log(err) })
-
         //set data
         this.userData = JSON.parse(localStorage.getItem('userData'))
         this.fname = this.userData.cus_firstName
@@ -115,10 +110,17 @@ export default {
         this.sex = this.userData.cus_sex
         this.phone = this.userData.cus_phone
         this.img = this.userData.cus_img
+
+        //set userData from firebase
+        firebase.firestore().collection('customer').doc(this.userData.cus_id).get()
+        .then(doc => {
+            localStorage.setItem('userData', JSON.stringify(doc.data()))
+        })
+        .catch(err => {console.log(err)})
     },
     updated() {
         //get customer data from firebase
-        firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
+        firebase.firestore().collection('customer').doc(this.userData.uid).get()
         .then(doc => {
             localStorage.setItem('userData', JSON.stringify(doc.data()))
         }).catch(err => { console.log(err) })
@@ -163,7 +165,15 @@ export default {
         changePassword() {
             
         }
-    }
+    },
+    computed: {
+        ...mapGetters({
+            user: "user"
+        }),
+        getUserData() {
+            
+        }
+    },
 }
 </script>
 
