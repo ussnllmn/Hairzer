@@ -4,11 +4,6 @@
     <div class="contact container">
         <div class="m-5">
             <div class="row justify-content-center">
-                <!--Image contact-->
-                <div class="col-sm-3">
-                    <img src="../assets/hairzer-image/contact.jpg" width="100%">
-                </div>
-
                 <!--Contact box-->
                 <div class="col-sm-5 contactBox">
                     <center><h3>ช่องทางการติดต่อ</h3></center>
@@ -33,6 +28,7 @@
     height: 677px;
   }
   .contactBox {
+    height: 500px;
     border: 1px solid #CED4DA;
     border-radius: 5px;
     color: #495057;

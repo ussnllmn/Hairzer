@@ -4,11 +4,6 @@
     <div class="signup container">
         <div class="m-5">
             <div class="row justify-content-center">
-                <!--Image sign-up-->
-                <div class="col-sm-3">
-                    <img src="../assets/asset_register.jpg" width="100%" class="shadow-sm">
-                </div>
-
                 <!--Sign-up box-->
                 <div class="col-sm-5 signupBox shadow-sm">
                     <center><h3>สมัครสมาชิก</h3></center>
@@ -43,6 +38,7 @@
         height: 677px;
     }
     .signupBox {
+        height: 500px;
         border: 1px solid #CED4DA;
         border-radius: 5px;
         color: #495057;

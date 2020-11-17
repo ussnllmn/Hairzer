@@ -16,11 +16,6 @@
 
             <!--Box-->
             <div class="row justify-content-center">
-                <!--Image sign-in-->
-                <div class="col-sm-3">
-                    <img src="../assets/asset_login.jpg" width="100%" class="shadow-sm">
-                </div>
-
                 <!--Sign-in Box-->
                 <div class="col-sm-5 signinBox shadow-sm">
                     <form @submit="loginWithEmail">
@@ -111,6 +106,7 @@
         height: 677px;
     }
     .signinBox {
+        height: 500px;
         border: 1px solid #CED4DA;
         border-radius: 5px;
         color: #495057;
