@@ -164,7 +164,9 @@
 
                     })
                     .then(() => {
-                        this.$router.replace({name: 'Profile'}).catch(()=>{})
+                        localStorage.removeItem('userData')
+                        localStorage.setItem('type', 'location')
+                        this.$router.replace({name: 'Location'}).catch(()=>{})
                     })
                     .catch(err => {
                         console.log('wrong with add user to firestore',err)

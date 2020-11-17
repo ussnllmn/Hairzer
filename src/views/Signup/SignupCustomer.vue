@@ -62,7 +62,7 @@
         beforeCreate() {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
-                    this.$router.replace({name: 'Profile'}).catch(()=>{})
+                    this.$router.replace({name: 'Customer'}).catch(()=>{})
                 }
             })
         },
@@ -93,6 +93,8 @@
                         cus_img: '',
                     })
                     .then(() => {
+                        localStorage.removeItem('userData')
+                        localStorage.setItem('type', 'customer')
                         this.$router.replace({name: 'Customer'}).catch(()=>{})
                     })
                     .catch(err => {
