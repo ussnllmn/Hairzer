@@ -2,7 +2,7 @@
 
 <template>
     <div class="barber container">
-        <h1>Barbers</h1>
+        <h1>เลือกช่างตัดผม</h1>
         <!--Head-->
         <div class="row m-2">
             <div class="col-sm-4">
@@ -49,12 +49,6 @@
                                 <li v-for="service in barber.barb_service" :key="service">{{service}}</li>
                             </b-col>
                         </b-row>
-                        <b-row class="p-2">
-                            <b-col sm="12" class="text-right">
-                                <small>ราคาเริ่มต้นที่</small>
-                                <h2>฿{{Object.values(barber.barb_service)[0]}}</h2>
-                            </b-col>
-                        </b-row>
                     </div>
                 </div>
             </div>
@@ -70,6 +64,7 @@
                     <div><p><b>ช่างตัดผม:</b> {{selectedBarber.barb_firstName}} {{selectedBarber.barb_lastName}}</p></div>
                     <div><p><b>บริการที่เลือก:</b> </p></div>
                     <button class="btn btn-success btn-block" @click="searchService">ถัดไป</button>
+                    <button class="btn btn-danger btn-block my-2" @click="$router.replace({name: 'Location'})">กลับ</button>
                 </div>
             </div>
         </div>
@@ -107,37 +102,36 @@
         },
         methods: {
             searchService() {
-                let searchData = {
-                    service: this.selectedBarber.barb_service,
-                    barber: this.selectedBarber.barb_id
-                }
-                console.log(searchData)
-                
+                if (!this.selectedBarber) 
+                    alert('โปรดเลือกช่างตัดผมที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
 
-                axios.post('http://localhost:5000/service', searchData)
-                .then(
-                    res => {
-                        if(res.status === 200) {
-                            console.log(res.data.service)
-
-                            //ได้รับผลการ search barber => เก็บผลการ search barber => เพื่อแสดงในหน้าถัดไป
-                            var service = res.data.service
-                            localStorage.removeItem('serviceList')
-                            localStorage.setItem('serviceList', JSON.stringify(service))
-
-                            //เก็บผลการนัดหมาย
-                            localStorage.setItem('selectedBarber', JSON.stringify(this.selectedBarber))
-
-                            //redirect ไปหน้า service
-                            this.$router.push('/service')
-                        }
+                else {
+                    let searchData = {
+                        service: this.selectedBarber.barb_service,
+                        barber: this.selectedBarber.barb_id
                     }
-                ).catch(err => {
-                    console.log(err)
-                })
-                
-                
-                
+
+                    axios.post('http://localhost:5000/service', searchData)
+                    .then(
+                        res => {
+                            if(res.status === 200) {
+
+                                //ได้รับผลการ search barber => เก็บผลการ search barber => เพื่อแสดงในหน้าถัดไป
+                                var service = res.data.service
+                                localStorage.removeItem('serviceList')
+                                localStorage.setItem('serviceList', JSON.stringify(service))
+
+                                //เก็บผลการนัดหมาย
+                                localStorage.setItem('selectedBarber', JSON.stringify(this.selectedBarber))
+
+                                //redirect ไปหน้า service
+                                this.$router.push('/service')
+                            }
+                        }
+                    ).catch(err => {
+                        console.log(err)
+                    })
+                }
             }
         },
         computed: {

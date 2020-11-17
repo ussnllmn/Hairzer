@@ -100,11 +100,6 @@
                 //Data
                 districts: [
                     {id:1, name: 'ลาดกระบัง'},
-                    {id:2, name: 'แขวงคลองสองต้นนุ่น'},
-                    {id:3, name: 'แขวงคลองสามประเวศ	'},
-                    {id:4, name: 'แขวงลำปลาทิว'},
-                    {id:5, name: 'แขวงทับยาว'},
-                    {id:6, name: 'แขวงขุมทอง'},
                 ],
             }
         },
@@ -129,7 +124,7 @@
                         barb_service: []
                     })
                     .then(() => {
-                        this.$router.replace({name: 'Profile'}).catch(()=>{})
+                        this.$router.replace({name: 'Barber'}).catch(()=>{})
                     })
                     .catch(err => {
                         console.log('wrong with add user to firestore',err)

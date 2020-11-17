@@ -11,7 +11,7 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
 
-  //Search => select location => select barber => select service => confirm => pay => success
+  //search => select location => select barber => select service => confirm => pay => success
   {
     path: '/search',
     name: 'Search',
@@ -43,10 +43,10 @@ const routes = [
     meta: {title: 'Hairzer | ยืนยันการทำรายการ'}
   },
   {
-    path: '/paymentsuccess',
-    name: 'PaymentSuccess',
-    component: () => import('../views/PaymentSuccess.vue'),
-    meta: {title: 'Hairzer | จ่ายเงินสำเร็จ'}
+    path: '/payment',
+    name: 'Payment',
+    component: () => import('../views/Payment.vue'),
+    meta: {title: 'Hairzer | เลือกวิธีการชำระเงิน'}
   },
   
   //Contact
@@ -91,31 +91,38 @@ const routes = [
 
   //Profile
   {
-    path: '/profile',
-    name: 'Profile',
-    redirect: '/profile/editprofile',
+    path: '/customer',
+    name: 'Customer',
+    redirect: '/customer/editprofile',
     component: () => import('../views/CustomerProfile/Profile.vue'),
     children: [
       {
-        path: '/profile/editprofile',
+        path: '/customer/editprofile',
         name: 'EditProfile',
         component: () => import('../views/CustomerProfile/EditProfile.vue'),
         meta: {title: 'Hairzer | แก้ไขข้อมูลส่วนตัว'}
       },
       {
-        path: '/profile/appointment',
-        name: 'Appointment',
-        component: () => import('../views/CustomerProfile/Appointment.vue'),
+        path: '/customer/appointment',
+        name: 'appointmentManagement',
+        component: () => import('../views/CustomerProfile/AppointmentManagement.vue'),
         meta: {title: 'Hairzer | การใช้บริการ'}
       },
       {
-        path: '/profile/history',
+        path: '/customer/history',
         name: 'History',
         component: () => import('../views/CustomerProfile/History.vue'),
         meta: {title: 'Hairzer | ประวัติการใช้บริการ'}
       }
     ]
   },
+  {
+    path: '/customer/appointment/:appmt_id',
+    name: 'Appointment',
+    component: () => import('../views/Appointment.vue'),
+    meta: {title: `Hairzer | การนัดหมาย`}
+  },
+
   {
     path: '*',
     redirect: '/error'
@@ -126,8 +133,6 @@ const routes = [
     component: () => import('../views/404.vue'),
     meta: {title: 'Hairzer | ขออภัยไม่พบหน้าที่คุณต้องการ'}
   },
-
-
 ]
 
 const router = new VueRouter({

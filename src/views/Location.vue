@@ -2,7 +2,7 @@
 
 <template>
     <div class="location container">
-        <h1>Locations</h1>
+        <h1>เลือกสถานที่</h1>
         <!--Head-->
         <div class="row m-2">
             <div class="col-sm-4">
@@ -78,6 +78,7 @@
                     <div><p><b>ช่างตัดผม:</b> </p></div>
                     <div><p><b>บริการที่เลือก:</b> </p></div>
                     <button @click="searchBarber" class="btn btn-success btn-block">ถัดไป</button>
+                    <button class="btn btn-danger btn-block my-2" @click="$router.replace({name: 'Search'})">กลับ</button>
                 </div>
             </div>
         </div>
@@ -115,30 +116,35 @@
         },
         methods: {
             searchBarber() {
-                let searchData = { 
-                    location: this.selectedLocation.lo_address.addr_district
-                }
-
-                axios.post('http://localhost:5000/barber', searchData)
-                .then(
-                    res => {
-                        if(res.status === 200) {
-                            //ได้รับผลการ search barber => เก็บผลการ search barber => เพื่อแสดงในหน้าถัดไป
-                            var barber = res.data.barber
-                            localStorage.removeItem('barberList')
-                            localStorage.setItem('barberList', JSON.stringify(barber))
-
-                            //เก็บผลการนัดหมาย
-                            localStorage.setItem('selectedLocation', JSON.stringify(this.selectedLocation))
-                            localStorage.setItem('totalCost', this.totalCost)
-
-                            //redirect ไปหน้า location
-                            this.$router.push('/barber')
-                        }
+                if (!this.selectedLocation) 
+                    alert('โปรดเลือกสถานที่ที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
+                
+                else {
+                    let searchData = { 
+                        location: this.selectedLocation.lo_address.addr_district
                     }
-                ).catch(err => {
-                    console.log(err)
-                })
+
+                    axios.post('http://localhost:5000/barber', searchData)
+                    .then(
+                        res => {
+                            if(res.status === 200) {
+                                //ได้รับผลการ search barber => เก็บผลการ search barber => เพื่อแสดงในหน้าถัดไป
+                                var barber = res.data.barber
+                                localStorage.removeItem('barberList')
+                                localStorage.setItem('barberList', JSON.stringify(barber))
+
+                                //เก็บผลการนัดหมาย
+                                localStorage.setItem('selectedLocation', JSON.stringify(this.selectedLocation))
+                                localStorage.setItem('totalCost', this.totalCost)
+
+                                //redirect ไปหน้า location
+                                this.$router.push('/barber')
+                            }
+                        }
+                    ).catch(err => {
+                        console.log(err)
+                    })
+                }
             }
         }
     }

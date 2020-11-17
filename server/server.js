@@ -10,6 +10,12 @@ const port = 5000
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8080')
+    res.header('Access-Control-Allow-Methods','POST, GET, PUT, PATCH, DELETE, OPTIONS')
+    res.header('Access-Control-Allow-Headers','Content-Type, Option, Authorization')
+    next()
+  })
 
 //Firebase Config
 admin.initializeApp({
@@ -17,6 +23,7 @@ admin.initializeApp({
     databaseURL: "https://aboutheadproject.firebaseio.com"
 })
 const db = admin.firestore()
+
 
 //Search//
 //Location Search
@@ -82,6 +89,120 @@ app.post('/service', (req, res) => {
         console.log(error)
     })
 })
+
+//Appointment when payment suceess
+app.post('/payment',(req, res) => {
+    //check conflict appointment
+
+    //create doc and save appointment to this doc
+    var ref = db.collection('appointment').doc()
+    ref.set({
+        appmt_id: ref.id,
+        appmt_customer: req.body.appmt_customer,
+        appmt_location: req.body.appmt_location,
+        appmt_barber: req.body.appmt_barber,
+        appmt_service: req.body.appmt_service,
+        appmt_date: req.body.appmt_date,
+        appmt_time: req.body.appmt_time,
+        appmt_status: req.body.appmt_status,
+        appmt_cost: req.body.appmt_cost
+    })
+    .then(() => {
+        console.log(`[SUCCESS] appointment: ${ref.id}`)
+        return res.status(200).json({
+            title: 'appointment success',
+            appointment: ref.id
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+
+//Edit Profile//
+//edit customer infomation
+app.post('/editCustomerInfo', (req, res) => {
+    var ref = db.collection('customer').doc(req.body.id)
+
+    ref.update({
+        cus_firstName: req.body.fname,
+        cus_lastName: req.body.lname,
+        cus_sex: req.body.sex,
+        cus_phone: req.body.phone,
+        cus_img: req.body.img
+    })
+    .then(() => {
+        console.log(`[SUCCESS] update ${req.body.id}`)
+        return res.status(200).json({
+            title: 'update success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+
+//Appointment Search
+app.post('/appointment', (req, res, next) => {
+    var appointmentList = []
+
+    db.collection('appointment').where("appmt_customer", "==", req.body.id).where("appmt_status","==","waiting").get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            appointmentList.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'show appointment',
+            appointment: appointmentList
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+//appointment ID
+app.get('/appointment/:appmt_id', (req, res) => {
+    var appointmentData = ''
+    var appointmentID = req.params.appmt_id
+
+    db.collection('appointment').where('appmt_id', "==", appointmentID).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            appointmentData = doc.data()
+        })
+
+        return res.status(200).json({
+            title: 'get appointment by id',
+            appointment: appointmentData
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+//appointment Success
+app.post('/appointmentSuccess', (req, res) => {
+    var ref = db.collection('appointment').doc(req.body.appmt_id)
+
+    ref.update({
+        appmt_status: 'success'
+    })
+    .then(() => {
+        console.log(`[SUCCESS] change status ${req.body.id} to success`)
+        return res.status(200).json({
+            title: 'appointment success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
 
 app.listen(port, () => {
     console.log(`[Process 1] server running at http://localhost:${port}`)

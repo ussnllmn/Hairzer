@@ -90,10 +90,10 @@
                         cus_email: this.Email,
                         cus_phone: this.Phone,
                         cus_sex: this.Sex,
-                        status: 'customer'
+                        cus_img: '',
                     })
                     .then(() => {
-                        this.$router.replace({name: 'Profile'}).catch(()=>{})
+                        this.$router.replace({name: 'Customer'}).catch(()=>{})
                     })
                     .catch(err => {
                         console.log('wrong with add user to firestore',err)

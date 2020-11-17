@@ -2,7 +2,7 @@
 
 <template>
     <div class="service container">
-        <h1>Services</h1>
+        <h1>เลือกบริการ</h1>
         <!--Head-->
         <div class="row m-2">
             <div class="col-sm-4">
@@ -58,24 +58,25 @@
 
             <!--Side bar-->
             <div class="col-sm-4">
-                <form action="/confirmation">
-                    <div class="summary my-4 p-2 shadow-sm">
-                        <h3>ราคารวม {{totalCost}}฿</h3> 
-                        <hr>
-                        <div><p><b>วันที่:</b> {{selectedDate}}</p></div>
-                        <div><p><b>เวลา:</b> {{selectedTime}}</p></div>
-                        <div><p><b>สถานที่:</b> {{selectedLocation.lo_locationName}}</p></div> 
-                        <div><p><b>ช่างตัดผม:</b> {{selectedBarber.barb_firstName}} {{selectedBarber.barb_lastName}}</p></div>
-                        <div><p><b>บริการที่เลือก:</b> {{showSelectedService.join()}}</p></div>
-                        <button class="btn btn-success btn-block" type="sumbit">ถัดไป</button>
-                    </div>
-                </form>
+                <div class="summary my-4 p-2 shadow-sm">
+                    <h3>ราคารวม {{totalCost}}฿</h3> 
+                    <hr>
+                    <div><p><b>วันที่:</b> {{selectedDate}}</p></div>
+                    <div><p><b>เวลา:</b> {{selectedTime}}</p></div>
+                    <div><p><b>สถานที่:</b> {{selectedLocation.lo_locationName}}</p></div> 
+                    <div><p><b>ช่างตัดผม:</b> {{selectedBarber.barb_firstName}} {{selectedBarber.barb_lastName}}</p></div>
+                    <div><p><b>บริการที่เลือก:</b> {{showSelectedService.join()}}</p></div>
+                    <button class="btn btn-success btn-block" @click="confirm">ถัดไป</button>
+                    <button class="btn btn-danger btn-block my-2" @click="$router.replace({name: 'Barber'})">กลับ</button>
+                </div>
             </div>
         </div>
     </div> 
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
         created() {
             this.selectedDate = localStorage.getItem('selectedDate')
@@ -104,6 +105,24 @@
                 selectedService: [],
                 selectedDate: '',
                 selectedTime: '',
+            }
+        },
+        methods: {
+            confirm() {
+                if (this.selectedService == ''){
+                    alert('โปรดเลือกบริการที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
+                }
+
+                else{
+                    //เก็บข้อมูลบริการที่เลือก
+                    localStorage.setItem('selectedService', JSON.stringify(this.selectedService))
+
+                    //เก็บข้อมูลราคารวม
+                    localStorage.setItem('totalCost', this.totalCost)
+
+                    //redirect
+                    this.$router.push('/confirmation')
+                }
             }
         },
         computed: {

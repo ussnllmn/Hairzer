@@ -1,9 +1,9 @@
 <!--/src/App.vue-->
 
 <template>
-  <div id="app">
+  <div id="app" >
     <Navbar></Navbar>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
       <router-view/>
     </div>
     <Footer></Footer>
@@ -25,5 +25,14 @@
 <style>
   #app {
     color: #495057;
+  }
+  .backBtn a{
+    text-decoration: none;
+    color: #495057;
+  }
+
+  .backBtn a:hover{
+    text-decoration: none;
+    color: darkgray;
   }
 </style>

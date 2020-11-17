@@ -1,6 +1,6 @@
 <template>
     <div class="confirmation container">
-        <h1>Confirmation</h1>
+        <h1>ยืนยันการทำรายการ</h1>
  
         <!--Summary Box-->
         <div class="confirmBox shadow-sm p-4">
@@ -12,9 +12,18 @@
                         <p><b><b-icon icon="clock" aria-hidden="true"></b-icon> เวลา:</b> {{selectedTime}}</p>
                     </b-col>
                     <b-col style="border-left: 1px solid  #CED4DA;">
-                        <p><b><b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon> สถานที่:</b> {{selectedLocation.name}} ({{selectedLocation.address}})</p>
-                        <p><b><b-icon icon="scissors" aria-hidden="true"></b-icon> ช่างตัดผม:</b> {{selectedBarber.name}}</p>
-                        <p><b><b-icon icon="person-fill" aria-hidden="true"></b-icon> ลูกค้า:</b> นายทรงวุฒิ นักร้อง</p>
+                        <p><b><b-icon icon="geo-alt-fill" aria-hidden="true"></b-icon> สถานที่:</b> {{selectedLocation.lo_locationName}} 
+                        (
+                            {{selectedLocation.lo_address.addr_no}}
+                            ซอย{{selectedLocation.lo_address.addr_soi}}
+                            ถนน{{selectedLocation.lo_address.addr_road}}
+                            แขวง{{selectedLocation.lo_address.addr_subDistrict}}
+                            เขต{{selectedLocation.lo_address.addr_district}}
+                            {{selectedLocation.lo_address.addr_province}}
+                        )
+                        </p>
+                        <p><b><b-icon icon="scissors" aria-hidden="true"></b-icon> ช่างตัดผม:</b> {{selectedBarber.barb_firstName}} {{selectedBarber.barb_lastName}}</p>
+                        <p><b><b-icon icon="person-fill" aria-hidden="true"></b-icon> ลูกค้า:</b> {{userData.cus_firstName}} {{userData.cus_lastName}}</p>
                     </b-col>
                 </b-row>
             </div>
@@ -31,20 +40,15 @@
             <!--Selected Location-->
             <b-row>
                 <b-col sm="2" class="text-center">1</b-col>
-                <b-col>{{selectedLocation.name}}</b-col>
-                <b-col sm="3" class="text-center">฿{{selectedLocation.cost}}</b-col>
-            </b-row>
-            <!--Selected Barber-->
-            <b-row>
-                <b-col sm="2" class="text-center">2</b-col>
-                <b-col>{{selectedBarber.name}}</b-col>
+                <b-col>{{selectedLocation.lo_locationName}}</b-col>
+                <b-col sm="3" class="text-center">฿{{selectedLocation.lo_cost}}</b-col>
             </b-row>
 
-             <!--Selected Service-->
+            <!--Selected Service-->
             <b-row v-for="(service, index) in selectedService" :key="index">
-                <b-col sm="2" class="text-center">{{index+3}}</b-col>
-                <b-col>{{service.name}}</b-col>
-                <b-col sm="3" class="text-center">฿{{service.cost}}</b-col>
+                <b-col sm="2" class="text-center">{{index+2}}</b-col>
+                <b-col>บริการ{{service.service_name}}</b-col>
+                <b-col sm="3" class="text-center">฿{{service.service_cost}}</b-col>
             </b-row>
             <hr>
             
@@ -56,11 +60,12 @@
             <hr>
         </div>
 
+        <!--Confirm & Cancel-->
         <div>
-            <form action="/payment">
-                <b-btn class="float-right mt-2" type="submit">ชำระเงิน</b-btn>
-            </form>
+            <b-btn class="float-right mt-2 ml-2" variant="danger" @click="$router.replace({name: 'Search'})">ยกเลิก</b-btn>
+            <b-btn class="float-right mt-2" variant="success" @click="confirm">ยืนยันการทำรายการ</b-btn>
         </div>
+
     </div>
 </template>
 
@@ -70,32 +75,68 @@
     import 'firebase/firestore'
 
     export default {
-        /*beforeCreate() {
+        name: 'Confirmation',
+        beforeCreate() {
+            //check การเข้าสู่ระบบ
             firebase.auth().onAuthStateChanged(user => {
                 if (!user) {
                     this.$router.replace({name: 'Signin'}).catch(()=>{})
                 }
             })
-        },*/
-        data() {
-            return {
-                //totalCost cal by computed
-                selectedDate: '2020-11-09',
-                selectedTime: '20:00:00',
-                selectedLocation: { image: "", id: "0001", name: "ร้านตัดผม 1", score: 9, equipment: [ "อุปกรณ์ 1", "อุปกรณ์ 2", "อุปกรณ์ 3" ], cost: 150, address: '77 ซอยเกกี 10 ถนนฉลองกรุง1 เขตลาดกระบัง กรุงเทพมหานคร ประเทศไทย'},
-                selectedBarber: { image: "", id: "0004", name: "ช่างตัดผม 4", score: 7, services: { "บริการ 1": 110, "บริการ 2": 320 } },
-                selectedService: [ { name: "บริการ 1", cost: 150 }, { name: "บริการ 2", cost: 260 }, { name: "บริการ 3", cost: 350 } ],
+
+            //get value จาก uid
+            firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
+            .then(doc => {
+                this.userData = doc.data()
+            })
+            .catch(err => { console.log(err) })  
+        },
+        created() {
+            this.selectedDate = localStorage.getItem('selectedDate')
+            this.selectedTime = localStorage.getItem('selectedTime')
+            this.selectedLocation = JSON.parse(localStorage.getItem('selectedLocation'))
+            this.selectedBarber = JSON.parse(localStorage.getItem('selectedBarber'))
+            this.selectedService = JSON.parse(localStorage.getItem('selectedService'))
+            this.totalCost = localStorage.getItem('totalCost')
+
+            if(!this.selectedLocation){
+                this.$router.replace({name: 'Search'}).catch(()=>{})
             }
         },
-        computed: {
-            totalCost() {
-                var sum = 0
-                for(var el in this.selectedService){
-                    sum += this.selectedService[el].cost
+        data() {
+            return {
+                //เก็บข้อมูลผู้ใช้
+                userData: '',
+
+                //ข้อมูลการเลือกบริการทั้งหมด
+                selectedDate: '',
+                selectedTime: '',
+                selectedLocation: '',
+                selectedBarber: '',
+                selectedService: '',
+                totalCost: 0
+            }
+        },
+        methods: {
+            confirm() {
+                let confirmation = {
+                    appmt_date : this.selectedDate,
+                    appmt_time : this.selectedTime,
+                    appmt_location : this.selectedLocation,
+                    appmt_barber : this.selectedBarber,
+                    appmt_service : this.selectedService,
+                    appmt_cost : this.totalCost,
+                    appmt_status : 'waiting',
+                    appmt_customer: this.userData.cus_id
                 }
-                sum += this.selectedLocation.cost
-                return sum
-            },
+
+                localStorage.removeItem('appointment')
+                localStorage.setItem('appointment', JSON.stringify(confirmation))
+
+                //redirect to Payment
+                this.$router.replace('/payment').catch(()=>{})
+                
+            }
         }
     }
 </script>

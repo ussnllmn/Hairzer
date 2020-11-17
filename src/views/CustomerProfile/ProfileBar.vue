@@ -1,13 +1,13 @@
 <template>
     <div class="profileBar shadow-sm p-4">
         <!--Image-->
-        <center><img src="" width="120px" height="120px"></center>
-        <center><p>{{userData.cus_firstName}} {{userData.cus_lastName}}</p></center>
+        <center><b-img :src="userData.cus_img" width="200%" rounded="circle" style="object-fit: cover;" class="p-3"></b-img></center>
+        <center><h4>{{userData.cus_firstName}} {{userData.cus_lastName}}</h4></center>
         
         <!--Menu-->
         <div class="mt-4 menu">
             <router-link :to="{name: 'EditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>
-            <router-link :to="{name: 'Appointment'}">จัดการนัดหมาย</router-link> <hr>
+            <router-link :to="{name: 'appointmentManagement'}">จัดการนัดหมาย</router-link> <hr>
             <router-link :to="{name: 'History'}">ประวัติการใช้บริการ</router-link> <hr>
         </div>
     </div>
@@ -15,15 +15,13 @@
 
 <script>
     import firebase from 'firebase/app';
+    import 'firebase/auth';
+    import 'firebase/firestore'
 
     export default {
         name: 'ProfileBar',
-        beforeCreate() {
-            firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid).get()
-            .then(doc => {
-                console.log(doc.data())
-                this.userData = doc.data()
-            }).catch(err => { console.log(err) })  
+        created() {
+            this.userData = JSON.parse(localStorage.getItem('userData'))
         },
         data() {
             return {
@@ -38,20 +36,21 @@
         width: 100%;
         height: 100%;
         position: relative;
-        background-color: whitesmoke;
+        background-color: #343A40;
         left: 0;
+        color: whitesmoke;
     }
-    @media (max-width:640px){
+    @media (max-width:768px){
         .profileBar{
             display:none;
         }
     }
     .menu a {
-        color: #495057;
+        color: lightgray;
         text-decoration: none;
     }
     .menu a:hover {
-        color:lightgray;
+        color:gray;
     }
 
 </style>
