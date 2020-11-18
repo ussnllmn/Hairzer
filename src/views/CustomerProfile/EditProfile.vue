@@ -51,9 +51,9 @@
 
                         <div class="upload mt-2">
                             <label>Upload file
-                                <input type="file" id="file" ref="uploadFile"/>
+                                <input type="file" id="file" ref="imgFile" @change="changeImg" />
                             </label><br>
-                            <b-btn>อัพโหลดรูปภาพ</b-btn>
+                            <b-btn @click="changeImg">อัพโหลดรูปภาพ</b-btn><br>
                         </div>
                     </center>
                 </b-col>
@@ -95,86 +95,95 @@
 </template>
 
 <script>
-import axios from 'axios'
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import { mapGetters } from "vuex";
+    import axios from 'axios'
+    import firebase from 'firebase/app';
+    import 'firebase/auth';
+    import 'firebase/storage'
+    import { mapGetters } from "vuex";
 
-export default {
-    name: 'EditProfile',
-    created() {
-        //set data
-        this.userData = JSON.parse(localStorage.getItem('userData'))
-        this.fname = this.userData.cus_firstName
-        this.lname = this.userData.cus_lastName
-        this.sex = this.userData.cus_sex
-        this.phone = this.userData.cus_phone
-        this.img = this.userData.cus_img
+    export default {
+        name: 'EditProfile',
+        created() {
+            //set data
+            this.userData = JSON.parse(localStorage.getItem('userData'))
+            this.fname = this.userData.cus_firstName
+            this.lname = this.userData.cus_lastName
+            this.sex = this.userData.cus_sex
+            this.phone = this.userData.cus_phone
+            this.img = this.userData.cus_img
 
-        //set userData from firebase
-        firebase.firestore().collection('customer').doc(this.userData.cus_id).get()
-        .then(doc => {
-            localStorage.setItem('userData', JSON.stringify(doc.data()))
-        })
-        .catch(err => {console.log(err)})
-    },
-    updated() {
-        //get customer data from firebase
-        firebase.firestore().collection('customer').doc(this.userData.uid).get()
-        .then(doc => {
-            localStorage.setItem('userData', JSON.stringify(doc.data()))
-        }).catch(err => { console.log(err) })
-    },
-    data() {
-        return {
-            userData: [],
-
-            //data in form
-            fname: '',
-            lname: '',
-            sex: '',
-            phone: '',
-            img: '',
-            uploadFile: ''
-        }
-    },
-    methods: {
-        editInfo() {
-            let info = {
-                id: this.userData.cus_id,
-                fname: this.fname,
-                lname: this.lname,
-                sex: this.sex,
-                phone: this.phone,
-                img: this.img
-            }
-
-            console.log(info)
-
-            axios.post('http://localhost:5000/editCustomerInfo', info)
-            .then(
-                res => {
-                    if(res.status === 200) {
-                        alert('แก้ไขข้อมูลสำเร็จ')
-                        this.$router.replace({name: 'Customer'}).catch(() => {})
-                    }
-                }
-            )
-
+            //set userData from firebase
+            firebase.firestore().collection('customer').doc(this.userData.cus_id).get()
+            .then(doc => {
+                localStorage.setItem('userData', JSON.stringify(doc.data()))
+            })
+            .catch(err => {console.log(err)})
         },
-        changePassword() {
-            
-        }
-    },
-    computed: {
-        ...mapGetters({
-            user: "user"
-        }),
-        getUserData() {
-            
-        }
-    },
-}
+        updated() {
+            //get customer data from firebase
+            firebase.firestore().collection('customer').doc(this.userData.uid).get()
+            .then(doc => {
+                localStorage.setItem('userData', JSON.stringify(doc.data()))
+            }).catch(err => { console.log(err) })
+        },
+        data() {
+            return {
+                userData: [],
+
+                //data in form
+                fname: '',
+                lname: '',
+                sex: '',
+                phone: '',
+                img: '',
+                uploadImg: ''
+            }
+        },
+        methods: {
+            //แก้ไขข้อมูลส่วนตัว
+            editInfo() {
+                let info = {
+                    id: this.userData.cus_id,
+                    fname: this.fname,
+                    lname: this.lname,
+                    sex: this.sex,
+                    phone: this.phone,
+                    img: this.img
+                }
+
+                axios.post('http://localhost:5000/editCustomerInfo', info)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('แก้ไขข้อมูลสำเร็จ')
+                            this.$router.replace({name: 'Customer'}).catch(() => {})
+                        }
+                    }
+                )
+
+            },
+
+            //เปลี่ยนรูป
+            changeImg(event) {
+                this.uploadImg = event.target.files[0]
+                console.log(this.uploadImg)
+
+            },
+
+            //เปลี่ยนรหัสผ่าน
+            changePassword() {
+                
+            }
+        },
+        computed: {
+            ...mapGetters({
+                user: "user"
+            }),
+            getUserData() {
+                
+            }
+        },
+    }
 </script>
 
 <style scoped>

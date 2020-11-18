@@ -32,7 +32,7 @@
                 <b-col >
                     <b-btn variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
                     <b-btn variant="success" v-on:click="appointmentSuccess(appointment.appmt_id)" class="m-2"><b-icon icon="check"></b-icon></b-btn>
-                    <b-btn variant="danger"><b-icon icon="x"></b-icon></b-btn>
+                    <b-btn variant="danger" v-on:click="appointmentCancel(appointment.appmt_id)"><b-icon icon="x"></b-icon></b-btn>
                 </b-col>
             </b-row>
         </div>
@@ -46,6 +46,14 @@
 
   export default {
     name: 'Appointment',
+    beforeCreate() {
+        //check สถานะการเข้าสู่ระบบ
+        firebase.auth().onAuthStateChanged(user => {
+            if (!user) {
+                this.$router.replace({name: 'Home'}).catch(()=>{})
+            }
+        })
+    },    
     created() {
         //get customer data from firebase
         this.userData = JSON.parse(localStorage.getItem('userData'))
@@ -86,9 +94,12 @@
         }
     },
     methods: {
+        //ดูรายละเอียดนัดหมาย
         appointmentInfo(appointmentID) {
             this.$router.push({path: `/customer/appointment/${appointmentID}`})
         },
+
+        //ยืนยันการนัดหมาย
         appointmentSuccess(appointmentID) {
             var appointmentSuccess = {
                 appmt_id: appointmentID
@@ -99,7 +110,22 @@
                 res => {
                     if(res.status === 200) {
                         alert('ยืนยันการใช้บริการสำเร็จ')
-                        //location.reload()
+                    }
+                }
+            )
+        },
+
+        //ยกเลิกหนัดหมาย
+        appointmentCancel(appointmentID) {
+            var appointmentCancel = {
+                appmt_id: appointmentID
+            }
+
+            axios.post('http://localhost:5000/appointmentCancel', appointmentCancel)
+            .then(
+                res => {
+                    if(res.status === 200) {
+                        alert('ยกเลิกการนัดหมายสำเร็จ')
                     }
                 }
             )

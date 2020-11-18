@@ -90,7 +90,7 @@
                         cus_email: this.Email,
                         cus_phone: this.Phone,
                         cus_sex: this.Sex,
-                        cus_img: '',
+                        cus_img: 'https://firebasestorage.googleapis.com/v0/b/aboutheadproject.appspot.com/o/user.jpg?alt=media&token=c715984d-a2c1-4807-b525-804b895b7f71',
                     })
                     .then(() => {
                         localStorage.removeItem('userData')

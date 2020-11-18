@@ -144,7 +144,7 @@ app.post('/editCustomerInfo', (req, res) => {
 })
 
 
-//Appointment Search
+//Appointment Management
 app.post('/appointment', (req, res, next) => {
     var appointmentList = []
 
@@ -196,6 +196,24 @@ app.post('/appointmentSuccess', (req, res) => {
         console.log(`[SUCCESS] change status ${req.body.id} to success`)
         return res.status(200).json({
             title: 'appointment success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+//appointment cancel
+app.post('/appointmentCancel', (req, res) => {
+    var ref = db.collection('appointment').doc(req.body.appmt_id)
+
+    ref.update({
+        appmt_status: 'cancel'
+    })
+    .then(() => {
+        console.log(`[SUCCESS] change status ${req.body.id} to cancel`)
+        return res.status(200).json({
+            title: 'appointment cancel'
         })
     })
     .catch(error => {

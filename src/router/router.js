@@ -89,7 +89,7 @@ const routes = [
     meta: {title: 'Hairzer | สมัครสมาชิก'}
   },
 
-  //Profile
+  //Customer Profile
   {
     path: '/customer',
     name: 'Customer',
@@ -109,6 +109,12 @@ const routes = [
         meta: {title: 'Hairzer | การใช้บริการ'}
       },
       {
+        path: '/customer/appointment/:appmt_id',
+        name: 'Appointment',
+        component: () => import('../views/Appointment.vue'),
+        meta: {title: `Hairzer | การนัดหมาย`}
+      },
+      {
         path: '/customer/history',
         name: 'History',
         component: () => import('../views/CustomerProfile/History.vue'),
@@ -116,13 +122,6 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/customer/appointment/:appmt_id',
-    name: 'Appointment',
-    component: () => import('../views/Appointment.vue'),
-    meta: {title: `Hairzer | การนัดหมาย`}
-  },
-
   {
     path: '*',
     redirect: '/error'
