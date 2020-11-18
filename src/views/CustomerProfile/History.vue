@@ -34,8 +34,7 @@
                 </b-col>
                 <b-col>
                     <div v-if="appointment.appmt_status == 'success'">
-                        <b-btn variant="info" v-on:click="reviewLocation(appointment.appmt_id)"><b-icon icon="geo-alt-fill"></b-icon></b-btn>
-                        <b-btn variant="dark" v-on:click="reviewBarber(appointment.appmt_id)" class="m-2"><b-icon icon="scissors"></b-icon></b-btn>
+                        <b-btn variant="info" v-on:click="review(appointment.appmt_id)"><b-icon icon="hand-thumbs-up"></b-icon></b-btn>
                     </div>
 
                     <div v-if="appointment.appmt_status == 'cancel'">
@@ -101,12 +100,8 @@
             }
         },
         methods: {
-            reviewLocation(appointmentID) {
-                //this.$router.push({path: `/customer/appointment/${appointmentID}`})
-            },
-
-            reviewBarber(appointmentID) {
-                
+            review(appointmentID) {
+                this.$router.push({path: `/customer/review/${appointmentID}`})
             },
             
             deleteAppointment(appointmentID) {

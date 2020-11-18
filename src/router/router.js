@@ -119,7 +119,13 @@ const routes = [
         name: 'History',
         component: () => import('../views/CustomerProfile/History.vue'),
         meta: {title: 'Hairzer | ประวัติการใช้บริการ'}
-      }
+      },
+      {
+        path: '/customer/review/:appmt_id',
+        name: 'Review',
+        component: () => import('../views/CustomerProfile/Review.vue'),
+        meta: {title: `Hairzer | รีวิวการใช้บริการ`}
+      },
     ]
   },
   {
