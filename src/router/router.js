@@ -121,9 +121,9 @@ const routes = [
         meta: {title: 'Hairzer | ประวัติการใช้บริการ'}
       },
       {
-        path: '/customer/review/:appmt_id',
-        name: 'Review',
-        component: () => import('../views/CustomerProfile/Review.vue'),
+        path: '/customer/location_review/:appmt_id',
+        name: 'LocationReview',
+        component: () => import('../views/CustomerProfile/LocationReview.vue'),
         meta: {title: `Hairzer | รีวิวการใช้บริการ`}
       },
     ]

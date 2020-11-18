@@ -1,6 +1,6 @@
 <template>
     <div class="history">
-        <h1>จัดการนัดหมาย</h1>
+        <h1>ประวัติการใช้บริการ</h1>
         <div class="px-2 text-center shadow-sm">
             <!--Title-->
             <b-row class="font-weight-bold h5 py-4 titleAppmt mb-0">
@@ -15,32 +15,51 @@
 
             <!--Appointment-->
             <b-row v-for="appointment in appointmentHistoryList" :key="appointment.apptmt_id" class="appointmentList py-4 align-items-center">
+                <!--วัน/เวลา-->
                 <b-col sm="2">{{appointment.appmt_date}}</b-col>
                 <b-col sm="1">{{appointment.appmt_time}}</b-col>
+                
+                <!--สถานที่-->
                 <b-col>
                     <b-img :src="appointment.appmt_location.lo_img" rounded="circle" width="80px" height="80px" style="object-fit: cover;"></b-img>
                     <p> {{appointment.appmt_location.lo_locationName}}</p>
                 </b-col>
+
+                <!--ช่างตัดผม-->
                 <b-col>
                     <b-img :src="appointment.appmt_barber.barb_img" rounded="circle" width="80px" height="80px" style="object-fit: cover;"></b-img>
                     <p> {{appointment.appmt_barber.barb_firstName}} {{appointment.appmt_barber.barb_lastName}}</p>
                 </b-col>
+
+                <!--บริการ-->
                 <b-col>
                     <p v-for="(service, index) in appointment.appmt_service" :key="index">{{index+1}}. {{service.service_name}}</p>
                 </b-col>
+
+                <!--สถานะ-->
                 <b-col sm="1">
                     <p v-if="appointment.appmt_status == 'success'" class="text-success">{{appointment.appmt_status}}</p>
                     <p v-if="appointment.appmt_status == 'cancel'" class="text-danger">{{appointment.appmt_status}}</p>
                 </b-col>
-                <b-col>
-                    <div v-if="appointment.appmt_status == 'success'">
-                        <b-btn variant="info" v-on:click="review(appointment.appmt_id)"><b-icon icon="hand-thumbs-up"></b-icon></b-btn>
-                    </div>
 
-                    <div v-if="appointment.appmt_status == 'cancel'">
-                        <b-btn variant="danger"  v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
+                <!--ปุ่มถ้าสถานะ == success-->
+                <b-col v-if="appointment.appmt_status == 'success'">
+                    <div >
+                        <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
+                        <b-btn v-b-tooltip.hover title="รีวิวสถานที่" class="mx-1" variant="info" v-on:click="locationReview(appointment.appmt_id)"><b-icon icon="geo-alt-fill"></b-icon></b-btn>
+                        <b-btn v-b-tooltip.hover title="รีวิวช่างตัดผม" variant="dark" v-on:click="barberReview(appointment.appmt_id)"><b-icon icon="scissors"></b-icon></b-btn>
                     </div>
                 </b-col>
+
+                <!--ปุ่มถ้าสถานะ == cancel-->
+                <b-col v-if="appointment.appmt_status == 'cancel'">
+                    <div >
+                        <b-btn variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
+                        <b-btn class="mx-1" variant="danger" v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
+                    </div>
+                </b-col>
+
+
             </b-row>
         </div>
     </div>
@@ -100,15 +119,21 @@
             }
         },
         methods: {
-            review(appointmentID) {
-                this.$router.push({path: `/customer/review/${appointmentID}`})
+            //ดูรายละเอียดนัดหมาย
+            appointmentInfo(appointmentID) {
+                this.$router.push({path: `/customer/appointment/${appointmentID}`})
+            },
+
+            //รีวิวสถานที่
+            locationReview(appointmentID) {
+                this.$router.push({path: `/customer/location_review/${appointmentID}`})
             },
             
+            //ลบนัดหมาย (เปลี่ยนสถานะเป็น cancel)
             deleteAppointment(appointmentID) {
                 var appointmentDelete = {
-                appmt_id: appointmentID
-            }
-
+                    appmt_id: appointmentID
+                }
                 axios.post('http://localhost:5000/appointmentDelete', appointmentDelete)
                 .then(
                     res => {

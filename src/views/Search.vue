@@ -53,7 +53,7 @@
 
                     <!--Button-->
                     <div class="col-sm-4">
-                        <button @click="searchLocation" class="btn btn-success btn-block">ตกลง</button>
+                        <button @click="searchLocation" class="btn btn-success btn-block">ค้นหา</button>
                     </div>
                 </div>
             </div>

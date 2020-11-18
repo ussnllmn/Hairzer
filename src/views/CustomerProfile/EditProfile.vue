@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="mb-2">
-                        <b-btn class="float-right" @click="editInfo">บันทึก</b-btn>
+                        <b-btn v-b-tooltip.hover title="บันทึกข้อมูลส่วนตัว" class="float-right" @click="editInfo">บันทึก</b-btn>
                     </div>
                 </b-col>
                 
@@ -53,7 +53,7 @@
                             <label>Upload file
                                 <input @change="handleImage" type="file" accept="image/*"/>
                             </label><br>
-                            <b-btn @click="uploadImage">อัพโหลดรูปภาพ</b-btn><br>
+                            <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์" @click="uploadImage">เปลี่ยนรูปโปรไฟล์</b-btn><br>
                         </div>
                     </center>
                 </b-col>
@@ -83,7 +83,7 @@
 
                     <!--Button-->
                     <div class="mb-2">
-                        <b-btn class="float-right">เปลี่ยนรหัสผ่าน</b-btn>
+                        <b-btn v-b-tooltip.hover title="เปลี่ยนรหัสผ่าน" class="float-right">เปลี่ยนรหัสผ่าน</b-btn>
                     </div>
                 </b-col>
                 <b-col style="margin-top: 36px;">
