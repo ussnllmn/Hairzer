@@ -40,6 +40,9 @@
                 <b-col sm="1">
                     <p v-if="appointment.appmt_status == 'success'" class="text-success">{{appointment.appmt_status}}</p>
                     <p v-if="appointment.appmt_status == 'cancel'" class="text-danger">{{appointment.appmt_status}}</p>
+                    <p v-if="appointment.appmt_status == 'reviewed'" class="text-primary">{{appointment.appmt_status}}</p>
+                    <p v-if="appointment.appmt_status == 'location reviewed'" class="text-primary">{{appointment.appmt_status}}</p>
+                    <p v-if="appointment.appmt_status == 'barber reviewed'" class="text-primary">{{appointment.appmt_status}}</p>
                 </b-col>
 
                 <!--ปุ่มถ้าสถานะ == success-->
@@ -56,6 +59,32 @@
                     <div >
                         <b-btn variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
                         <b-btn class="m-2" variant="danger" v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
+                    </div>
+                </b-col>
+
+                <!--ปุ่มถ้าสถานะ == reviewed-->
+                <b-col v-if="appointment.appmt_status == 'reviewed'">
+                    <div >
+                        <b-btn variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
+                        <b-btn class="m-2" variant="danger" v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
+                    </div>
+                </b-col>
+
+                <!--ปุ่มถ้าสถานะ == location reviewed-->
+                <b-col v-if="appointment.appmt_status == 'reviewed'">
+                    <div >
+                        <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
+                        <b-btn v-b-tooltip.hover title="รีวิวสถานที่" disabled class="m-2" variant="info" v-on:click="locationReview(appointment.appmt_id)"><b-icon icon="geo-alt-fill"></b-icon></b-btn>
+                        <b-btn v-b-tooltip.hover title="รีวิวช่างตัดผม" variant="dark" v-on:click="barberReview(appointment.appmt_id)"><b-icon icon="scissors"></b-icon></b-btn>
+                    </div>
+                </b-col>
+
+                <!--ปุ่มถ้าสถานะ == barber reviewed-->
+                <b-col v-if="appointment.appmt_status == 'reviewed'">
+                    <div >
+                        <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
+                        <b-btn v-b-tooltip.hover title="รีวิวสถานที่" class="m-2" variant="info" v-on:click="locationReview(appointment.appmt_id)"><b-icon icon="geo-alt-fill"></b-icon></b-btn>
+                        <b-btn v-b-tooltip.hover title="รีวิวช่างตัดผม" disabled variant="dark" v-on:click="barberReview(appointment.appmt_id)"><b-icon icon="scissors"></b-icon></b-btn>
                     </div>
                 </b-col>
 

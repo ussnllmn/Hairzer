@@ -97,7 +97,7 @@
             }
         },
         created() {
-            this.userData = localStorage.getItem('userData')
+            this.userData = JSON.parse(localStorage.getItem('userData'))
 
             axios.get(`http://localhost:5000/appointment/${this.$route.params.appmt_id}`)
             .then(
@@ -110,12 +110,15 @@
         },
         methods: {
             locationReview() {
-                const locationReview = {
-                    reviewer: this.userData.cus_id,
+
+                var locationReview = {
+                    customer: this.userData,
                     appointment: this.appointment,
                     reviewText: this.reviewText,
                     score: this.score,
                 }
+
+                console.log(locationReview)
 
                 axios.post('http://localhost:5000/locationReview', locationReview)
                 .then(

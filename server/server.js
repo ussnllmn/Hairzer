@@ -236,7 +236,7 @@ app.post('/appointmentCancel', (req, res) => {
 app.post('/appointmentHistory', (req, res, next) => {
     var appointmentListHistory = []
 
-    db.collection('appointment').where("appmt_customer", "==", req.body.id).where("appmt_status","in", ['success', 'cancel']).get()
+    db.collection('appointment').where("appmt_customer", "==", req.body.id).where("appmt_status","in", ['success', 'cancel', 'location reviewed', 'barber reviewed', 'reviewed']).get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             appointmentListHistory.push(doc.data())
@@ -270,16 +270,27 @@ app.post('/appointmentDelete', (req, res) => {
 //Review//
 //Location Review
 app.post('/locationReview', (req, res) => {
+
+    //เพิ่มข้อมูล review
     var ref = db.collection('location_review').doc()
     ref.set({
         lo_review_id: ref.id,
-        lo_review_reviewer: req.body.reviewer,
-        lo_review_location: req.body.appointment.appmt_location,
+        lo_review_customer: req.body.customer,
+        lo_review_appointment: req.body.appointment.appmt_location,
         lo_review_text: req.body.reviewText,
-        lo_review_score: req.body.score
+        lo_review_score: req.body.score,
+        lo_review_date: req.body.appointment.appmt_date,
+        lo_review_time: req.body.appointment.appmt_time
     })
     .then(() => {
         console.log(`[SUCCESS] location review: ${ref.id}`)
+
+        //เปลี่ยน status status => reviewed 
+        db.collection('appointment').doc(req.body.appointment.appmt_id)
+        .update({
+            appmt_status: 'location reviewed'
+        })
+
         return res.status(200).json({
             title: 'location review success'
         })

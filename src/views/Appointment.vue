@@ -10,6 +10,7 @@
                     <small v-if="appointment.appmt_status === `success`" style="color: #28A745">{{appointment.appmt_status}}</small>
                     <small v-if="appointment.appmt_status === `waiting`" style="color: #ffc107">{{appointment.appmt_status}}</small>
                     <small v-if="appointment.appmt_status === `cancel`" style="color: #dc3545">{{appointment.appmt_status}}</small>
+                    <small v-if="appointment.appmt_status === `reviewed`" style="color: #007bff">{{appointment.appmt_status}}</small>
                 </h4>
             </div>
             
