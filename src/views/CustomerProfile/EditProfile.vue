@@ -51,9 +51,9 @@
 
                         <div class="upload mt-2">
                             <label>Upload file
-                                <input type="file" id="file" ref="imgFile" @change="changeImg" />
+                                <input @change="handleImage" type="file" accept="image/*"/>
                             </label><br>
-                            <b-btn @click="changeImg">อัพโหลดรูปภาพ</b-btn><br>
+                            <b-btn @click="uploadImage">อัพโหลดรูปภาพ</b-btn><br>
                         </div>
                     </center>
                 </b-col>
@@ -121,7 +121,7 @@
         },
         updated() {
             //get customer data from firebase
-            firebase.firestore().collection('customer').doc(this.userData.uid).get()
+            firebase.firestore().collection('customer').doc(this.userData.cus_id).get()
             .then(doc => {
                 localStorage.setItem('userData', JSON.stringify(doc.data()))
             }).catch(err => { console.log(err) })
@@ -136,7 +136,6 @@
                 sex: '',
                 phone: '',
                 img: '',
-                uploadImg: ''
             }
         },
         methods: {
@@ -163,16 +162,15 @@
 
             },
 
-            //เปลี่ยนรูป
-            changeImg(event) {
-                this.uploadImg = event.target.files[0]
-                console.log(this.uploadImg)
-
+            //เลือกรูป
+            handleImage(e){
+                const selectedImage = e.target.files[0]
+                console.log(selectedImage.name)
             },
 
-            //เปลี่ยนรหัสผ่าน
-            changePassword() {
-                
+            //เปลี่ยนรูป 
+            uploadImage() {
+                console.log('upload sucess')
             }
         },
         computed: {

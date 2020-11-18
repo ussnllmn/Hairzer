@@ -3,6 +3,7 @@ const admin = require('firebase-admin')
 const serviceAccount = require('./path/to/aboutheadproject-firebase-adminsdk-8f6w7-21431f7897.json')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const base64Img = require('base64-img')
 
 const app = express()
 const port = 5000
@@ -142,6 +143,17 @@ app.post('/editCustomerInfo', (req, res) => {
         console.log(`[FAIL] ${error}`)
     })
 })
+
+//upload image
+app.post('/uploadImgProfile', (req, res) => {
+    const { image } = req.body
+
+    console.log(`[SUCCESS] upload image ${req.body.id} to success`)
+    return res.status(200).json({
+        title: 'upload sucess'
+    })
+})
+
 
 
 //Appointment Management
