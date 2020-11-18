@@ -46,7 +46,7 @@
                 <b-col v-if="appointment.appmt_status == 'success'">
                     <div >
                         <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
-                        <b-btn v-b-tooltip.hover title="รีวิวสถานที่" class="mx-1" variant="info" v-on:click="locationReview(appointment.appmt_id)"><b-icon icon="geo-alt-fill"></b-icon></b-btn>
+                        <b-btn v-b-tooltip.hover title="รีวิวสถานที่" class="m-2" variant="info" v-on:click="locationReview(appointment.appmt_id)"><b-icon icon="geo-alt-fill"></b-icon></b-btn>
                         <b-btn v-b-tooltip.hover title="รีวิวช่างตัดผม" variant="dark" v-on:click="barberReview(appointment.appmt_id)"><b-icon icon="scissors"></b-icon></b-btn>
                     </div>
                 </b-col>
@@ -55,7 +55,7 @@
                 <b-col v-if="appointment.appmt_status == 'cancel'">
                     <div >
                         <b-btn variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
-                        <b-btn class="mx-1" variant="danger" v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
+                        <b-btn class="m-2" variant="danger" v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
                     </div>
                 </b-col>
 
@@ -127,6 +127,11 @@
             //รีวิวสถานที่
             locationReview(appointmentID) {
                 this.$router.push({path: `/customer/location_review/${appointmentID}`})
+            },
+
+            //รีวิวช่างตัดผม
+            barberReview(appointmentID) {
+                this.$router.push({path: `/customer/barber_review/${appointmentID}`})
             },
             
             //ลบนัดหมาย (เปลี่ยนสถานะเป็น cancel)

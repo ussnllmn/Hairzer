@@ -154,7 +154,7 @@ app.post('/uploadImgProfile', (req, res) => {
     })
 })
 
-//Appointment Management
+//Appointment Management//
 //Appointment List
 app.post('/appointment', (req, res, next) => {
     var appointmentList = []
@@ -242,8 +242,6 @@ app.post('/appointmentHistory', (req, res, next) => {
             appointmentListHistory.push(doc.data())
         })
 
-        console.log(appointmentListHistory)
-
         return res.status(200).json({
             title: 'show appointment',
             appointmentHistory: appointmentListHistory
@@ -266,6 +264,28 @@ app.post('/appointmentDelete', (req, res) => {
         return res.status(200).json({
             title: 'appointment delete'
         })
+    })
+})
+
+//Review//
+//Location Review
+app.post('/locationReview', (req, res) => {
+    var ref = db.collection('location_review').doc()
+    ref.set({
+        lo_review_id: ref.id,
+        lo_review_reviewer: req.body.reviewer,
+        lo_review_location: req.body.appointment.appmt_location,
+        lo_review_text: req.body.reviewText,
+        lo_review_score: req.body.score
+    })
+    .then(() => {
+        console.log(`[SUCCESS] location review: ${ref.id}`)
+        return res.status(200).json({
+            title: 'location review success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
     })
 })
 

@@ -124,7 +124,13 @@ const routes = [
         path: '/customer/location_review/:appmt_id',
         name: 'LocationReview',
         component: () => import('../views/CustomerProfile/LocationReview.vue'),
-        meta: {title: `Hairzer | รีวิวการใช้บริการ`}
+        meta: {title: `Hairzer | รีวิวการใช้บริการสถานที่`}
+      },
+      {
+        path: '/customer/barber_review/:appmt_id',
+        name: 'BarberReview',
+        component: () => import('../views/CustomerProfile/BarberReview.vue'),
+        meta: {title: `Hairzer | รีวิวการใช้บริการช่างตัดผม`}
       },
     ]
   },

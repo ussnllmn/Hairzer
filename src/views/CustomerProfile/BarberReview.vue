@@ -8,15 +8,21 @@
                 <b-row>
                     <!--Location Review-->
                     <b-col md="5" class="reviewBox shadow-sm py-4 mx-auto mb-4 text-center">
-                        <h4><b>รีวิวสถานที่</b></h4>
+                        <h4><b>รีวิวช่างตัดผม</b></h4><hr>
 
-                        <b-img :src="appointment.appmt_location.lo_img" rounded="circle" width="200px" height="200px" style="object-fit: cover;" class="my-3"></b-img>                  
+                        <b-img :src="appointment.appmt_barber.barb_img" rounded="circle" width="200px" height="200px" style="object-fit: cover;" class="my-3"></b-img>                  
                         
                         <div class="small">
-                            <h5>{{appointment.appmt_location.lo_locationName}}</h5>
-                            <p>หมายเลขการนัดหมาย: {{appointment.appmt_id}}</p>
-                            <p>วันที่: {{appointment.appmt_date}} | เวลา: {{appointment.appmt_time}}</p>
+                            <h5>{{appointment.appmt_barber.barb_firstName}} {{appointment.appmt_barber.barb_lastName}}</h5>
+                            <p><b>หมายเลขการนัดหมาย:</b> {{appointment.appmt_id}}</p>
+                            <p><b>วันที่:</b> {{appointment.appmt_date}} | เวลา: {{appointment.appmt_time}}</p>
                         </div>
+
+                        <div class="mt-4">
+                            <p><b>บริการที่ใช้</b></p>
+                            <p v-for="(service,index) in appointment.appmt_service" :key="service.service_name">{{index+1}}. {{service.service_name}}</p>
+                        </div>
+                        
                         
                         <label for="score-star" class="small mb-0 mt-4">ให้คะแนนการใช้บริการของคุณ</label>
                         <div id="score-star" class="mt-0 mb-4 h5">
@@ -67,13 +73,13 @@
                         <b-form-textarea
                             class="my-3"
                             id="locationText"
-                            v-model="locationText"
-                            placeholder="เขียนรีวิวให้สถานที่ได้ที่นี่ . . . "
+                            v-model="barberText"
+                            placeholder="เขียนรีวิวให้ช่างตัดผมได้ที่นี่ . . . "
                             rows="5"
                             max-rows="5"
                         ></b-form-textarea>
 
-                        <b-btn variant="info">ตกลง</b-btn>
+                        <b-btn variant="dark">ตกลง</b-btn>
                     </b-col>
                 </b-row>
             </div>
@@ -90,7 +96,7 @@
         data() {
             return {
                 appointment: '',
-                locationText: '',
+                barberText: '',
                 score: 0
             }
         },

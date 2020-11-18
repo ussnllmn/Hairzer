@@ -7,15 +7,15 @@
             <div class="mb-4">
                 <b-row>
                     <!--Location Review-->
-                    <b-col md="5" class="reviewBox shadow-sm py-4 mx-auto mb-4 text-center">
-                        <h4><b>รีวิวสถานที่</b></h4>
+                    <b-col md="6" class="reviewBox shadow-sm py-4 mx-auto mb-4 text-center">
+                        <h4><b>รีวิวสถานที่</b></h4><hr>
 
                         <b-img :src="appointment.appmt_location.lo_img" rounded="circle" width="200px" height="200px" style="object-fit: cover;" class="my-3"></b-img>                  
                         
                         <div class="small">
                             <h5>{{appointment.appmt_location.lo_locationName}}</h5>
-                            <p>หมายเลขการนัดหมาย: {{appointment.appmt_id}}</p>
-                            <p>วันที่: {{appointment.appmt_date}} | เวลา: {{appointment.appmt_time}}</p>
+                            <p><b>หมายเลขการนัดหมาย:</b> {{appointment.appmt_id}}</p>
+                            <p><b>วันที่:</b> {{appointment.appmt_date}} | เวลา: {{appointment.appmt_time}}</p>
                         </div>
                         
                         <label for="score-star" class="small mb-0 mt-4">ให้คะแนนการใช้บริการของคุณ</label>
@@ -65,15 +65,16 @@
                         </div>
                         
                         <b-form-textarea
+                            required
                             class="my-3"
                             id="locationText"
-                            v-model="locationText"
+                            v-model="reviewText"
                             placeholder="เขียนรีวิวให้สถานที่ได้ที่นี่ . . . "
                             rows="5"
                             max-rows="5"
                         ></b-form-textarea>
 
-                        <b-btn variant="info">ตกลง</b-btn>
+                        <b-btn variant="info" @click="locationReview">ตกลง</b-btn>
                     </b-col>
                 </b-row>
             </div>
@@ -89,12 +90,15 @@
         name: 'Review',
         data() {
             return {
+                userData: '',
                 appointment: '',
-                locationText: '',
+                reviewText: '. . . ไม่มีความคิดเห็น',
                 score: 0
             }
         },
         created() {
+            this.userData = localStorage.getItem('userData')
+
             axios.get(`http://localhost:5000/appointment/${this.$route.params.appmt_id}`)
             .then(
                 res => {
@@ -105,7 +109,24 @@
             )
         },
         methods: {
+            locationReview() {
+                const locationReview = {
+                    reviewer: this.userData.cus_id,
+                    appointment: this.appointment,
+                    reviewText: this.reviewText,
+                    score: this.score,
+                }
 
+                axios.post('http://localhost:5000/locationReview', locationReview)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('รีวิวสถานที่สำเร็จ')
+                            this.$router.replace({name: 'History'}).catch(()=>{})
+                        }
+                    }
+                )
+            }
         }
     }
 </script>
