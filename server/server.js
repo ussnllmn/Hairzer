@@ -285,15 +285,39 @@ app.post('/locationReview', (req, res) => {
     .then(() => {
         console.log(`[SUCCESS] location review: ${ref.id}`)
 
-        //เปลี่ยน status status => reviewed 
-        db.collection('appointment').doc(req.body.appointment.appmt_id)
-        .update({
-            appmt_status: 'location reviewed'
+        var status = ''
+
+        var appointmentID = req.body.appointment.appmt_id
+
+        db.collection('appointment').doc(appointmentID).get()
+        .then(function(doc) {
+            console.log(doc.data())
         })
 
-        return res.status(200).json({
-            title: 'location review success'
-        })
+        if(status == 'success') {
+            //เปลี่ยน status status success => location reviewed | ถ้ายังไม่เคยรีวิวแล้วมารีวิวสถานที่
+            db.collection('appointment').doc(req.body.appointment.appmt_id)
+            .update({
+                appmt_status: 'location reviewed'
+            })
+
+            return res.status(200).json({
+                title: 'location review success'
+            })
+        }
+        if(status == 'barber reviewed') {
+            //เปลี่ยน status status barber reviewed => reviewed | ถ้ายังเคยรีวิวช่างตัดผมแล้วมารีวิวสถานที่
+            db.collection('appointment').doc(req.body.appointment.appmt_id)
+            .update({
+                appmt_status: 'location reviewed'
+            })
+
+            return res.status(200).json({
+                title: 'location review success'
+            })
+        }
+            
+        
     })
     .catch(error => {
         console.log(`[FAIL] ${error}`)
