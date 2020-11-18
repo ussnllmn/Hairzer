@@ -1,72 +1,148 @@
 <template>
     <div class="history">
-        <h1>ประวัติการใช้บริการ</h1>
-        <div class="historyBox p-2">
+        <h1>จัดการนัดหมาย</h1>
+        <div class="px-2 text-center shadow-sm">
             <!--Title-->
-            <b-table striped hover :items="items" :fields="fields" class="shadow-sm">
-                <template #cell(การจัดการ)>
-                    <b-button variant="outline-primary" size="sm" class="mb-2" style="width: 100%;">รายละเอียด</b-button> <br>
-                    <b-button variant="outline-primary" size="sm" class="mb-2" style="width: 100%;">รีวิวสถานที่</b-button> <br>
-                    <b-button variant="outline-primary" size="sm" style="width: 100%;">รีวิวช่างตัดผม</b-button> <br>
-                </template>
-            </b-table>
-            
+            <b-row class="font-weight-bold h5 py-4 titleAppmt mb-0">
+                <b-col sm="2">วันที่</b-col>
+                <b-col sm="1">เวลา</b-col>
+                <b-col>สถานที่</b-col>
+                <b-col>ช่างตัดผม</b-col>
+                <b-col>บริการ</b-col>
+                <b-col sm="1">สถานะ</b-col>
+                <b-col></b-col>
+            </b-row>
+
+            <!--Appointment-->
+            <b-row v-for="appointment in appointmentHistoryList" :key="appointment.apptmt_id" class="appointmentList py-4 align-items-center">
+                <b-col sm="2">{{appointment.appmt_date}}</b-col>
+                <b-col sm="1">{{appointment.appmt_time}}</b-col>
+                <b-col>
+                    <b-img :src="appointment.appmt_location.lo_img" rounded="circle" width="80px" height="80px"></b-img>
+                    <p> {{appointment.appmt_location.lo_locationName}}</p>
+                </b-col>
+                <b-col>
+                    <b-img :src="appointment.appmt_barber.barb_img" rounded="circle" width="80px" height="80px" style="object-fit: cover;"></b-img>
+                    <p> {{appointment.appmt_barber.barb_firstName}} {{appointment.appmt_barber.barb_lastName}}</p>
+                </b-col>
+                <b-col>
+                    <p v-for="(service, index) in appointment.appmt_service" :key="index">{{index+1}}. {{service.service_name}}</p>
+                </b-col>
+                <b-col sm="1">
+                    <p v-if="appointment.appmt_status == 'success'" class="text-success">{{appointment.appmt_status}}</p>
+                    <p v-if="appointment.appmt_status == 'cancel'" class="text-danger">{{appointment.appmt_status}}</p>
+                </b-col>
+                <b-col>
+                    <div v-if="appointment.appmt_status == 'success'">
+                        <b-btn variant="info" v-on:click="reviewLocation(appointment.appmt_id)"><b-icon icon="geo-alt-fill"></b-icon></b-btn>
+                        <b-btn variant="dark" v-on:click="reviewBarber(appointment.appmt_id)" class="m-2"><b-icon icon="scissors"></b-icon></b-btn>
+                    </div>
+
+                    <div v-if="appointment.appmt_status == 'cancel'">
+                        <b-btn variant="danger"  v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
+                    </div>
+                </b-col>
+            </b-row>
         </div>
     </div>
 </template>
 
 <script>
-  export default {
-    data() {
-        return {
-            fields: [
-                { key:'appointmentID', sortable: true },
-                { key:'Date', sortable: true },
-                { key:'Time', sortable: true },
-                { key:'location', sortable: true },
-                { key:'barber', sortable: true },
-                { key:'status', sortable: true },
-                { key:'การจัดการ' }
-            ],
-            items: [
-                { 
-                    appointmentID: '000333', 
-                    Date: '2020-10-22', 
-                    Time: '16:00:00', 
-                    location: 'ร้านตัดผม 2', 
-                    barber: 'ช่างตัดผม 2', 
-                    service: ['บริการ 1', 'บริการ 2'], 
-                    status: 'success' 
-                },
-                { 
-                    appointmentID: '000091', 
-                    Date: '2020-10-10', 
-                    Time: '10:00:00', 
-                    location: 'ร้านตัดผม 10', 
-                    barber: 'ช่างตัดผม 11', 
-                    service: ['บริการ 1', 'บริการ 3', 'บริการ 4'], 
-                    status: 'success' 
-                },
-                { 
-                    appointmentID: '000012', 
-                    Date: '2020-09-11', 
-                    Time: '15:00:00', 
-                    location: 'ร้านตัดผม 3', 
-                    barber: 'ช่างตัดผม 4', 
-                    service: ['บริการ 1'], 
-                    status: 'success' 
-                },
-                { 
-                    appointmentID: '000034', 
-                    Date: '2020-10-29', 
-                    Time: '18:00:00', 
-                    location: 'ร้านตัดผม 1', 
-                    barber: 'ช่างตัดผม 3', 
-                    service: ['บริการ 1','บริการ 5'], 
-                    status: 'success' 
-                },
-            ]
-        }
+    import axios from 'axios'
+    import firebase from 'firebase/app';
+    import 'firebase/auth';
+
+    export default {
+        beforeCreate() {
+            //check สถานะการเข้าสู่ระบบ
+            firebase.auth().onAuthStateChanged(user => {
+                if (!user) {
+                    this.$router.replace({name: 'Home'}).catch(()=>{})
+                }
+            })
+        },
+        created() {
+            //get customer data from firebase
+            this.userData = JSON.parse(localStorage.getItem('userData'))
+            
+            var data = {
+                id: this.userData.cus_id
+            }
+
+            //request appointment history data
+            axios.post('http://localhost:5000/appointmentHistory', data)
+            .then(
+                res => {
+                    if(res.status === 200) {
+                        this.appointmentHistoryList = res.data.appointmentHistory
+                    }
+                }
+            )
+        },
+        /*updated() {
+            var data = {
+                id: this.userData.cus_id
+            }
+
+            //request appointment data
+            axios.post('http://localhost:5000/appointmentHistory', data)
+            .then(
+                res => {
+                    if(res.status === 200) {
+                        this.appointmentHistoryList = res.data.appointmentHistory
+                    }
+                }
+            )
+        },*/
+        data() {
+            return {
+                userData: '',
+                appointmentHistoryList: ''
+            }
+        },
+        methods: {
+            reviewLocation(appointmentID) {
+                //this.$router.push({path: `/customer/appointment/${appointmentID}`})
+            },
+
+            reviewBarber(appointmentID) {
+                
+            },
+            
+            deleteAppointment(appointmentID) {
+                var appointmentDelete = {
+                appmt_id: appointmentID
+            }
+
+                axios.post('http://localhost:5000/appointmentDelete', appointmentDelete)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('ลบการนัดหมายสำเร็จ')
+                        }
+                    }
+                ).catch(err => console.log(err))
+            }
+        },
     }
-  }
 </script>
+
+<style scoped>
+    .titleAppmt {
+        background-color: whitesmoke;
+        border-bottom: 1px #EBEBEB solid;
+    }
+    .appointmentBox {
+        border: 1px solid #CED4DA;
+        border-radius: 5px;
+        color: #495057;
+    }
+
+    .appointmentList {
+        border-bottom: 1px #EBEBEB solid;
+    }
+    .appointmentList:hover {
+        background-color: whitesmoke;
+        cursor: pointer;
+    }
+</style>

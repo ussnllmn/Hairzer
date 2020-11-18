@@ -144,7 +144,7 @@ app.post('/editCustomerInfo', (req, res) => {
     })
 })
 
-//upload image
+//upload image ******
 app.post('/uploadImgProfile', (req, res) => {
     const { image } = req.body
 
@@ -154,9 +154,8 @@ app.post('/uploadImgProfile', (req, res) => {
     })
 })
 
-
-
 //Appointment Management
+//Appointment List
 app.post('/appointment', (req, res, next) => {
     var appointmentList = []
 
@@ -230,6 +229,43 @@ app.post('/appointmentCancel', (req, res) => {
     })
     .catch(error => {
         console.log(`[FAIL] ${error}`)
+    })
+})
+
+//Appointment History
+app.post('/appointmentHistory', (req, res, next) => {
+    var appointmentListHistory = []
+
+    db.collection('appointment').where("appmt_customer", "==", req.body.id).where("appmt_status","in", ['success', 'cancel']).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            appointmentListHistory.push(doc.data())
+        })
+
+        console.log(appointmentListHistory)
+
+        return res.status(200).json({
+            title: 'show appointment',
+            appointmentHistory: appointmentListHistory
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+//appointment delete
+app.post('/appointmentDelete', (req, res) => {
+    var ref = db.collection('appointment').doc(req.body.appmt_id)
+
+    ref.update({
+        appmt_status: 'delete'
+    })
+    .then(() => {
+        console.log(`[SUCCESS] change status ${req.body.id} to delete` )
+        return res.status(200).json({
+            title: 'appointment delete'
+        })
     })
 })
 
