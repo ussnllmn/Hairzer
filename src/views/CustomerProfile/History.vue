@@ -18,7 +18,7 @@
                 <b-col sm="2">{{appointment.appmt_date}}</b-col>
                 <b-col sm="1">{{appointment.appmt_time}}</b-col>
                 <b-col>
-                    <b-img :src="appointment.appmt_location.lo_img" rounded="circle" width="80px" height="80px"></b-img>
+                    <b-img :src="appointment.appmt_location.lo_img" rounded="circle" width="80px" height="80px" style="object-fit: cover;"></b-img>
                     <p> {{appointment.appmt_location.lo_locationName}}</p>
                 </b-col>
                 <b-col>
