@@ -83,7 +83,7 @@ import axios from 'axios'
                 selectedTime: new Date().toLocaleTimeString('it-IT'),
 
                 //date picker
-                minDate: new Date().toUTCString(),
+                minDate: new Date(),
                 
                 //Example Data
                 districts: [

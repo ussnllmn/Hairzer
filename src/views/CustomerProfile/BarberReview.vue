@@ -97,7 +97,7 @@
             return {
                 userData: '',
                 appointment: '',
-                reviewText: '. . . ไม่มีความคิดเห็น',
+                reviewText: '',
                 score: 0
             }
         },
@@ -121,8 +121,6 @@
                     reviewText: this.reviewText,
                     score: this.score,
                 }
-
-                console.log(barberReview)
 
                 axios.post('http://localhost:5000/barberReview', barberReview)
                 .then(

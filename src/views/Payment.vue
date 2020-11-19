@@ -97,7 +97,7 @@
                             
                             //แสดง payment success
                             this.paymentResult = true
-                            localStorage.clear()
+                            localStorage.removeItem('appointment')
                         }
                     }
                 ).catch(err => {

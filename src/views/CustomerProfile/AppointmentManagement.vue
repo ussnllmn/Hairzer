@@ -28,7 +28,7 @@
                 <b-col>
                     <p v-for="(service, index) in appointment.appmt_service" :key="index">{{index+1}}. {{service.service_name}}</p>
                 </b-col>
-                <b-col sm="1" class="text-warning">{{appointment.appmt_status}}</b-col>
+                <b-col v-if="appointment.appmt_status == 'waiting'" sm="1" class="text-warning">รอใช้บริการ</b-col>
                 <b-col >
                     <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
                     <b-btn v-b-tooltip.hover title="ยืนยันการใช้บริการ" variant="success" v-on:click="appointmentSuccess(appointment.appmt_id)" class="m-2"><b-icon icon="check"></b-icon></b-btn>

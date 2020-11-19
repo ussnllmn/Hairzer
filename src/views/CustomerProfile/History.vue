@@ -38,11 +38,11 @@
 
                 <!--สถานะ-->
                 <b-col sm="1">
-                    <p v-if="appointment.appmt_status == 'success'" class="text-success">{{appointment.appmt_status}}</p>
-                    <p v-if="appointment.appmt_status == 'cancel'" class="text-danger">{{appointment.appmt_status}}</p>
-                    <p v-if="appointment.appmt_status == 'reviewed'" class="text-primary">{{appointment.appmt_status}}</p>
-                    <p v-if="appointment.appmt_status == 'location reviewed'" class="text-primary">{{appointment.appmt_status}}</p>
-                    <p v-if="appointment.appmt_status == 'barber reviewed'" class="text-primary">{{appointment.appmt_status}}</p>
+                    <p v-if="appointment.appmt_status == 'success'" class="text-success">สำเร็จ</p>
+                    <p v-if="appointment.appmt_status == 'cancel'" class="text-danger">ยกเลิก</p>
+                    <p v-if="appointment.appmt_status == 'reviewed'" class="text-primary">รีวิวสำเร็จ</p>
+                    <p v-if="appointment.appmt_status == 'location reviewed'" class="text-primary">รีวิวสถานที่แล้ว</p>
+                    <p v-if="appointment.appmt_status == 'barber reviewed'" class="text-primary">รีวิวช่างตัดผมแล้ว</p>
                 </b-col>
 
                 <!--ปุ่มถ้าสถานะ == success-->
