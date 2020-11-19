@@ -72,21 +72,6 @@
             }
         )
     },
-    /*updated() {
-        var data = {
-            id: this.userData.cus_id
-        }
-
-        //request appointment data
-        axios.post('http://localhost:5000/appointment', data)
-        .then(
-            res => {
-                if(res.status === 200) {
-                    this.appointmentList = res.data.appointment
-                }
-            }
-        )
-    },*/
     data() {
         return {
             userData: '',
@@ -126,6 +111,7 @@
                 res => {
                     if(res.status === 200) {
                         alert('ยกเลิกการนัดหมายสำเร็จ')
+                        this.$forceUpdate();
                     }
                 }
             )

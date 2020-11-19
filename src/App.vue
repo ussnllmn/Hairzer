@@ -2,6 +2,7 @@
 
 <template>
   <div id="app" >
+    <Loading v-if="this.$loadingStatus"></Loading>
     <Navbar></Navbar>
     <div class="container-fluid p-0">
       <router-view/>
@@ -13,12 +14,20 @@
 <script>
   import Navbar from './components/Navbar'
   import Footer from './components/Footer'
+  import Loading from './components/Loading'
 
   export default {
     components: {
       Navbar,
-      Footer
-    }
+      Footer,
+      Loading
+    },
+    beforeMount() {
+      this.$loadingStatus = true
+    },
+    mounted() {
+      this.$loadingStatus = false
+    },
   }
 </script>
 

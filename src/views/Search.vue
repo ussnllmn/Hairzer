@@ -1,7 +1,7 @@
 <!--/src/Search.vue-->
-
 <template>
     <div class="search container">
+        <Loading v-if="loadingStatus"></Loading>
         <h1>ค้นหา</h1>
             <!--Location Box-->
             <div class="mb-4 p-2 pb-4 locationBox shadow-sm">
@@ -61,11 +61,17 @@
 </template>
 
 <script>
-import axios from 'axios'
+    import axios from 'axios'
+    import Loading from '../components/Loading'
 
     export default {
         name:'Search',
+        components: {
+            Loading
+        },
         created() {
+            this.loadingStatus = false
+
             //cal date
             let date = new Date()
             let year = date.getUTCFullYear()
@@ -76,6 +82,8 @@ import axios from 'axios'
         },
         data() {
             return {
+                loadingStatus: false,
+
                 //data ที่ต้องใช้ค้นหา location, service, date, time
                 location:'ลาดกระบัง',
                 serviceChecked: ['ตัดผม'],
@@ -105,6 +113,8 @@ import axios from 'axios'
         },
         methods: {
             searchLocation() {
+                this.loadingStatus = true
+
                 let searchData = { 
                     location: this.location,
                     service: this.serviceChecked,
@@ -129,6 +139,8 @@ import axios from 'axios'
                             localStorage.setItem('selectedBarber', '')
                             localStorage.setItem('selectedService', '')
                             localStorage.setItem('totalCost', 0)
+                            
+                            this.loadingStatus = false
 
                             //redirect ไปหน้า location
                             this.$router.push('/location')
