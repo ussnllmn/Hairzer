@@ -118,8 +118,6 @@
                     score: this.score,
                 }
 
-                console.log(locationReview)
-
                 axios.post('http://localhost:5000/locationReview', locationReview)
                 .then(
                     res => {

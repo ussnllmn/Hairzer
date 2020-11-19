@@ -283,41 +283,45 @@ app.post('/locationReview', (req, res) => {
         lo_review_time: req.body.appointment.appmt_time
     })
     .then(() => {
-        console.log(`[SUCCESS] location review: ${ref.id}`)
-
+        console.log('[1][LOCATION REVIEW] create review success')
         var status = ''
 
         var appointmentID = req.body.appointment.appmt_id
 
+        //get ค่า status appointment มาเช็ค
         db.collection('appointment').doc(appointmentID).get()
         .then(function(doc) {
-            console.log(doc.data())
-        })
+            status = doc.data().appmt_status
 
-        if(status == 'success') {
-            //เปลี่ยน status status success => location reviewed | ถ้ายังไม่เคยรีวิวแล้วมารีวิวสถานที่
-            db.collection('appointment').doc(req.body.appointment.appmt_id)
-            .update({
-                appmt_status: 'location reviewed'
-            })
-
-            return res.status(200).json({
-                title: 'location review success'
-            })
-        }
-        if(status == 'barber reviewed') {
-            //เปลี่ยน status status barber reviewed => reviewed | ถ้ายังเคยรีวิวช่างตัดผมแล้วมารีวิวสถานที่
-            db.collection('appointment').doc(req.body.appointment.appmt_id)
-            .update({
-                appmt_status: 'location reviewed'
-            })
-
-            return res.status(200).json({
-                title: 'location review success'
-            })
-        }
+            //เปลี่ยน status status success => location reviewed | ถ้ายังไม่เคยรีวิว แล้วมารีวิวสถานที่
+            if(status == 'success') {
+                db.collection('appointment').doc(req.body.appointment.appmt_id)
+                .update({
+                    appmt_status: 'location reviewed'
+                })
+                .then(() => {
+                    console.log('[SUCCESS] create review and change status')
+                    return res.status(200).json({
+                        title: 'location review success'
+                    })
+                }).catch(err => { console.log(`[FAIL] ${err}`) })
+            }
             
-        
+            //เปลี่ยน status status barber reviewed => reviewed | ถ้าเคยรีวิวช่างตัดผม แล้วมารีวิวสถานที่
+            if(status == 'barber reviewed') {
+                db.collection('appointment').doc(req.body.appointment.appmt_id)
+                .update({
+                    appmt_status: 'location reviewed'
+                })
+                .then(() => {
+                    console.log('[SUCCESS] create review and change status')
+                    return res.status(200).json({
+                        title: 'location review success'
+                    })
+                }).catch(err => { console.log(`[FAIL] ${err}`) })
+            }
+                
+        }).catch(err => {console.log(err)})
     })
     .catch(error => {
         console.log(`[FAIL] ${error}`)
