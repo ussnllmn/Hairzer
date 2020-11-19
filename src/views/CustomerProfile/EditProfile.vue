@@ -1,6 +1,8 @@
 <template>
     <div class="editprofile">
+        <Loading v-if="loadingStatus"></Loading>
         <h1>แก้ไขข้อมูลส่วนตัว</h1>
+
         <div class="editBox shadow-sm p-2">
             <h5>ข้อมูลของฉัน</h5> <hr>
             <!--Edit Profile-->
@@ -100,10 +102,16 @@
     import 'firebase/auth';
     import 'firebase/storage'
     import { mapGetters } from "vuex";
+    import Loading from '../../components/Loading'
 
     export default {
         name: 'EditProfile',
+        components: {
+            Loading
+        },
         created() {
+            this.loadingStatus = true
+            
             //set data
             this.userData = JSON.parse(localStorage.getItem('userData'))
             this.fname = this.userData.cus_firstName
@@ -116,6 +124,7 @@
             firebase.firestore().collection('customer').doc(this.userData.cus_id).get()
             .then(doc => {
                 localStorage.setItem('userData', JSON.stringify(doc.data()))
+                this.loadingStatus = false
             })
             .catch(err => {console.log(err)})
         },
@@ -128,6 +137,8 @@
         },
         data() {
             return {
+                loadingStatus: '',
+
                 userData: [],
 
                 //data in form
@@ -141,6 +152,8 @@
         methods: {
             //แก้ไขข้อมูลส่วนตัว
             editInfo() {
+                this.loadingStatus = true
+
                 let info = {
                     id: this.userData.cus_id,
                     fname: this.fname,
@@ -155,6 +168,7 @@
                     res => {
                         if(res.status === 200) {
                             alert('แก้ไขข้อมูลสำเร็จ')
+                            this.loadingStatus = false
                             this.$router.replace({name: 'Customer'}).catch(() => {})
                         }
                     }

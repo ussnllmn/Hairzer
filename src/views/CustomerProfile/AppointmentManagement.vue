@@ -1,5 +1,6 @@
 <template>
     <div class="appointment">
+        <Loading v-if="loadingStatus"></Loading>
         <h1>จัดการนัดหมาย</h1>
         <div class="px-2 text-center shadow-sm">
             <!--Title-->
@@ -43,81 +44,93 @@
     import axios from 'axios'
     import firebase from 'firebase/app';
     import 'firebase/auth';
+    import Loading from '../../components/Loading'
 
-  export default {
-    name: 'Appointment',
-    beforeCreate() {
-        //check สถานะการเข้าสู่ระบบ
-        firebase.auth().onAuthStateChanged(user => {
-            if (!user) {
-                this.$router.replace({name: 'Home'}).catch(()=>{})
-            }
-        })
-    },    
-    created() {
-        //get customer data from firebase
-        this.userData = JSON.parse(localStorage.getItem('userData'))
-        
-        var data = {
-            id: this.userData.cus_id
-        }
-
-        //request appointment data
-        axios.post('http://localhost:5000/appointment', data)
-        .then(
-            res => {
-                if(res.status === 200) {
-                    this.appointmentList = res.data.appointment
-                }
-            }
-        )
-    },
-    data() {
-        return {
-            userData: '',
-            appointmentList: []
-        }
-    },
-    methods: {
-        //ดูรายละเอียดนัดหมาย
-        appointmentInfo(appointmentID) {
-            this.$router.push({path: `/customer/appointment/${appointmentID}`})
+    export default {
+        name: 'Appointment',
+        components: {
+            Loading
         },
+        beforeCreate() {
+            //check สถานะการเข้าสู่ระบบ
+            firebase.auth().onAuthStateChanged(user => {
+                if (!user) {
+                    this.$router.replace({name: 'Home'}).catch(()=>{})
+                }
+            })
+        },    
+        created() {
+            this.loadingStatus = true
 
-        //ยืนยันการนัดหมาย
-        appointmentSuccess(appointmentID) {
-            var appointmentSuccess = {
-                appmt_id: appointmentID
+            //get customer data from firebase
+            this.userData = JSON.parse(localStorage.getItem('userData'))
+            
+            var data = {
+                id: this.userData.cus_id
             }
 
-            axios.post('http://localhost:5000/appointmentSuccess', appointmentSuccess)
+            //request appointment data
+            axios.post('http://localhost:5000/appointment', data)
             .then(
                 res => {
                     if(res.status === 200) {
-                        alert('ยืนยันการใช้บริการสำเร็จ')
+                        this.appointmentList = res.data.appointment
+                        this.loadingStatus = false
                     }
                 }
             )
         },
-
-        //ยกเลิกหนัดหมาย
-        appointmentCancel(appointmentID) {
-            var appointmentCancel = {
-                appmt_id: appointmentID
+        data() {
+            return {
+                loadingStatus: '',
+                userData: '',
+                appointmentList: []
             }
+        },
+        methods: {
+            //ดูรายละเอียดนัดหมาย
+            appointmentInfo(appointmentID) {
+                this.$router.push({path: `/customer/appointment/${appointmentID}`})
+            },
 
-            axios.post('http://localhost:5000/appointmentCancel', appointmentCancel)
-            .then(
-                res => {
-                    if(res.status === 200) {
-                        alert('ยกเลิกการนัดหมายสำเร็จ')
-                        this.$forceUpdate();
-                    }
+            //ยืนยันการนัดหมาย
+            appointmentSuccess(appointmentID) {
+                this.loadingStatus = true
+                var appointmentSuccess = {
+                    appmt_id: appointmentID
                 }
-            )
+
+                axios.post('http://localhost:5000/appointmentSuccess', appointmentSuccess)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('ยืนยันการใช้บริการสำเร็จ')
+                            this.loadingStatus = false
+                        }
+                    }
+                )
+            },
+
+            //ยกเลิกหนัดหมาย
+            appointmentCancel(appointmentID) {
+                this.loadingStatus = true
+
+                var appointmentCancel = {
+                    appmt_id: appointmentID
+                }
+
+                axios.post('http://localhost:5000/appointmentCancel', appointmentCancel)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('ยกเลิกการนัดหมายสำเร็จ')
+                            this.loadingStatus = false
+                        }
+                    }
+                )
+            }
         }
     }
-  }
 </script>
 
 <style scoped>

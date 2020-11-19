@@ -1,6 +1,8 @@
 <template>
     <div class="history">
-        <h1>ประวัติการใช้บริการ</h1>
+        <Loading v-if="loadingStatus"></Loading>
+
+        <h1>ประวัติการใช้บริการ</h1> 
         <div class="px-2 text-center shadow-sm">
             <!--Title-->
             <b-row class="font-weight-bold h5 py-4 titleAppmt mb-0">
@@ -96,8 +98,13 @@
     import axios from 'axios'
     import firebase from 'firebase/app';
     import 'firebase/auth';
+    import Loading from '../../components/Loading'
 
     export default {
+        name: 'History',
+        components: {
+            Loading
+        },
         beforeCreate() {
             //check สถานะการเข้าสู่ระบบ
             firebase.auth().onAuthStateChanged(user => {
@@ -107,6 +114,8 @@
             })
         },
         created() {
+            this.loadingStatus = true
+
             //get customer data from firebase
             this.userData = JSON.parse(localStorage.getItem('userData'))
             
@@ -120,6 +129,7 @@
                 res => {
                     if(res.status === 200) {
                         this.appointmentHistoryList = res.data.appointmentHistory
+                        this.loadingStatus = false
                     }
                 }
             )
@@ -127,7 +137,8 @@
         data() {
             return {
                 userData: '',
-                appointmentHistoryList: ''
+                appointmentHistoryList: '',
+                locationName: appointment.appmt_location.lo_locationName
             }
         },
         methods: {
@@ -148,6 +159,8 @@
             
             //ลบนัดหมาย (เปลี่ยนสถานะเป็น cancel)
             deleteAppointment(appointmentID) {
+                this.loadingStatus = true
+
                 var appointmentDelete = {
                     appmt_id: appointmentID
                 }
@@ -156,7 +169,7 @@
                     res => {
                         if(res.status === 200) {
                             alert('ลบการนัดหมายสำเร็จ')
-                            this.$forceUpdate();
+                            this.loadingStatus = false
                         }
                     }
                 ).catch(err => console.log(err))
