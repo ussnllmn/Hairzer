@@ -41,8 +41,8 @@
                     <p v-if="appointment.appmt_status == 'success'" class="text-success">สำเร็จ</p>
                     <p v-if="appointment.appmt_status == 'cancel'" class="text-danger">ยกเลิก</p>
                     <p v-if="appointment.appmt_status == 'reviewed'" class="text-primary">รีวิวสำเร็จ</p>
-                    <p v-if="appointment.appmt_status == 'location reviewed'" class="text-primary">รีวิวสถานที่แล้ว</p>
-                    <p v-if="appointment.appmt_status == 'barber reviewed'" class="text-primary">รีวิวช่างตัดผมแล้ว</p>
+                    <p v-if="appointment.appmt_status == 'location reviewed'" class="text-info">รีวิวสถานที่แล้ว</p>
+                    <p v-if="appointment.appmt_status == 'barber reviewed'" class="text-dark">รีวิวช่างตัดผมแล้ว</p>
                 </b-col>
 
                 <!--ปุ่มถ้าสถานะ == success-->
@@ -58,7 +58,7 @@
                 <b-col v-if="appointment.appmt_status == 'cancel'">
                     <div >
                         <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
-                        <b-btn v-b-tooltip.hover title="ลบการนัดหมาย" class="m-2" variant="danger" v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
+                        <b-btn v-b-tooltip.hover title="ลบประวัติการนัดหมาย" class="m-2" variant="danger" v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
                     </div>
                 </b-col>
 
@@ -66,7 +66,7 @@
                 <b-col v-if="appointment.appmt_status == 'reviewed'">
                     <div >
                         <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
-                        <b-btn v-b-tooltip.hover title="ลบการนัดหมาย" class="m-2" variant="danger" v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
+                        <b-btn v-b-tooltip.hover title="ลบการประวัตินัดหมาย" class="m-2" variant="danger" v-on:click="deleteAppointment(appointment.appmt_id)"><b-icon icon="trash-fill"></b-icon></b-btn>
                     </div>
                 </b-col>
 

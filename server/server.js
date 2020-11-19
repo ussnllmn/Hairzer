@@ -26,7 +26,7 @@ admin.initializeApp({
 const db = admin.firestore()
 
 
-//Search//
+//====================Search====================//
 //Location Search
 app.post('/location', (req, res) => {
     var locationList = []
@@ -91,7 +91,7 @@ app.post('/service', (req, res) => {
     })
 })
 
-//Appointment when payment suceess
+//create appointment when payment suceess
 app.post('/payment',(req, res) => {
     //check conflict appointment
 
@@ -121,7 +121,7 @@ app.post('/payment',(req, res) => {
 })
 
 
-//Edit Profile//
+//====================Edit Profile====================//
 //edit customer infomation
 app.post('/editCustomerInfo', (req, res) => {
     var ref = db.collection('customer').doc(req.body.id)
@@ -154,8 +154,9 @@ app.post('/uploadImgProfile', (req, res) => {
     })
 })
 
-//Appointment Management//
-//Appointment List
+
+//====================Appointment Management====================//
+//Show ppointment list
 app.post('/appointment', (req, res, next) => {
     var appointmentList = []
 
@@ -175,7 +176,7 @@ app.post('/appointment', (req, res, next) => {
     })
 })
 
-//appointment ID
+//Show detail ppointment by id
 app.get('/appointment/:appmt_id', (req, res) => {
     var appointmentData = ''
     var appointmentID = req.params.appmt_id
@@ -267,7 +268,7 @@ app.post('/appointmentDelete', (req, res) => {
     })
 })
 
-//Review//
+//====================Review====================//
 //Location Review
 app.post('/locationReview', (req, res) => {
     //เพิ่มข้อมูล review

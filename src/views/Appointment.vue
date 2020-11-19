@@ -75,8 +75,8 @@
 
         <!--Confirm-->
         <div>
-            <b-btn class="float-right mt-2" variant="primary">รีวิวสถานที่</b-btn>
-            <b-btn class="float-right mt-2 mr-2" variant="primary">รีวิวช่างตัดผม</b-btn>
+            <b-btn class="float-right mt-2 ml-2" variant="primary" v-on:click="barberReview(appointment.appmt_id)">รีวิวช่างตัดผม</b-btn>
+            <b-btn class="float-right mt-2" variant="info" v-on:click="locationReview(appointment.appmt_id)">รีวิวสถานที่</b-btn>
         </div>
     </div>
 </template>
@@ -100,6 +100,17 @@
             return {
                 appointment: ''
             }
+        },
+        methods: {
+            //รีวิวสถานที่
+            locationReview(appointmentID) {
+                this.$router.push({path: `/customer/location_review/${appointmentID}`})
+            },
+
+            //รีวิวช่างตัดผม
+            barberReview(appointmentID) {
+                this.$router.push({path: `/customer/barber_review/${appointmentID}`})
+            },
         }
     }
 </script>
