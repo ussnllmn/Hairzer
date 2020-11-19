@@ -92,7 +92,7 @@
             return {
                 userData: '',
                 appointment: '',
-                reviewText: '. . . ไม่มีความคิดเห็น',
+                reviewText: '',
                 score: 0
             }
         },
@@ -110,7 +110,6 @@
         },
         methods: {
             locationReview() {
-
                 var locationReview = {
                     customer: this.userData,
                     appointment: this.appointment,

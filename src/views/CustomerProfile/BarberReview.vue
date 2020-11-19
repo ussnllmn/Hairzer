@@ -7,7 +7,7 @@
             <div class="mb-4">
                 <b-row>
                     <!--Location Review-->
-                    <b-col md="5" class="reviewBox shadow-sm py-4 mx-auto mb-4 text-center">
+                    <b-col md="6" class="reviewBox shadow-sm py-4 mx-auto mb-4 text-center">
                         <h4><b>รีวิวช่างตัดผม</b></h4><hr>
 
                         <b-img :src="appointment.appmt_barber.barb_img" rounded="circle" width="200px" height="200px" style="object-fit: cover;" class="my-3"></b-img>                  
@@ -73,13 +73,13 @@
                         <b-form-textarea
                             class="my-3"
                             id="locationText"
-                            v-model="barberText"
+                            v-model="reviewText"
                             placeholder="เขียนรีวิวให้ช่างตัดผมได้ที่นี่ . . . "
                             rows="5"
                             max-rows="5"
                         ></b-form-textarea>
 
-                        <b-btn variant="dark">ตกลง</b-btn>
+                        <b-btn variant="dark" @click="barberReview">ตกลง</b-btn>
                     </b-col>
                 </b-row>
             </div>
@@ -95,12 +95,15 @@
         name: 'Review',
         data() {
             return {
+                userData: '',
                 appointment: '',
-                barberText: '',
+                reviewText: '. . . ไม่มีความคิดเห็น',
                 score: 0
             }
         },
         created() {
+            this.userData = JSON.parse(localStorage.getItem('userData'))
+
             axios.get(`http://localhost:5000/appointment/${this.$route.params.appmt_id}`)
             .then(
                 res => {
@@ -111,7 +114,30 @@
             )
         },
         methods: {
+            barberReview() {
+                var barberReview = {
+                    customer: this.userData,
+                    appointment: this.appointment,
+                    reviewText: this.reviewText,
+                    score: this.score,
+                }
 
+                console.log(barberReview)
+
+                axios.post('http://localhost:5000/barberReview', barberReview)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('รีวิวช่างตัดผมสำเร็จ')
+                            this.$router.replace({name: 'History'}).catch(()=>{})
+                        }
+                    },
+
+                    err => {
+                        console.log(err)
+                    }
+                )
+            }
         }
     }
 </script>
