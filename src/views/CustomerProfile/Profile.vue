@@ -8,7 +8,7 @@
                 <ProfileBar></ProfileBar>
             </b-col>
             <!--Router Views-->
-            <b-col lg="7" class="mb-4 mx-auto">
+            <b-col lg="8" class="mb-4 mx-auto">
                 <router-view></router-view>
                 <p>{{userData}}</p>
             </b-col>

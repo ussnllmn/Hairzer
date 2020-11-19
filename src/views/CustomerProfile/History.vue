@@ -43,8 +43,8 @@
                     <p v-if="appointment.appmt_status == 'success'" class="text-success">สำเร็จ</p>
                     <p v-if="appointment.appmt_status == 'cancel'" class="text-danger">ยกเลิก</p>
                     <p v-if="appointment.appmt_status == 'reviewed'" class="text-primary">รีวิวสำเร็จ</p>
-                    <p v-if="appointment.appmt_status == 'location reviewed'" class="text-info">รีวิวสถานที่แล้ว</p>
-                    <p v-if="appointment.appmt_status == 'barber reviewed'" class="text-dark">รีวิวช่างตัดผมแล้ว</p>
+                    <p v-if="appointment.appmt_status == 'location reviewed'" class="text-primary">รีวิวสถานที่แล้ว</p>
+                    <p v-if="appointment.appmt_status == 'barber reviewed'" class="text-primary">รีวิวช่างตัดผมแล้ว</p>
                 </b-col>
 
                 <!--ปุ่มถ้าสถานะ == success-->
@@ -76,8 +76,7 @@
                 <b-col v-if="appointment.appmt_status == 'location reviewed'">
                     <div >
                         <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
-                        <b-btn v-b-tooltip.hover title="รีวิวสถานที่" disabled class="m-2" variant="info" v-on:click="locationReview(appointment.appmt_id)"><b-icon icon="geo-alt-fill"></b-icon></b-btn>
-                        <b-btn v-b-tooltip.hover title="รีวิวช่างตัดผม" variant="dark" v-on:click="barberReview(appointment.appmt_id)"><b-icon icon="scissors"></b-icon></b-btn>
+                        <b-btn v-b-tooltip.hover title="รีวิวช่างตัดผม" class="m-2" variant="dark" v-on:click="barberReview(appointment.appmt_id)"><b-icon icon="scissors"></b-icon></b-btn>
                     </div>
                 </b-col>
 
@@ -86,7 +85,6 @@
                     <div >
                         <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
                         <b-btn v-b-tooltip.hover title="รีวิวสถานที่" class="m-2" variant="info" v-on:click="locationReview(appointment.appmt_id)"><b-icon icon="geo-alt-fill"></b-icon></b-btn>
-                        <b-btn v-b-tooltip.hover title="รีวิวช่างตัดผม" disabled variant="dark" v-on:click="barberReview(appointment.appmt_id)"><b-icon icon="scissors"></b-icon></b-btn>
                     </div>
                 </b-col>
             </b-row>
