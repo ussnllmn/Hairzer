@@ -7,10 +7,13 @@
             <div class="mb-4">
                 <h4>หมายเลขการนัดหมาย: <small>{{appointment.appmt_id}}</small> 
                     | สถานะ: 
-                    <small v-if="appointment.appmt_status === `success`" style="color: #28A745">{{appointment.appmt_status}}</small>
-                    <small v-if="appointment.appmt_status === `waiting`" style="color: #ffc107">{{appointment.appmt_status}}</small>
-                    <small v-if="appointment.appmt_status === `cancel`" style="color: #dc3545">{{appointment.appmt_status}}</small>
-                    <small v-if="appointment.appmt_status === `reviewed`" style="color: #007bff">{{appointment.appmt_status}}</small>
+                    <small v-if="appointment.appmt_status === `success`" style="color: #28A745">สำเร็จ</small>
+                    <small v-if="appointment.appmt_status === `waiting`" style="color: #ffc107">รอใช้บริการ</small>
+                    <small v-if="appointment.appmt_status === `cancel`" style="color: #dc3545">ยกเลิก</small>
+                    <small v-if="appointment.appmt_status === `reviewed`" style="color: #007bff">รีวิวสำเร็จ</small>
+                    <small v-if="appointment.appmt_status === `location reviewed`" style="color: #007bff">รีวิวสถานที่แล้ว</small>
+                    <small v-if="appointment.appmt_status === `barber reviewed`" style="color: #007bff">รีวิวช่างตัดผมแล้ว</small>
+                    
                 </h4>
             </div>
             
@@ -75,7 +78,7 @@
 
         <!--Confirm-->
         <div>
-            <b-btn class="float-right mt-2 ml-2" variant="primary" v-on:click="barberReview(appointment.appmt_id)">รีวิวช่างตัดผม</b-btn>
+            <b-btn class="float-right mt-2 ml-2" variant="dark" v-on:click="barberReview(appointment.appmt_id)">รีวิวช่างตัดผม</b-btn>
             <b-btn class="float-right mt-2" variant="info" v-on:click="locationReview(appointment.appmt_id)">รีวิวสถานที่</b-btn>
         </div>
     </div>

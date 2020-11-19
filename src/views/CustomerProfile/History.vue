@@ -138,7 +138,6 @@
             return {
                 userData: '',
                 appointmentHistoryList: '',
-                locationName: appointment.appmt_location.lo_locationName
             }
         },
         methods: {
