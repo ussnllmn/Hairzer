@@ -7,25 +7,24 @@
                 <div class="col-sm-6 signupBox shadow-sm">
                     <center><h3>สมัครสมาชิกสำหรับช่างตัดผม</h3></center>
                     <div class="form-group mt-4">
-                        <form @submit.prevent="registerWithEmail">
-                            <!--Email-->
+                        <!--Email-->
                             <label for="emailInput">Email</label>
                             <input type="email" class="form-control mb-2" id="emailInput" placeholder="อีเมล" v-model="Email" required>
                             <small id="emailHelp" class="form-text text-muted mb-4">ตัวอย่าง: name@example.com</small>
 
-                            <!--Password-->
+                        <!--Password-->
                             <label for="passwordInput">Password</label>
                             <input type="password" class="form-control mb-2" id="passwordInput" placeholder="รหัสผ่าน" v-model="Password" required>
                             <small id="passwordHelp" class="form-text text-muted mb-4">รหัสผ่าน: ต้องประกอบด้วยตัวเลขและตัวอักษร 6 ตัวขึ้นไป</small>
                             <hr>
 
-                            <!--Name-->
+                        <!--Name-->
                             <label >ชื่อ-นามสกุล</label>
                             <input type="text" class="form-control mb-2" id="FnameInput" placeholder="ชื่อ" v-model="Fname" required>
                             <input type="text" class="form-control mb-2" id="LnameInput" placeholder="นามสกุล" v-model="Lname" required>
                             <small id="nameHelp" class="form-text text-muted mb-4">ชื่อ: ไม่ต้องใส่คำนำหน้า</small>
 
-                            <!--Sex-->
+                        <!--Sex-->
                             <label >เพศ</label> 
                             <br>
                             <input type="radio" id="male" value="male" v-model="Sex" class="mr-1" required />
@@ -38,7 +37,7 @@
                             <label for="other" class="mr-4 mb-4 font-weight-normal">อื่นๆ</label>
                             <br>
 
-                            <!--Phone-->
+                        <!--Phone-->
                             <label for="phoneInput">หมายเลขโทรศัพท์</label>
                             <input type="tel" class="form-control mb-4" id="phoneInput" placeholder="หมายเลขโทรศัพท์" v-model="Phone" required>
                             <hr>
@@ -63,9 +62,8 @@
                             <small id="nameHelp" class="form-text text-muted mb-4">หมายเหตุ: ขณะนี้เปิดให้บริการเฉพาะในเขตพื้นที่กรุงเทพมหานครเท่านั้น</small>
                             <hr>
 
-                            <!--Submit-->
-                            <button type="submit" value="submit" class="btn btn-outline-success btn-block">ยืนยัน</button>
-                        </form>
+                        <!--Submit-->
+                            <button @click="registerWithEmail" type="submit" value="submit" class="btn btn-outline-success btn-block">ยืนยัน</button>
                     </div>
                 </div>
             </div>
@@ -83,7 +81,7 @@
         beforeCreate() {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
-                    this.$router.replace({name: 'Profile'}).catch(()=>{})
+                    this.$router.replace({name: 'Barber'}).catch(()=>{})
                 }
             })
         },
@@ -119,11 +117,13 @@
                         barb_sex: this.Sex,
                         barb_addressService: this.Address,
                         barb_status: false,
-                        barb_img: '',
+                        barb_img: 'https://firebasestorage.googleapis.com/v0/b/aboutheadproject.appspot.com/o/user.jpg?alt=media&token=c715984d-a2c1-4807-b525-804b895b7f71',
                         barb_score: 0,
                         barb_service: []
                     })
                     .then(() => {
+                        localStorage.removeItem('userData')
+                        localStorage.setItem('userType', 'barber')
                         this.$router.replace({name: 'Barber'}).catch(()=>{})
                     })
                     .catch(err => {

@@ -3,6 +3,7 @@ const admin = require('firebase-admin')
 const serviceAccount = require('./path/to/aboutheadproject-firebase-adminsdk-8f6w7-21431f7897.json')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const base64Img = require('base64-img')
 
 const app = express()
 const port = 5000
@@ -25,7 +26,7 @@ admin.initializeApp({
 const db = admin.firestore()
 
 
-//Search//
+//====================Search====================//
 //Location Search
 app.post('/location', (req, res) => {
     var locationList = []
@@ -90,7 +91,7 @@ app.post('/service', (req, res) => {
     })
 })
 
-//Appointment when payment suceess
+//create appointment when payment suceess
 app.post('/payment',(req, res) => {
     //check conflict appointment
 
@@ -120,7 +121,7 @@ app.post('/payment',(req, res) => {
 })
 
 
-//Edit Profile//
+//====================Edit Profile====================//
 //edit customer infomation
 app.post('/editCustomerInfo', (req, res) => {
     var ref = db.collection('customer').doc(req.body.id)
@@ -143,8 +144,19 @@ app.post('/editCustomerInfo', (req, res) => {
     })
 })
 
+//upload image ******
+app.post('/uploadImgProfile', (req, res) => {
+    const { image } = req.body
 
-//Appointment Search
+    console.log(`[SUCCESS] upload image ${req.body.id} to success`)
+    return res.status(200).json({
+        title: 'upload sucess'
+    })
+})
+
+
+//====================Appointment Management====================//
+//Show ppointment list
 app.post('/appointment', (req, res, next) => {
     var appointmentList = []
 
@@ -164,7 +176,7 @@ app.post('/appointment', (req, res, next) => {
     })
 })
 
-//appointment ID
+//Show detail ppointment by id
 app.get('/appointment/:appmt_id', (req, res) => {
     var appointmentData = ''
     var appointmentID = req.params.appmt_id
@@ -203,6 +215,176 @@ app.post('/appointmentSuccess', (req, res) => {
     })
 })
 
+//appointment cancel
+app.post('/appointmentCancel', (req, res) => {
+    var ref = db.collection('appointment').doc(req.body.appmt_id)
+
+    ref.update({
+        appmt_status: 'cancel'
+    })
+    .then(() => {
+        console.log(`[SUCCESS] change status ${req.body.id} to cancel`)
+        return res.status(200).json({
+            title: 'appointment cancel'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+//Appointment History
+app.post('/appointmentHistory', (req, res, next) => {
+    var appointmentListHistory = []
+
+    db.collection('appointment').where("appmt_customer", "==", req.body.id).where("appmt_status","in", ['success', 'cancel', 'location reviewed', 'barber reviewed', 'reviewed']).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            appointmentListHistory.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'show appointment',
+            appointmentHistory: appointmentListHistory
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+//appointment delete
+app.post('/appointmentDelete', (req, res) => {
+    var ref = db.collection('appointment').doc(req.body.appmt_id)
+
+    ref.update({
+        appmt_status: 'delete'
+    })
+    .then(() => {
+        console.log(`[SUCCESS] change status ${req.body.id} to delete` )
+        return res.status(200).json({
+            title: 'appointment delete'
+        })
+    })
+})
+
+//====================Review====================//
+//Location Review
+app.post('/locationReview', (req, res) => {
+    //เพิ่มข้อมูล review
+    var ref = db.collection('location_review').doc()
+    ref.set({
+        lo_review_id: ref.id,
+        lo_review_customer: req.body.customer,
+        lo_review_location: req.body.appointment.appmt_location,
+        lo_review_appointment: req.body.appointment.appmt_id,
+        lo_review_text: req.body.reviewText,
+        lo_review_score: req.body.score,
+        lo_review_date: req.body.appointment.appmt_date,
+        lo_review_time: req.body.appointment.appmt_time
+    })
+    .then(() => {
+        var status = ''
+        var appointmentID = req.body.appointment.appmt_id
+
+        //get ค่า status appointment มาเช็ค
+        db.collection('appointment').doc(appointmentID).get()
+        .then(function(doc) {
+            status = doc.data().appmt_status
+
+            //เปลี่ยน status success => location reviewed | ถ้ายังไม่เคยรีวิว แล้วมารีวิวสถานที่
+            if(status == 'success') {
+                db.collection('appointment').doc(req.body.appointment.appmt_id)
+                .update({
+                    appmt_status: 'location reviewed'
+                })
+                .then(() => {
+                    console.log('[SUCCESS] create review and change status')
+                    return res.status(200).json({
+                        title: 'location review success'
+                    })
+                }).catch(err => { console.log(`[FAIL] ${err}`) })
+            }
+            
+            //เปลี่ยน status barber reviewed => reviewed | ถ้าเคยรีวิวช่างตัดผม แล้วมารีวิวสถานที่
+            if(status == 'barber reviewed') {
+                db.collection('appointment').doc(req.body.appointment.appmt_id)
+                .update({
+                    appmt_status: 'reviewed'
+                })
+                .then(() => {
+                    console.log('[SUCCESS] create review and change status')
+                    return res.status(200).json({
+                        title: 'location review success'
+                    })
+                }).catch(err => { console.log(`[FAIL] ${err}`) })
+            }
+                
+        }).catch(err => {console.log(err)})
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+//Location Review
+app.post('/barberReview', (req, res) => {
+    //เพิ่มข้อมูล review
+    var ref = db.collection('barber_review').doc()
+    ref.set({
+        barb_review_id: ref.id,
+        barb_review_customer: req.body.customer,
+        barb_review_barber: req.body.appointment.appmt_barber,
+        barb_review_service: req.body.appointment.appmt_service,
+        barb_review_appointment: req.body.appointment.appmt_id,
+        barb_review_text: req.body.reviewText,
+        barb_review_score: req.body.score,
+        barb_review_date: req.body.appointment.appmt_date,
+        barb_review_time: req.body.appointment.appmt_time
+    })
+    .then(() => {
+        var status = ''
+        var appointmentID = req.body.appointment.appmt_id
+
+        //get ค่า status appointment มาเช็ค
+        db.collection('appointment').doc(appointmentID).get()
+        .then(function(doc) {
+            status = doc.data().appmt_status
+
+            //เปลี่ยน status status success => barber reviewed | ถ้ายังไม่เคยรีวิว แล้วมารีวิว
+            if(status == 'success') {
+                db.collection('appointment').doc(req.body.appointment.appmt_id)
+                .update({
+                    appmt_status: 'barber reviewed'
+                })
+                .then(() => {
+                    console.log('[SUCCESS] create review and change status')
+                    return res.status(200).json({
+                        title: 'barber review success'
+                    })
+                }).catch(err => { console.log(`[FAIL] ${err}`) })
+            }
+            
+            //เปลี่ยน status status barber reviewed => reviewed | ถ้าเคยรีวิวสถานที่ แล้วมารีวิวช่างตัดผม
+            if(status == 'location reviewed') {
+                db.collection('appointment').doc(req.body.appointment.appmt_id)
+                .update({
+                    appmt_status: 'reviewed'
+                })
+                .then(() => {
+                    console.log('[SUCCESS] create review and change status')
+                    return res.status(200).json({
+                        title: 'barber review success'
+                    })
+                }).catch(err => { console.log(`[FAIL] ${err}`) })
+            }
+                
+        }).catch(err => {console.log(err)})
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
 
 app.listen(port, () => {
     console.log(`[Process 1] server running at http://localhost:${port}`)

@@ -1,5 +1,6 @@
 <template>
     <div class="confirmation container">
+        <Loading v-if="loadingStatus"></Loading>
         <h1>ยืนยันการทำรายการ</h1>
  
         <!--Summary Box-->
@@ -73,9 +74,13 @@
     import firebase from 'firebase/app';
     import 'firebase/auth';
     import 'firebase/firestore'
+    import Loading from '../components/Loading.vue'
 
     export default {
         name: 'Confirmation',
+        components: {
+            Loading
+        },
         beforeCreate() {
             //check การเข้าสู่ระบบ
             firebase.auth().onAuthStateChanged(user => {
@@ -92,6 +97,8 @@
             .catch(err => { console.log(err) })  
         },
         created() {
+            this.loadingStatus = false
+
             this.selectedDate = localStorage.getItem('selectedDate')
             this.selectedTime = localStorage.getItem('selectedTime')
             this.selectedLocation = JSON.parse(localStorage.getItem('selectedLocation'))
@@ -119,6 +126,8 @@
         },
         methods: {
             confirm() {
+                this.loadingStatus = true
+
                 let confirmation = {
                     appmt_date : this.selectedDate,
                     appmt_time : this.selectedTime,
@@ -133,6 +142,8 @@
                 localStorage.removeItem('appointment')
                 localStorage.setItem('appointment', JSON.stringify(confirmation))
 
+                this.loadingStatus = false
+                
                 //redirect to Payment
                 this.$router.replace('/payment').catch(()=>{})
                 

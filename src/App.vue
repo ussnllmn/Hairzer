@@ -2,7 +2,9 @@
 
 <template>
   <div id="app" >
-    <Navbar></Navbar>
+    <Loading v-if="loadingStatus"></Loading>
+    <Navbar v-if="userTyp == 'customer'"></Navbar>
+    <NavbarLocation v-if="userType == 'location'"></NavbarLocation>
     <div class="container-fluid p-0">
       <router-view/>
     </div>
@@ -12,13 +14,30 @@
 
 <script>
   import Navbar from './components/Navbar'
+  import NavbarLocation from './components/NavbarLocation'
   import Footer from './components/Footer'
+  import Loading from './components/Loading'
 
   export default {
     components: {
       Navbar,
-      Footer
-    }
+      NavbarLocation,
+      Footer,
+      Loading,
+    },
+    data() {
+      return {
+        userType: '',
+        loadingStatus: false 
+      }
+    },
+    created() {
+        this.userType = localStorage.getItem('userType')
+        this.loadingStatus = true
+    },
+    mounted() {
+      this.loadingStatus = false
+    },
   }
 </script>
 

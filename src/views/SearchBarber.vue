@@ -2,6 +2,7 @@
 
 <template>
     <div class="barber container">
+        <Loading v-if="loadingStatus"></Loading>
         <h1>เลือกช่างตัดผม</h1>
         <!--Head-->
         <div class="row m-2">
@@ -73,9 +74,15 @@
 
 <script>
     import axios from 'axios'
+    import Loading from '../components/Loading'
 
     export default {
+        name: 'BarberSearch',
+        components: {
+            Loading
+        },
         created() {
+            this.loadingStatus = false
             this.barbers = JSON.parse(localStorage.getItem('barberList'))
             this.selectedDate = localStorage.getItem('selectedDate')
             this.selectedTime = localStorage.getItem('selectedTime')
@@ -83,6 +90,8 @@
         },
         data() {
             return {
+                loadingStatus: '',
+
                 //sort menu
                 sortBy:'Date',
 
@@ -102,6 +111,8 @@
         },
         methods: {
             searchService() {
+                this.loadingStatus = true
+                
                 if (!this.selectedBarber) 
                     alert('โปรดเลือกช่างตัดผมที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
 
@@ -124,8 +135,10 @@
                                 //เก็บผลการนัดหมาย
                                 localStorage.setItem('selectedBarber', JSON.stringify(this.selectedBarber))
 
+                                this.loadingStatus = false
+
                                 //redirect ไปหน้า service
-                                this.$router.push('/service')
+                                this.$router.push({name: 'SearchService'})
                             }
                         }
                     ).catch(err => {

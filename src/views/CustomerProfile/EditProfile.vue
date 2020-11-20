@@ -1,6 +1,8 @@
 <template>
     <div class="editprofile">
+        <Loading v-if="loadingStatus"></Loading>
         <h1>แก้ไขข้อมูลส่วนตัว</h1>
+
         <div class="editBox shadow-sm p-2">
             <h5>ข้อมูลของฉัน</h5> <hr>
             <!--Edit Profile-->
@@ -40,7 +42,7 @@
                     </div>
 
                     <div class="mb-2">
-                        <b-btn class="float-right" @click="editInfo">บันทึก</b-btn>
+                        <b-btn v-b-tooltip.hover title="บันทึกข้อมูลส่วนตัว" class="float-right" @click="editInfo">บันทึก</b-btn>
                     </div>
                 </b-col>
                 
@@ -51,9 +53,9 @@
 
                         <div class="upload mt-2">
                             <label>Upload file
-                                <input type="file" id="file" ref="uploadFile"/>
+                                <input @change="handleImage" type="file" accept="image/*"/>
                             </label><br>
-                            <b-btn>อัพโหลดรูปภาพ</b-btn>
+                            <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์" @click="uploadImage">เปลี่ยนรูปโปรไฟล์</b-btn><br>
                         </div>
                     </center>
                 </b-col>
@@ -83,7 +85,7 @@
 
                     <!--Button-->
                     <div class="mb-2">
-                        <b-btn class="float-right">เปลี่ยนรหัสผ่าน</b-btn>
+                        <b-btn v-b-tooltip.hover title="เปลี่ยนรหัสผ่าน" class="float-right">เปลี่ยนรหัสผ่าน</b-btn>
                     </div>
                 </b-col>
                 <b-col style="margin-top: 36px;">
@@ -95,76 +97,105 @@
 </template>
 
 <script>
-import axios from 'axios'
-import firebase from 'firebase/app';
-import 'firebase/auth';
+    import axios from 'axios'
+    import firebase from 'firebase/app';
+    import 'firebase/auth';
+    import 'firebase/storage'
+    import { mapGetters } from "vuex";
+    import Loading from '../../components/Loading'
 
-export default {
-    name: 'EditProfile',
-    created() {
-        //get customer data from firebase
-        firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
-        .then(doc => {
-            localStorage.setItem('userData', JSON.stringify(doc.data()))
-        }).catch(err => { console.log(err) })
-
-        //set data
-        this.userData = JSON.parse(localStorage.getItem('userData'))
-        this.fname = this.userData.cus_firstName
-        this.lname = this.userData.cus_lastName
-        this.sex = this.userData.cus_sex
-        this.phone = this.userData.cus_phone
-        this.img = this.userData.cus_img
-    },
-    updated() {
-        //get customer data from firebase
-        firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
-        .then(doc => {
-            localStorage.setItem('userData', JSON.stringify(doc.data()))
-        }).catch(err => { console.log(err) })
-    },
-    data() {
-        return {
-            userData: [],
-
-            //data in form
-            fname: '',
-            lname: '',
-            sex: '',
-            phone: '',
-            img: '',
-            uploadFile: ''
-        }
-    },
-    methods: {
-        editInfo() {
-            let info = {
-                id: this.userData.cus_id,
-                fname: this.fname,
-                lname: this.lname,
-                sex: this.sex,
-                phone: this.phone,
-                img: this.img
-            }
-
-            console.log(info)
-
-            axios.post('http://localhost:5000/editCustomerInfo', info)
-            .then(
-                res => {
-                    if(res.status === 200) {
-                        alert('แก้ไขข้อมูลสำเร็จ')
-                        this.$router.replace({name: 'Customer'}).catch(() => {})
-                    }
-                }
-            )
-
+    export default {
+        name: 'EditProfile',
+        components: {
+            Loading
         },
-        changePassword() {
+        created() {
+            this.loadingStatus = true
             
-        }
+            //set data
+            this.userData = JSON.parse(localStorage.getItem('userData'))
+            this.fname = this.userData.cus_firstName
+            this.lname = this.userData.cus_lastName
+            this.sex = this.userData.cus_sex
+            this.phone = this.userData.cus_phone
+            this.img = this.userData.cus_img
+
+            //set userData from firebase
+            firebase.firestore().collection('customer').doc(this.userData.cus_id).get()
+            .then(doc => {
+                localStorage.setItem('userData', JSON.stringify(doc.data()))
+                this.loadingStatus = false
+            })
+            .catch(err => {console.log(err)})
+        },
+        updated() {
+            //get customer data from firebase
+            firebase.firestore().collection('customer').doc(this.userData.cus_id).get()
+            .then(doc => {
+                localStorage.setItem('userData', JSON.stringify(doc.data()))
+            }).catch(err => { console.log(err) })
+        },
+        data() {
+            return {
+                loadingStatus: '',
+
+                userData: [],
+
+                //data in form
+                fname: '',
+                lname: '',
+                sex: '',
+                phone: '',
+                img: '',
+            }
+        },
+        methods: {
+            //แก้ไขข้อมูลส่วนตัว
+            editInfo() {
+                this.loadingStatus = true
+
+                let info = {
+                    id: this.userData.cus_id,
+                    fname: this.fname,
+                    lname: this.lname,
+                    sex: this.sex,
+                    phone: this.phone,
+                    img: this.img
+                }
+
+                axios.post('http://localhost:5000/editCustomerInfo', info)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('แก้ไขข้อมูลสำเร็จ')
+                            this.loadingStatus = false
+                            this.$router.replace({name: 'Customer'}).catch(() => {})
+                        }
+                    }
+                )
+
+            },
+
+            //เลือกรูป
+            handleImage(e){
+                const selectedImage = e.target.files[0]
+                console.log(selectedImage.name)
+            },
+
+            //เปลี่ยนรูป 
+            uploadImage() {
+                console.log('upload sucess')
+            }
+        },
+        computed: {
+            ...mapGetters({
+                user: "user"
+            }),
+            getUserData() {
+                
+            }
+        },
     }
-}
 </script>
 
 <style scoped>

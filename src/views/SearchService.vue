@@ -2,6 +2,7 @@
 
 <template>
     <div class="service container">
+        <Loading v-if="loadingStatus"></Loading>
         <h1>เลือกบริการ</h1>
         <!--Head-->
         <div class="row m-2">
@@ -76,9 +77,15 @@
 
 <script>
     import axios from 'axios'
+    import Loading from '../components/Loading.vue'
 
     export default {
+        name: 'ServiceSearch',
+        components: {
+            Loading
+        },
         created() {
+            this.loadingStatus = false
             this.selectedDate = localStorage.getItem('selectedDate')
             this.selectedTime = localStorage.getItem('selectedTime')
             this.selectedLocation = JSON.parse(localStorage.getItem('selectedLocation'))
@@ -87,6 +94,8 @@
         },
         data() {
             return {
+                loadingStatus: '',
+                
                 //sort menu
                 sortBy:'Date',
 
@@ -109,6 +118,8 @@
         },
         methods: {
             confirm() {
+                this.loadingStatus = true
+
                 if (this.selectedService == ''){
                     alert('โปรดเลือกบริการที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
                 }
@@ -119,6 +130,8 @@
 
                     //เก็บข้อมูลราคารวม
                     localStorage.setItem('totalCost', this.totalCost)
+
+                    this.loadingStatus = false
 
                     //redirect
                     this.$router.push('/confirmation')

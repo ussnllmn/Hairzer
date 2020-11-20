@@ -1,5 +1,6 @@
 <template>
     <div class="appointment">
+        <Loading v-if="loadingStatus"></Loading>
         <h1>จัดการนัดหมาย</h1>
         <div class="px-2 text-center shadow-sm">
             <!--Title-->
@@ -28,11 +29,11 @@
                 <b-col>
                     <p v-for="(service, index) in appointment.appmt_service" :key="index">{{index+1}}. {{service.service_name}}</p>
                 </b-col>
-                <b-col sm="1">{{appointment.appmt_status}}</b-col>
+                <b-col v-if="appointment.appmt_status == 'waiting'" sm="1" class="text-warning">รอใช้บริการ</b-col>
                 <b-col >
-                    <b-btn variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
-                    <b-btn variant="success" v-on:click="appointmentSuccess(appointment.appmt_id)" class="m-2"><b-icon icon="check"></b-icon></b-btn>
-                    <b-btn variant="danger"><b-icon icon="x"></b-icon></b-btn>
+                    <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
+                    <b-btn v-b-tooltip.hover title="ยืนยันการใช้บริการ" variant="success" v-on:click="appointmentSuccess(appointment.appmt_id)" class="m-2"><b-icon icon="check"></b-icon></b-btn>
+                    <b-btn v-b-tooltip.hover title="ยกเลิกการใช้บริการ" variant="danger" v-on:click="appointmentCancel(appointment.appmt_id)"><b-icon icon="x"></b-icon></b-btn>
                 </b-col>
             </b-row>
         </div>
@@ -43,69 +44,93 @@
     import axios from 'axios'
     import firebase from 'firebase/app';
     import 'firebase/auth';
+    import Loading from '../../components/Loading'
 
-  export default {
-    name: 'Appointment',
-    created() {
-        //get customer data from firebase
-        this.userData = JSON.parse(localStorage.getItem('userData'))
-        
-        var data = {
-            id: this.userData.cus_id
-        }
-
-        //request appointment data
-        axios.post('http://localhost:5000/appointment', data)
-        .then(
-            res => {
-                if(res.status === 200) {
-                    this.appointmentList = res.data.appointment
-                }
-            }
-        )
-    },
-    updated() {
-        var data = {
-            id: this.userData.cus_id
-        }
-
-        //request appointment data
-        axios.post('http://localhost:5000/appointment', data)
-        .then(
-            res => {
-                if(res.status === 200) {
-                    this.appointmentList = res.data.appointment
-                }
-            }
-        )
-    },
-    data() {
-        return {
-            userData: '',
-            appointmentList: []
-        }
-    },
-    methods: {
-        appointmentInfo(appointmentID) {
-            this.$router.push({path: `/customer/appointment/${appointmentID}`})
+    export default {
+        name: 'Appointment',
+        components: {
+            Loading
         },
-        appointmentSuccess(appointmentID) {
-            var appointmentSuccess = {
-                appmt_id: appointmentID
+        beforeCreate() {
+            //check สถานะการเข้าสู่ระบบ
+            firebase.auth().onAuthStateChanged(user => {
+                if (!user) {
+                    this.$router.replace({name: 'Home'}).catch(()=>{})
+                }
+            })
+        },    
+        created() {
+            this.loadingStatus = true
+
+            //get customer data from firebase
+            this.userData = JSON.parse(localStorage.getItem('userData'))
+            
+            var data = {
+                id: this.userData.cus_id
             }
 
-            axios.post('http://localhost:5000/appointmentSuccess', appointmentSuccess)
+            //request appointment data
+            axios.post('http://localhost:5000/appointment', data)
             .then(
                 res => {
                     if(res.status === 200) {
-                        alert('ยืนยันการใช้บริการสำเร็จ')
-                        //location.reload()
+                        this.appointmentList = res.data.appointment
+                        this.loadingStatus = false
                     }
                 }
             )
+        },
+        data() {
+            return {
+                loadingStatus: '',
+                userData: '',
+                appointmentList: []
+            }
+        },
+        methods: {
+            //ดูรายละเอียดนัดหมาย
+            appointmentInfo(appointmentID) {
+                this.$router.push({path: `/customer/appointment/${appointmentID}`})
+            },
+
+            //ยืนยันการนัดหมาย
+            appointmentSuccess(appointmentID) {
+                this.loadingStatus = true
+                var appointmentSuccess = {
+                    appmt_id: appointmentID
+                }
+
+                axios.post('http://localhost:5000/appointmentSuccess', appointmentSuccess)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('ยืนยันการใช้บริการสำเร็จ')
+                            this.loadingStatus = false
+                        }
+                    }
+                )
+            },
+
+            //ยกเลิกหนัดหมาย
+            appointmentCancel(appointmentID) {
+                this.loadingStatus = true
+
+                var appointmentCancel = {
+                    appmt_id: appointmentID
+                }
+
+                axios.post('http://localhost:5000/appointmentCancel', appointmentCancel)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('ยกเลิกการนัดหมายสำเร็จ')
+                            this.loadingStatus = false
+                        }
+                    }
+                )
+            }
         }
     }
-  }
 </script>
 
 <style scoped>

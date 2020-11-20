@@ -158,13 +158,15 @@
                         lo_sex: this.Sex,
                         lo_cost: 0,
                         lo_equipment: [],
-                        lo_img: '',
+                        lo_img: 'https://firebasestorage.googleapis.com/v0/b/aboutheadproject.appspot.com/o/user.jpg?alt=media&token=c715984d-a2c1-4807-b525-804b895b7f71',
                         lo_score: 0,
                         lo_status: false
 
                     })
                     .then(() => {
-                        this.$router.replace({name: 'Profile'}).catch(()=>{})
+                        localStorage.removeItem('userData')
+                        localStorage.setItem('userType', 'location')
+                        this.$router.replace({name: 'LocationProfile'}).catch(()=>{})
                     })
                     .catch(err => {
                         console.log('wrong with add user to firestore',err)

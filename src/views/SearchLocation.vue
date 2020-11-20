@@ -2,6 +2,7 @@
 
 <template>
     <div class="location container">
+        <Loading v-if="loadingStatus"></Loading>
         <h1>เลือกสถานที่</h1>
         <!--Head-->
         <div class="row m-2">
@@ -88,15 +89,23 @@
 
 <script>
     import axios from 'axios'
+    import Loading from '../components/Loading'
 
     export default {
+        name: 'LocationSearch',
+        components: {
+            Loading
+        },
         created() {
+            this.loadingStatus = false
             this.locations = JSON.parse(localStorage.getItem('locationList'))
             this.selectedDate = localStorage.getItem('selectedDate')
             this.selectedTime = localStorage.getItem('selectedTime')
         },
         data() {
             return {
+                loadingStatus: '',
+
                 //sort menu
                 sortBy:'Date',
 
@@ -116,6 +125,8 @@
         },
         methods: {
             searchBarber() {
+                this.loadingStatus = true
+
                 if (!this.selectedLocation) 
                     alert('โปรดเลือกสถานที่ที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
                 
@@ -137,8 +148,10 @@
                                 localStorage.setItem('selectedLocation', JSON.stringify(this.selectedLocation))
                                 localStorage.setItem('totalCost', this.totalCost)
 
-                                //redirect ไปหน้า location
-                                this.$router.push('/barber')
+                                this.loadingStatus = false
+                                
+                                //redirect ไปหน้า location   
+                                this.$router.push({name: 'SearchBarber'})
                             }
                         }
                     ).catch(err => {

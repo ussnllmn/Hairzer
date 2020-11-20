@@ -1,7 +1,7 @@
 <!--/src/Search.vue-->
-
 <template>
     <div class="search container">
+        <Loading v-if="loadingStatus"></Loading>
         <h1>ค้นหา</h1>
             <!--Location Box-->
             <div class="mb-4 p-2 pb-4 locationBox shadow-sm">
@@ -53,30 +53,37 @@
 
                     <!--Button-->
                     <div class="col-sm-4">
-                        <button @click="searchLocation" class="btn btn-success btn-block">ตกลง</button>
+                        <button @click="searchLocation" class="btn btn-success btn-block">ค้นหา</button>
                     </div>
                 </div>
-                {{selectedDate}} {{selectedTime}}
             </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+    import axios from 'axios'
+    import Loading from '../components/Loading'
 
     export default {
         name:'Search',
+        components: {
+            Loading
+        },
         created() {
+            this.loadingStatus = false
+
+            //cal date
             let date = new Date()
             let year = date.getUTCFullYear()
             let month = date.getMonth()+1
             let day = date.getDate()
             date = year+'-'+month+'-'+day
-            console.log(date)
             this.selectedDate = date
         },
         data() {
             return {
+                loadingStatus: false,
+
                 //data ที่ต้องใช้ค้นหา location, service, date, time
                 location:'ลาดกระบัง',
                 serviceChecked: ['ตัดผม'],
@@ -84,7 +91,7 @@ import axios from 'axios'
                 selectedTime: new Date().toLocaleTimeString('it-IT'),
 
                 //date picker
-                minDate: new Date().toUTCString(),
+                minDate: new Date(),
                 
                 //Example Data
                 districts: [
@@ -106,6 +113,8 @@ import axios from 'axios'
         },
         methods: {
             searchLocation() {
+                this.loadingStatus = true
+
                 let searchData = { 
                     location: this.location,
                     service: this.serviceChecked,
@@ -130,9 +139,11 @@ import axios from 'axios'
                             localStorage.setItem('selectedBarber', '')
                             localStorage.setItem('selectedService', '')
                             localStorage.setItem('totalCost', 0)
+                            
+                            this.loadingStatus = false
 
                             //redirect ไปหน้า location
-                            this.$router.push('/location')
+                            this.$router.push({name: 'SearchLocation'})
                         }
                         else {
                             this.$router.push('/error')

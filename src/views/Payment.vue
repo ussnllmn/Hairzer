@@ -1,6 +1,6 @@
 <template>
     <div class="payment container">
-        
+        <Loading v-if="loadingStatus"></Loading>
         <h1 v-if="!paymentResult">ชำระเงิน</h1>
 
         <div v-if="paymentResult">
@@ -42,11 +42,14 @@
     import 'firebase/firestore'
     import axios from 'axios'
     import PaymentSuccess from './PaymentSuccess'
+    import Loading from '../components/Loading.vue'
+    
 
     export default {
         name: 'Payment',
         components: {
-            PaymentSuccess
+            PaymentSuccess,
+            Loading
         },
         beforeCreate() {
             //check การเข้าสู่ระบบ
@@ -66,6 +69,8 @@
             this.paymentResult = false
         },
         created() {
+            this.loadingStatus = false
+            
             this.appointment = JSON.parse(localStorage.getItem('appointment'))
 
             if(!this.appointment){
@@ -74,6 +79,8 @@
         },
         data() {
             return {
+                loadingStatus: '',
+
                 appointment: '',
                 paymentResult: false
             }
@@ -86,18 +93,20 @@
                 alert('การชำระเงินด้วย Credit Card ยังไม่เปิดให้บริการ')
             },
             cash() {
+                this.loadingStatus = true
+
                 let appointment = this.appointment
                 
                 axios.post('http://localhost:5000/payment', appointment)
                 .then(
                     res => {
                         if(res.status === 200) {
-                            this.PaymentSuccess = true
-                            this.$route.meta.title = 'Hairzer | ชำระเงินสำเร็จ'
+                            this.loadingStatus = false
                             
                             //แสดง payment success
+                            this.$route.meta.title = 'Hairzer | ชำระเงินสำเร็จ'
                             this.paymentResult = true
-                            localStorage.clear()
+                            localStorage.removeItem('appointment')
                         }
                     }
                 ).catch(err => {

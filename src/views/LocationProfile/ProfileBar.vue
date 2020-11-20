@@ -1,14 +1,15 @@
 <template>
     <div class="profileBar shadow-sm p-4">
         <!--Image-->
-        <center><img :src="userData.cus_img" width="90%" rounded="circle" style="object-fit: cover;" class="p-3"></center>
-        <center><h4>{{userData.cus_firstName}} {{userData.cus_lastName}}</h4></center>
+        <center><img :src="userData.lo_img" width="90%" rounded="circle" style="object-fit: cover;" class="p-3"></center>
+        <center><h4>{{userData.lo_locationName}}</h4></center>
         
         <!--Menu-->
         <div class="mt-4 menu">
-            <router-link :to="{name: 'EditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>
-            <router-link :to="{name: 'appointmentManagement'}">จัดการนัดหมาย</router-link> <hr>
-            <router-link :to="{name: 'History'}">ประวัติการใช้บริการ</router-link> <hr>
+            <router-link :to="{name: 'LocationProfile'}">โปรไฟล์</router-link> <hr>
+            <router-link :to="{name: 'LocationEditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>
+            <router-link :to="{name: 'LocationProfile'}">จัดการนัดหมาย</router-link> <hr>
+            <router-link :to="{name: 'LocationProfile'}">ประวัติการให้บริการ</router-link> <hr>
         </div>
     </div>
 </template>
