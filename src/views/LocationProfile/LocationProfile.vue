@@ -9,9 +9,18 @@
 
                 <!--ชื่อและคำอธิบาย-->
                 <b-col sm="7">
-                    <h4>{{userData.lo_locationName}}</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium eveniet tenetur quia quasi ex dicta nesciunt minima provident omnis perferendis! Ratione nulla expedita explicabo at iusto debitis temporibus fuga exercitationem?</p>
-                    <p>คะแนน: {{userData.lo_score}}</p>
+                    <h3><b>{{userData.lo_locationName}}</b></h3>
+                    <p><b>ที่อยู่:</b> 
+                        {{userData.lo_address.addr_no}}
+                        ซอย{{userData.lo_address.addr_soi}}
+                        ถนน{{userData.lo_address.addr_road}}
+                        แขวง{{userData.lo_address.addr_subDistrict}}
+                        เขต{{userData.lo_address.addr_district}}
+                        {{userData.lo_address.addr_province}}
+                    </p>
+                    <p class="font-weight-bold m-0 p-0">คำอธิบายเกี่ยวกับร้าน:</p>
+                    <p class="">" {{userData.lo_description}} "</p>
+                    <p><b>คะแนน:</b> {{userData.lo_score}}</p>
                 </b-col>
 
                 <!--ราคาและรายการอุปกรณ์-->
@@ -24,16 +33,17 @@
             <!--รีวิว-->
             <hr>
             <h3>รีวิว</h3>
-            <b-row class="reviewBox mx-4 my-3 align-items-center">
+            <b-row class="reviewBox mx-4 my-3 align-items-center" v-for="review in locationReviewData" :key="review.lo_review_id">
                 <b-col sm="2" class=" m-0 p-0">
-                    <img :src="userData.lo_img" width="100%" style="object-fit: cover;">
+                    <img :src="review.lo_review_customer.cus_img" width="100%" style="object-fit: cover;">
                 </b-col>
 
                 <b-col sm="">
-                    <h4>ลูกค้า 1</h4>
-                    <p class="small my-1"><b>วันที่:</b> 10/5/63 | <b>เวลา:</b> 18.00 น.</p>
-                    <p class="my-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus nisi at nobis architecto esse porro sed. Odit doloremque quo molestias doloribus dolorum placeat neque fugiat commodi? Et rem facere ad!</p>
-                    <p class="my-1"><b>คะแนน:</b> 5/5</p>
+                    <h4>{{review.lo_review_customer.cus_firstName}} {{review.lo_review_customer.cus_lastName}}</h4>
+                    <p class="small"><b>รหัสการนัดหมาย: </b>{{review.lo_review_appointment}}</p>
+                    <p class="small mb-2"><b>วันที่:</b> {{review.lo_review_date}} | <b>เวลา:</b> {{review.lo_review_time}}</p>
+                    <p class="my-1">" {{review.lo_review_text}} "</p>
+                    <p class="my-1"><b>คะแนน:</b> {{review.lo_review_score}}/5</p>
                 </b-col>
             </b-row>
         </div>
@@ -42,15 +52,36 @@
 
 
 <script>
+    import axios from 'axios'
+    import firebase from 'firebase/app';
+    import 'firebase/auth';
+
     export default {
         name: 'LocationProfile',
         data() {
             return {
-                userData: ''
+                userData: '',
+                locationReviewData: []
             }
         },
         created() {
             this.userData = JSON.parse(localStorage.getItem('userData'))
+
+            //set userData from firebase
+            firebase.firestore().collection('location').doc(this.userData.lo_id).get()
+            .then(doc => {
+                localStorage.setItem('userData', JSON.stringify(doc.data()))
+                this.loadingStatus = false
+            })
+            .catch(err => {console.log(err)})
+            
+            firebase.firestore().collection('location_review').where('lo_review_location.lo_id','==',this.userData.lo_id).get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                    this.locationReviewData.push(doc.data())
+                })
+            })
+            .catch(err => {console.log(err)})
         },
     
     }
