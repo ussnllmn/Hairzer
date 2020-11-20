@@ -2,9 +2,8 @@
 
 <template>
   <div id="app" >
-    <Loading v-if="loadingStatus"></Loading>
-    <Navbar v-if="userTyp == 'customer'"></Navbar>
-    <NavbarLocation v-if="userType == 'location'"></NavbarLocation>
+    <Navbar v-if="userType == 'customer' | userType == null" :key="userType"></Navbar>
+    <NavbarLocation v-if="userType == 'location'" :key="userType"></NavbarLocation>
     <div class="container-fluid p-0">
       <router-view/>
     </div>
@@ -27,17 +26,20 @@
     },
     data() {
       return {
-        userType: '',
+        userType: null,
         loadingStatus: false 
       }
     },
-    created() {
+    beforeCreate() {
         this.userType = localStorage.getItem('userType')
         this.loadingStatus = true
     },
     mounted() {
       this.loadingStatus = false
     },
+    updated() {
+      this.userType = localStorage.getItem('userType')
+    }
   }
 </script>
 

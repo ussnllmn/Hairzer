@@ -110,11 +110,10 @@
                             localStorage.clear()
                             localStorage.setItem('userType', 'location')
                             localStorage.setItem('userData', JSON.stringify(doc.data()))
+                            location.reload();
                         }).catch(err => {
                             console.log(err) 
                         })
-
-                        this.$router.replace({name: 'Home'}).catch(()=>{}) 
                     },
                     error => {
                         this.showDismissibleAlert = true
@@ -131,11 +130,10 @@
                             localStorage.clear()
                             localStorage.setItem('userType', 'barber')
                             localStorage.setItem('userData', JSON.stringify(doc.data()))
+                            location.reload();
                         }).catch(err => {
                             console.log(err) 
                         })
-
-                        this.$router.replace({name: 'Home'}).catch(()=>{}) 
                     },
                     error => {
                         this.showDismissibleAlert = true

@@ -68,7 +68,8 @@ export default {
         signOut() {
             firebase.auth().signOut()
             .then(() => {
-                this.$router.replace({name: 'Home'}).catch(()=>{})
+                localStorage.removeItem('userType')
+                location.reload();
             })
             .catch(() => {
                 alert(err)
