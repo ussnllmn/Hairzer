@@ -94,7 +94,7 @@
                     })
                     .then(() => {
                         localStorage.removeItem('userData')
-                        localStorage.setItem('type', 'customer')
+                        localStorage.setItem('userType', 'customer')
                         this.$router.replace({name: 'Customer'}).catch(()=>{})
                     })
                     .catch(err => {

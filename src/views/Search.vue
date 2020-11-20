@@ -143,7 +143,7 @@
                             this.loadingStatus = false
 
                             //redirect ไปหน้า location
-                            this.$router.push('/location')
+                            this.$router.push({name: 'SearchLocation'})
                         }
                         else {
                             this.$router.push('/error')

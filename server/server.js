@@ -329,8 +329,6 @@ app.post('/locationReview', (req, res) => {
 
 //Location Review
 app.post('/barberReview', (req, res) => {
-
-    console.log(req.body)
     //เพิ่มข้อมูล review
     var ref = db.collection('barber_review').doc()
     ref.set({

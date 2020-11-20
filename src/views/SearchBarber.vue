@@ -138,7 +138,7 @@
                                 this.loadingStatus = false
 
                                 //redirect ไปหน้า service
-                                this.$router.push('/service')
+                                this.$router.push({name: 'SearchService'})
                             }
                         }
                     ).catch(err => {

@@ -30,23 +30,23 @@ const routes = [
   },
   //location search
   {
-    path: '/location',
-    name: 'Location',
-    component: () => import('../views/Location.vue'),
+    path: '/search_location',
+    name: 'SearchLocation',
+    component: () => import('../views/SearchLocation.vue'),
     meta: {title: 'Hairzer | เลือกสถานที่ที่คุณต้องการ'}
   },
   //barber search
   {
-    path: '/barber',
-    name: 'Barber',
-    component: () => import('../views/Barber.vue'),
+    path: '/search_barber',
+    name: 'SearchBarber',
+    component: () => import('../views/SearchBarber.vue'),
     meta: {title: 'Hairzer | เลือกช่างตัดผมที่คุณต้องการ'}
   },
   //service search
   {
-    path: '/service',
-    name: 'Service',
-    component: () => import('../views/Service.vue'),
+    path: '/search_service',
+    name: 'SearchService',
+    component: () => import('../views/SearchService.vue'),
     meta: {title: 'Hairzer | เลือกบริการที่คุณต้องการ'}
   },
   //confirmation
@@ -155,13 +155,30 @@ const routes = [
   },
 
   //====================Location====================//
-
+  {
+    path: '/location/locationProfile',
+    name: 'Location',
+    redirect: '/location/',
+    component: () => import('../views/LocationProfile/Location.vue'),
+    children: [
+      {
+        path: '/location/profile',
+        name: 'LocationProfile',
+        component: () => import('../views/LocationProfile/LocationProfile.vue')
+      },
+      {
+        path: '/location/editprofile',
+        name: 'LocationEditProfile',
+        component: () => import('../views/LocationProfile/LocationEditProfile.vue')
+      }
+    ]
+  },
 
   //====================Barber====================//
   
 
   //====================Error====================//
-  {
+  /*{
     path: '*',
     redirect: '/error'
   },
@@ -170,7 +187,7 @@ const routes = [
     name: 'PageNotFound',
     component: () => import('../views/404.vue'),
     meta: {title: 'Hairzer | ขออภัยไม่พบหน้าที่คุณต้องการ'}
-  },
+  },*/
 ]
 
 const router = new VueRouter({

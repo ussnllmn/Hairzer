@@ -151,7 +151,7 @@
                                 this.loadingStatus = false
                                 
                                 //redirect ไปหน้า location   
-                                this.$router.push('/barber')
+                                this.$router.push({name: 'SearchBarber'})
                             }
                         }
                     ).catch(err => {

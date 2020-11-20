@@ -31,14 +31,13 @@
                             <div class="col-xl-12">
                                 <button type="submit" value="submit" class="btn btn-success btn-block mb-4" @click="customerSignin">
                                     <b-icon icon="box-arrow-in-right" aria-hidden="true"></b-icon> เข้าสู่ระบบลูกค้า
-                                
                                 </button>
 
-                                <button type="submit" value="submit" class="btn btn-info btn-block mb-4"><b-icon icon="box-arrow-in-right" aria-hidden="true">
-                                    </b-icon> เข้าสู่ระบบช่างตัดผม
+                                <button type="submit" value="submit" class="btn btn-info btn-block mb-4" @click="locationSignin">
+                                    <b-icon icon="box-arrow-in-right" aria-hidden="true"></b-icon> เข้าสู่ระบบช่างตัดผม
                                 </button>
                                 
-                                <button type="submit" value="submit" class="btn btn-dark btn-block mb-4">
+                                <button type="submit" value="submit" class="btn btn-dark btn-block mb-4" @click="barberSignin">
                                     <b-icon icon="box-arrow-in-right" aria-hidden="true"></b-icon> เข้าสู่ระบบสถานที่
                                 </button>
                             </div>
