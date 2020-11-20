@@ -176,7 +176,8 @@ const routes = [
       //appointment location management
       {
         path: '/location/appointment',
-        name: 'appointmentLocationManagement'
+        name: 'appointmentLocationManagement',
+        component: () => import('../views/LocationProfile/LocationAppointmentManagement.vue')
       }
     ]
   },
