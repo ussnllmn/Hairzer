@@ -8,19 +8,19 @@
                 <!--Edit Profile-->
                 <b-col sm="7" style="border-right: 1px solid #CED4DA;" class="mb-4">
                     <!--First Name-->
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label for="firstName">ชื่อ</label>
                         <b-input type="text" v-model="lo_firstName" id="firstName"></b-input>
                     </div>
 
                     <!--First Name-->
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label for="lastName">นามสกุล</label>
                         <b-input type="text" v-model="lo_lastName" id="lastName"></b-input>
                     </div>
 
                     <!--Sex-->
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label >เพศ</label> 
                         <br>
                         <input type="radio" id="male" value="male" v-model="lo_sex" class="mr-1" required />
@@ -35,76 +35,13 @@
                     </div>
 
                     <!--Phone-->
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label for="Phone">เบอร์โทรศัพท์</label>
                         <b-input type="text" v-model="lo_phone" id="Phone"></b-input>
                     </div>
 
-                    <!--Button-->
-                    <div class="mb-2">
-                        <b-btn v-b-tooltip.hover title="บันทึกข้อมูลส่วนตัว" class="float-right" @click="editInfo">บันทึก</b-btn>
-                    </div>
-                </b-col>
-
-                <!--Change image profile-->
-                <b-col sm="5">
-                    <center>
-                        <img :src="userData.lo_img" width="150px" height="150px" style="object-fit: cover;"> <br>
-
-                        <div class="upload mt-2">
-                            <label>Upload file
-                                <input type="file" accept="image/*"/>
-                            </label><br>
-                            <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์">เปลี่ยนรูปโปรไฟล์</b-btn><br>
-                        </div>
-                    </center>
-                </b-col>
-            </b-row>
-
-
-            <!--Edit Location Info-->
-            <h5>ข้อมูลการให้บริการสถานที่</h5><hr>
-            <b-row class="mb-4 px-4">
-                <!--Edit Location Service-->
-                <b-col sm="7" style="border-right: 1px solid #CED4DA;" class="mb-4">
-                    
-                    <!--Location Name-->
-                    <div class="mb-2">
-                        <label for="locationName">ชื่อสถานที่</label>
-                        <b-input type="text" v-model="lo_locationName" id="locationName"></b-input>
-                    </div>
-
-                    <!--Location Cost-->
-                    <div class="mb-2">
-                        <label for="cost">ราคา</label>
-                        <b-input type="text" v-model="lo_cost" id="cost"></b-input>
-                    </div>
-
-                    <!--Equipment-->
-                    <div class="mb-2">
-                        <label for="equipment">อุปกรณ์</label>
-                        <p>{{lo_equipment}}</p>
-                        <p>{{equipmentList}}</p>
-
-                        <b-dropdown 
-                            v-for="(equipment,index) in lo_equipment" 
-                            :key="index" 
-                            :text="equipment" 
-                            split 
-                            right 
-                            block 
-                            class="mb-2"
-                        >
-                            <b-dropdown-item v-for="eq in equipmentList" :key="eq" v-on:click="changeEquipment(eq, index)">
-                                {{eq}}
-                            </b-dropdown-item>
-                        </b-dropdown>
-                        <b-btn block @click="lo_equipment.push('-')">เพิ่มอุปกรณ์</b-btn>
-                    </div>
-
-
                     <!--Address-->
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label for="address">ที่อยู่</label>
                         <b-row id="address" class="px-3">
                             <b-col sm="4" class="font-weight">
@@ -148,14 +85,89 @@
                         </b-row>
                     </div>
 
+                    <!--Button-->
+                    <div class="mb-3">
+                        <b-btn v-b-tooltip.hover title="บันทึกข้อมูลส่วนตัว" class="float-right" @click="editInfo">บันทึก</b-btn>
+                    </div>
+                </b-col>
 
+                <!--Change image profile-->
+                <b-col sm="5">
+                    <center>
+                        <img :src="userData.lo_img" width="150px" height="150px" style="object-fit: cover;"> <br>
+
+                        <div class="upload mt-2">
+                            <label>Upload file
+                                <input type="file" accept="image/*"/>
+                            </label><br>
+                            <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์">เปลี่ยนรูปโปรไฟล์</b-btn><br>
+                        </div>
+                    </center>
+                </b-col>
+            </b-row>
+
+
+            <!--Edit Location Info-->
+            <h5>ข้อมูลการให้บริการของสถานที่</h5><hr>
+            <b-row class="mb-4 px-4">
+                <!--Edit Location Service-->
+                <b-col sm="7" style="border-right: 1px solid #CED4DA;" class="mb-4">
+                    
+                    <!--Location Name-->
+                    <div class="mb-3">
+                        <label for="locationName">ชื่อสถานที่</label>
+                        <b-input type="text" v-model="lo_locationName" id="locationName"></b-input>
+                    </div>
+
+                    <!--Location Cost-->
+                    <div class="mb-3">
+                        <label for="cost">ราคา</label>
+                        <b-input type="text" v-model="lo_cost" id="cost"></b-input>
+                    </div>
+
+                    <!--Equipment-->
+                    <div class="mb-3">
+                        <label for="equipment">อุปกรณ์</label>
+
+                        <b-input-group 
+                            v-for="(equipment, index) in lo_equipment"  
+                            :key="index" 
+                            :prepend="'อุปกรณ์ที่ '+ (index+1)" 
+                            class="mb-2"
+                        >
+                            <b-form-input v-model="lo_equipment[index]" placeholder="ป้อนชื่ออุปกรณ์ . . ." required></b-form-input>
+                            <b-input-group-append>
+                            <b-button v-b-tooltip.hover title="ลบอุปกรณ์" variant="danger" v-on:click="deleteEquipment(index)">ลบ</b-button>
+                            </b-input-group-append>
+                        </b-input-group>
+
+                        <b-btn v-b-tooltip.hover title="เพิ่มอุปกรณ์" block v-on:click="addEquipment" variant="outline-dark"><b-icon icon="plus"></b-icon>เพิ่มอุปกรณ์</b-btn>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>คำอธิบายเกี่ยวกับสถานที่</label>
+                        <b-form-textarea
+                            required
+                            id="descriptionText"
+                            v-model="lo_description"
+                            placeholder="เขียนคำอธิบายเกี่ยวกับสถานที่ได้ที่นี่ . . . "
+                            rows="5"
+                            max-rows="5"
+                        >
+                        </b-form-textarea>
+                    </div>
+
+                    <!--Button-->
+                    <div class="mb-3">
+                        <b-btn v-b-tooltip.hover title="บันทึกข้อมูลส่วนตัว" class="float-right" @click="editInfo">บันทึก</b-btn>
+                    </div>
                 </b-col>
 
                 <!--Active Status-->
-                <b-col sm="5" class="text-center buttonStatus">
+                <b-col sm="5" class="text-center ">
                     <h5>สถานะการให้บริการ</h5>
-                    <b-icon v-if="locationStatus" icon="toggle-on" font-scale="3" variant="success" @click="statusOff"></b-icon>
-                    <b-icon v-if="!locationStatus" icon="toggle-off" font-scale="3" variant="dark" @click="statusOn"></b-icon>
+                    <b-icon class="buttonStatus" v-if="locationStatus" icon="toggle-on" font-scale="3" variant="success" @click="statusOff"></b-icon>
+                    <b-icon class="buttonStatus" v-if="!locationStatus" icon="toggle-off" font-scale="3" variant="dark" @click="statusOn"></b-icon>
                 </b-col>
             </b-row>
 
@@ -186,16 +198,20 @@
                         <b-btn v-b-tooltip.hover title="เปลี่ยนรหัสผ่าน" class="float-right">เปลี่ยนรหัสผ่าน</b-btn>
                     </div>
                 </b-col>
+
                 <b-col style="margin-top: 36px;">
                     <a href="#">ลืมรหัสผ่าน ?</a>
                 </b-col>
             </b-row>
-
         </div>
     </div>
 </template>
 
 <script>
+    import axios from 'axios'
+    import firebase from 'firebase/app';
+    import 'firebase/auth';
+
     export default {
         name: 'LocationEditProfile',
         data() {
@@ -223,11 +239,6 @@
                 lo_cost: '',
                 lo_equipment: [],
                 lo_description: '',
-
-                //
-                equipmentList: ['กระทะทองแดง', 'กรรไกรไฟ']
-
-
             }
         },
         created() {
@@ -247,6 +258,14 @@
             this.lo_equipment = this.userData.lo_equipment
             this.lo_description = this.userData.lo_description
 
+            //set userData from firebase
+            firebase.firestore().collection('location').doc(this.userData.lo_id).get()
+            .then(doc => {
+                localStorage.setItem('userData', JSON.stringify(doc.data()))
+                this.loadingStatus = false
+            })
+            .catch(err => {console.log(err)})
+
         },
         methods: {
             statusOff() {
@@ -256,11 +275,16 @@
                 this.locationStatus = true
             },
             editInfo() {
-                console.log('แก้ไขแล้ว')
+                alert('แก้ไขข้อมูลส่วนตัวสำเร็จ')
             },
-            changeEquipment(equipment, index) {
-                console.log('equipment: ',equipment, ' index: ', index)
-                this.lo_equipment.splice(index, 1, equipment)
+            addEquipment() {
+                if(this.lo_equipment.length < 10)
+                    this.lo_equipment.push('')
+                else
+                    alert('เพิ่มจำนวนอุปกรณ์ได้ไม่เกิน 10 ชิ้นเท่านั้น')
+            },
+            deleteEquipment(index) {
+                this.lo_equipment.splice(index, 1)
             }
         }
     }

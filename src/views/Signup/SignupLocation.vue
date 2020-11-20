@@ -160,6 +160,7 @@
                         lo_equipment: [],
                         lo_img: 'https://firebasestorage.googleapis.com/v0/b/aboutheadproject.appspot.com/o/user.jpg?alt=media&token=c715984d-a2c1-4807-b525-804b895b7f71',
                         lo_score: 0,
+                        lo_description: '',
                         lo_status: false
 
                     })
