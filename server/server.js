@@ -386,6 +386,69 @@ app.post('/barberReview', (req, res) => {
     })
 })
 
+
+//====================Location====================/
+app.post('/changeLocationStatus', (req, res) => {
+    ref = db.collection('location').doc(req.body.lo_id)
+
+    ref.update({
+        lo_status: !req.body.locationStatus
+    })
+    .then(() => {
+        console.log(`[SUCCESS] change status location id: ${req.body.lo_id} to ${req.body.locationStatus}`)
+        return res.status(200).json({
+            title: 'change status location success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+app.post('/editLocationInfo', (req, res) => {
+    console.log(req.body)
+    var ref = db.collection('location').doc(req.body.lo_id)
+
+    ref.update({
+        lo_firstName: req.body.lo_firstName,
+        lo_lastName: req.body.lo_lastName,
+        lo_sex: req.body.lo_sex,
+        lo_phone: req.body.lo_phone,
+        lo_address: req.body.lo_address
+    })
+    .then(() => {
+        console.log(`[SUCCESS] edited location info id: ${req.body.lo_id}`)
+        return res.status(200).json({
+            title: 'edit location info success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+app.post('/editLocationServiceInfo', (req, res) => {
+    console.log(req.body)
+    var ref = db.collection('location').doc(req.body.lo_id)
+
+    ref.update({
+        lo_locationName: req.body.lo_locationName,
+        lo_cost: req.body.lo_cost,
+        lo_equipment: req.body.lo_equipment,
+        lo_description: req.body.lo_description
+    })
+    .then(() => {
+        console.log(`[SUCCESS] edited location service info id: ${req.body.lo_id}`)
+        return res.status(200).json({
+            title: 'edit location service info success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+
 app.listen(port, () => {
     console.log(`[Process 1] server running at http://localhost:${port}`)
 })

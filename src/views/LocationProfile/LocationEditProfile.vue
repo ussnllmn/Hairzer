@@ -159,7 +159,7 @@
 
                     <!--Button-->
                     <div class="mb-3">
-                        <b-btn v-b-tooltip.hover title="บันทึกข้อมูลส่วนตัว" class="float-right" @click="editInfo">บันทึก</b-btn>
+                        <b-btn v-b-tooltip.hover title="บันทึกข้อมูลส่วนตัว" class="float-right" @click="editLocation">บันทึก</b-btn>
                     </div>
                 </b-col>
 
@@ -211,6 +211,7 @@
     import axios from 'axios'
     import firebase from 'firebase/app';
     import 'firebase/auth';
+import LocationReviewVue from '../CustomerProfile/LocationReview.vue';
 
     export default {
         name: 'LocationEditProfile',
@@ -268,15 +269,82 @@
 
         },
         methods: {
+            //ไม่พร้อมให้บริการ = search ไม่เจอ
             statusOff() {
-                this.locationStatus = false
+                var info = {
+                    locationStatus: this.locationStatus,
+                    lo_id: this.userData.lo_id
+                }
+                axios.post('http://localhost:5000/changeLocationStatus', info)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            this.locationStatus = false
+                            alert('เปลี่ยนสถานะการให้บริการสำเร็จ')
+                        }
+                    }
+                )
             },
+            //พร้อมให้บริการ = search เจอ
             statusOn() {
-                this.locationStatus = true
+                var info = {
+                    locationStatus: this.locationStatus,
+                    lo_id: this.userData.lo_id
+                }
+                axios.post('http://localhost:5000/changeLocationStatus', info)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            this.locationStatus = true
+                            alert('เปลี่ยนสถานะการให้บริการสำเร็จ')
+                        }
+                    }
+                )
             },
+            //แก้ไขข้อมูลส่วนตัวของสถานที่
             editInfo() {
-                alert('แก้ไขข้อมูลส่วนตัวสำเร็จ')
+                var info = {
+                    lo_id: this.userData.lo_id,
+                    lo_firstName: this.lo_firstName,
+                    lo_lastName: this.lo_lastName,
+                    lo_sex: this.lo_sex,
+                    lo_phone: this.lo_phone,
+                    lo_address: this.lo_address
+                }
+                axios.post('http://localhost:5000/editLocationInfo', info)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('แก้ไขข้อมูลส่วนตัวสำเร็จ')
+                            location.reload()
+                        }
+                    }
+                )
             },
+            //แก้ไขข้อมูลการให้บริการของสถานที่
+            editLocation() {
+                var info = {
+                    lo_id: this.userData.lo_id,
+                    lo_locationName: this.lo_locationName,
+                    lo_cost: this.lo_cost,
+                    lo_equipment: this.lo_equipment,
+                    lo_description: this.lo_description
+                }
+                axios.post('http://localhost:5000/editLocationServiceInfo', info)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('แก้ไขข้อมูลการให้บริการของสถานที่สำเร็จ')
+                            location.reload()
+                        }
+                    }
+                )
+                .catch(err => {
+                    console.log(err)
+                })
+            },
+
+            //เพิ่ม-ลบ อุปกรณ์
             addEquipment() {
                 if(this.lo_equipment.length < 10)
                     this.lo_equipment.push('')

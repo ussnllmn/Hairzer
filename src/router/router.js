@@ -156,9 +156,9 @@ const routes = [
 
   //====================Location====================//
   {
-    path: '/location/locationProfile',
+    path: '/location',
     name: 'Location',
-    redirect: '/location/',
+    redirect: '/location/profile',
     component: () => import('../views/LocationProfile/Location.vue'),
     children: [
       {

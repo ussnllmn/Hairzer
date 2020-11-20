@@ -169,7 +169,7 @@
                         if(res.status === 200) {
                             alert('แก้ไขข้อมูลสำเร็จ')
                             this.loadingStatus = false
-                            this.$router.replace({name: 'Customer'}).catch(() => {})
+                            location.reload()
                         }
                     }
                 )
