@@ -82,8 +82,72 @@
 
                     <!--Equipment-->
                     <div class="mb-2">
-                        
+                        <label for="equipment">อุปกรณ์</label>
+                        <p>{{lo_equipment}}</p>
+                        <p>{{equipmentList}}</p>
+
+                        <b-dropdown 
+                            v-for="(equipment,index) in lo_equipment" 
+                            :key="index" 
+                            :text="equipment" 
+                            split 
+                            right 
+                            block 
+                            class="mb-2"
+                        >
+                            <b-dropdown-item v-for="eq in equipmentList" :key="eq" v-on:click="changeEquipment(eq, index)">
+                                {{eq}}
+                            </b-dropdown-item>
+                        </b-dropdown>
+                        <b-btn block @click="lo_equipment.push('-')">เพิ่มอุปกรณ์</b-btn>
                     </div>
+
+
+                    <!--Address-->
+                    <div class="mb-2">
+                        <label for="address">ที่อยู่</label>
+                        <b-row id="address" class="px-3">
+                            <b-col sm="4" class="font-weight">
+                                <label for="addr_no"><small>เลขที่</small></label>
+                                <input type="text" class="form-control mb-2" id="addr_no" placeholder="เลขที่" v-model="lo_address.addr_no" required> 
+                            </b-col>
+                            <b-col sm="4">
+                                <label for="addr_soi"><small>ซอย</small></label>
+                                <input type="text" class="form-control mb-2" id="addr_soi" placeholder="ซอย" v-model="lo_address.addr_soi" required> 
+                            </b-col>
+                            <b-col sm="4">
+                                <label for="addr_road"><small>ถนน</small></label>
+                                <input type="text" class="form-control mb-2" id="addr_road" placeholder="ถนน" v-model="lo_address.addr_road" required> 
+                            </b-col>
+                            <b-col sm="4">
+                                <label for="addr_road"><small>แขวง</small></label>
+                                <input type="text" class="form-control mb-2" id="addr_subDistrict" placeholder="แขวง" v-model="lo_address.addr_subDistrict" required> 
+                            </b-col>
+                            <b-col sm="4">
+                                <label for="addr_road"><small>เขต</small></label>
+                                <b-dropdown id="district" 
+                                    :text="lo_address.addr_district"
+                                    block
+                                    split
+                                    variant="outline-secondary"
+                                >
+                                    <b-dropdown-item 
+                                        v-for="district in districts" 
+                                        :key="district.id" 
+                                        v-model="lo_address.addr_district" 
+                                        @click="address.addr_district=district.name"
+                                    >
+                                        {{district.name}}
+                                    </b-dropdown-item>
+                                </b-dropdown>
+                            </b-col>
+                            <b-col sm="4">
+                                <label for="addr_road"><small>จังหวัด</small></label>
+                                <input type="text" class="form-control mb-2" id="addr_district" placeholder="จังหวัด" v-model="lo_address.addr_province" required disabled> 
+                            </b-col>
+                        </b-row>
+                    </div>
+
 
                 </b-col>
 
@@ -137,6 +201,12 @@
         data() {
             return {
                 temp: '',
+                equipment: '',
+                
+                //Data
+                districts: [
+                    {id:1, name: 'ลาดกระบัง'}
+                ],
 
                 userData: '',
                 locationStatus: '',
@@ -151,13 +221,11 @@
                 //
                 lo_locationName: '',
                 lo_cost: '',
-                lo_equiptment: [],
+                lo_equipment: [],
                 lo_description: '',
 
                 //
-                equipmentList: [
-                    'กระจก','เครื่องอบไอน้ำ','เก้าอี้ตัดผมสำหรับเด็ก'
-                ]
+                equipmentList: ['กระทะทองแดง', 'กรรไกรไฟ']
 
 
             }
@@ -189,6 +257,10 @@
             },
             editInfo() {
                 console.log('แก้ไขแล้ว')
+            },
+            changeEquipment(equipment, index) {
+                console.log('equipment: ',equipment, ' index: ', index)
+                this.lo_equipment.splice(index, 1, equipment)
             }
         }
     }

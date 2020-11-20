@@ -122,6 +122,7 @@
 
                 if (this.selectedService == ''){
                     alert('โปรดเลือกบริการที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
+                    this.loadingStatus = false
                 }
 
                 else{

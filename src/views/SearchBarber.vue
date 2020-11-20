@@ -113,9 +113,10 @@
             searchService() {
                 this.loadingStatus = true
                 
-                if (!this.selectedBarber) 
+                if (!this.selectedBarber) {
                     alert('โปรดเลือกช่างตัดผมที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
-
+                    this.loadingStatus = false
+                }
                 else {
                     let searchData = {
                         service: this.selectedBarber.barb_service,

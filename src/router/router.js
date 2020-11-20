@@ -178,7 +178,7 @@ const routes = [
   
 
   //====================Error====================//
-  /*{
+  {
     path: '*',
     redirect: '/error'
   },
@@ -187,7 +187,7 @@ const routes = [
     name: 'PageNotFound',
     component: () => import('../views/404.vue'),
     meta: {title: 'Hairzer | ขออภัยไม่พบหน้าที่คุณต้องการ'}
-  },*/
+  },
 ]
 
 const router = new VueRouter({
