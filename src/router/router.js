@@ -161,15 +161,22 @@ const routes = [
     redirect: '/location/profile',
     component: () => import('../views/LocationProfile/Location.vue'),
     children: [
+      //location profile
       {
-        path: '/location/profile',
+        path: '/location/profile/:lo_id',
         name: 'LocationProfile',
         component: () => import('../views/LocationProfile/LocationProfile.vue')
       },
+      //edit location profile
       {
         path: '/location/editprofile',
         name: 'LocationEditProfile',
         component: () => import('../views/LocationProfile/LocationEditProfile.vue')
+      },
+      //appointment location management
+      {
+        path: '/location/appointment',
+        name: 'appointmentLocationManagement'
       }
     ]
   },
