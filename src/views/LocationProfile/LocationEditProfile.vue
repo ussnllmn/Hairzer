@@ -29,15 +29,14 @@
             <b-row class="mb-4 px-4">
                 <!--Edit Location Service-->
                 <b-col sm="7" style="border-right: 1px solid #CED4DA;" class="mb-4">
-
+                    {{userData}}
                 </b-col>
 
                 <!--Active Status-->
-                <b-col sm="5" class="text-center">
-                    <p>สถานะการให้บริการ</p>
-                    <b-icon v-if="userData.lo_status" icon="toggle-on" font-scale="3" variant="success"></b-icon>
-                    <b-icon v-if="!userData.lo_status" icon="toggle-off" font-scale="3" variant="danger"></b-icon>
-                    
+                <b-col sm="5" class="text-center buttonStatus">
+                    <h5>สถานะการให้บริการ</h5>
+                    <b-icon v-if="locationStatus" icon="toggle-on" font-scale="3" variant="success" @click="statusOff"></b-icon>
+                    <b-icon v-if="!locationStatus" icon="toggle-off" font-scale="3" variant="dark" @click="statusOn"></b-icon>
                 </b-col>
             </b-row>
 
@@ -82,11 +81,21 @@
         name: 'LocationEditProfile',
         data() {
             return {
-                userData: ''
+                userData: '',
+                locationStatus: ''
             }
         },
         created() {
             this.userData = JSON.parse(localStorage.getItem('userData'))
+            this.locationStatus = this.userData.lo_status
+        },
+        methods: {
+            statusOff() {
+                this.locationStatus = false
+            },
+            statusOn() {
+                this.locationStatus = true
+            }
         }
     }
 </script>
@@ -96,5 +105,9 @@
         border: 1px solid #CED4DA;
         border-radius: 5px;
         color: #495057;
+    }
+
+    .buttonStatus {
+        cursor: pointer;
     }
 </style>
