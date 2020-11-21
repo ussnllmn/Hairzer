@@ -121,7 +121,7 @@ app.post('/payment',(req, res) => {
 })
 
 
-//====================Edit Profile====================//
+//====================Customer Edit Profile====================//
 //edit customer infomation
 app.post('/editCustomerInfo', (req, res) => {
     var ref = db.collection('customer').doc(req.body.id)
@@ -155,12 +155,12 @@ app.post('/uploadImgProfile', (req, res) => {
 })
 
 
-//====================Appointment Management====================//
+//====================Customer Appointment Management====================//
 //Show ppointment list
 app.post('/appointment', (req, res, next) => {
     var appointmentList = []
 
-    db.collection('appointment').where("appmt_customer", "==", req.body.id).where("appmt_status","==","waiting").get()
+    db.collection('appointment').where("appmt_customer.cus_id", "==", req.body.id).where("appmt_status","==","waiting").get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             appointmentList.push(doc.data())
@@ -237,7 +237,7 @@ app.post('/appointmentCancel', (req, res) => {
 app.post('/appointmentHistory', (req, res, next) => {
     var appointmentListHistory = []
 
-    db.collection('appointment').where("appmt_customer", "==", req.body.id).where("appmt_status","in", ['success', 'cancel', 'location reviewed', 'barber reviewed', 'reviewed']).get()
+    db.collection('appointment').where("appmt_customer.cus_id", "==", req.body.id).where("appmt_status","in", ['success', 'cancel', 'location reviewed', 'barber reviewed', 'reviewed']).get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             appointmentListHistory.push(doc.data())
@@ -447,6 +447,27 @@ app.post('/editLocationServiceInfo', (req, res) => {
     })
 })
 
+//Show ppointment list
+app.post('/appointmentLocation', (req, res, next) => {
+    console.log(req.body)
+    var appointmentList = []
+
+    db.collection('appointment').where("appmt_location.lo_id", "==", req.body.id).where("appmt_status","==","waiting").get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            console.log(doc.data())
+            appointmentList.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'show location appointment',
+            appointment: appointmentList
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
 
 app.listen(port, () => {
     console.log(`[Process 1] server running at http://localhost:${port}`)

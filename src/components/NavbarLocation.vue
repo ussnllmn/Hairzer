@@ -27,7 +27,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <router-link class="dropdown-item" :to="{ path:`/location/profile/${user.data.uid}`}">โปรไฟล์</router-link>
                             <router-link class="dropdown-item" :to="{ name: 'LocationEditProfile' }">แก้ไขข้อมูลส่วนตัว</router-link>
-                            <router-link class="dropdown-item" :to="{ name: 'appointmentManagement' }">จัดการนัดหมาย</router-link>
+                            <router-link class="dropdown-item" :to="{ name: 'appointmentLocationManagement' }">จัดการนัดหมาย</router-link>
                             <router-link class="dropdown-item" :to="{ name: 'History' }">ประวัติการให้บริการ</router-link>
                             <div class="dropdown-divider"></div>
                             <a style="cursor: pointer;" class="dropdown-item" v-if="user.loggedIn" @click="signOut" >ออกจากระบบ</a>

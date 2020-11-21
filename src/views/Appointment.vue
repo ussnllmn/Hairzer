@@ -1,7 +1,10 @@
 <template>
     <div class="appointment container">
-        <h3 class="my-1 backBtn">
+        <h3 class="my-1 backBtn" v-if="userType == 'customer'">
             <router-link :to="{name: 'appointmentManagement'}"><b-icon icon="chevron-left"></b-icon>กลับ</router-link>
+        </h3>
+        <h3 class="my-1 backBtn" v-if="userType == 'location'">
+            <router-link :to="{name: 'appointmentLocationManagement'}"><b-icon icon="chevron-left"></b-icon>กลับ</router-link>
         </h3>
         <div class="appointmentBox shadow-sm p-4">
             <div class="mb-4">
@@ -40,6 +43,11 @@
                         {{appointment.appmt_barber.barb_firstName}} 
                         {{appointment.appmt_barber.barb_lastName}}
                     </p>
+                    <!--ลูกค้า-->
+                    <p><b><b-icon icon="person-fill" aria-hidden="true"></b-icon> ลูกค้า:</b> 
+                        {{appointment.appmt_customer.cus_firstName}} 
+                        {{appointment.appmt_customer.cus_lastName}}
+                    </p>
                 </b-col>
             </b-row>
             <hr>
@@ -77,7 +85,7 @@
         </div>
 
         <!--Confirm-->
-        <div>
+        <div v-if="userType == 'customer'">
             <b-btn class="float-right mt-2 ml-2" variant="dark" v-on:click="barberReview(appointment.appmt_id)">รีวิวช่างตัดผม</b-btn>
             <b-btn class="float-right mt-2" variant="info" v-on:click="locationReview(appointment.appmt_id)">รีวิวสถานที่</b-btn>
         </div>
@@ -89,7 +97,12 @@
 
     export default {
         name: 'AppointmentID',
+        beforeCreate() {
+            this.userType = localStorage.getItem('userType')
+        },
         created() {
+
+            //
             axios.get(`http://localhost:5000/appointment/${this.$route.params.appmt_id}`)
             .then(
                 res => {
@@ -101,7 +114,8 @@
         },
         data() {
             return {
-                appointment: ''
+                appointment: '',
+                userTpye: null
             }
         },
         methods: {

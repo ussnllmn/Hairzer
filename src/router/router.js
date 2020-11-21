@@ -178,7 +178,14 @@ const routes = [
         path: '/location/appointment',
         name: 'appointmentLocationManagement',
         component: () => import('../views/LocationProfile/LocationAppointmentManagement.vue')
-      }
+      },
+      //appointment detail
+      {
+        path: '/location/appointment/:appmt_id',
+        name: 'LocationAppointment',
+        component: () => import('../views/Appointment.vue'),
+        meta: {title: `Hairzer | การนัดหมาย`}
+      },
     ]
   },
 

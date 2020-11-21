@@ -136,7 +136,7 @@
                     appmt_service : this.selectedService,
                     appmt_cost : this.totalCost,
                     appmt_status : 'waiting',
-                    appmt_customer: this.userData.cus_id
+                    appmt_customer: this.userData
                 }
 
                 localStorage.removeItem('appointment')
