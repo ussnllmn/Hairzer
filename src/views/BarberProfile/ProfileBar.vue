@@ -6,10 +6,10 @@
         
         <!--Menu-->
         <div class="mt-4 menu">
-            <router-link :to="{path:`/barber/profile/${userData.lo_id}`}">โปรไฟล์</router-link> <hr>
-            <router-link :to="{name: 'LocationEditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>
-            <router-link :to="{name: 'appointmentLocationManagement'}">จัดการนัดหมาย</router-link> <hr>
-            <router-link :to="{name: 'LocationHistory'}">ประวัติการให้บริการ</router-link> <hr>
+            <router-link :to="{path:`/barber/profile/${userData.barb_id}`}">โปรไฟล์</router-link> <hr>
+            <router-link :to="{name: 'BarberEditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>
+            <router-link :to="{name: 'appointmentBarberManagement'}">จัดการนัดหมาย</router-link> <hr>
+            <router-link :to="{name: 'BarberHistory'}">ประวัติการให้บริการ</router-link> <hr>
         </div>
     </div>
 </template>

@@ -489,11 +489,23 @@ app.post('/appointmentLocationHistory', (req, res, next) => {
 
 
 
+//====================Barber====================/
+app.post('/changeBarberStatus', (req, res) => {
+    ref = db.collection('barber').doc(req.body.barb_id)
 
-
-
-
-
+    ref.update({
+        barb_status: !req.body.barberStatus
+    })
+    .then(() => {
+        console.log(`[SUCCESS] change status location id: ${req.body.barb_id} to ${req.body.barberStatus}`)
+        return res.status(200).json({
+            title: 'change status barber success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
 
 
 

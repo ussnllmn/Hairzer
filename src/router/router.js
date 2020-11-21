@@ -158,7 +158,7 @@ const routes = [
   {
     path: '/location',
     name: 'Location',
-    redirect: '/location/profile',
+    redirect: '/location/editprofile',
     component: () => import('../views/LocationProfile/Location.vue'),
     children: [
       //location profile
@@ -186,6 +186,7 @@ const routes = [
         component: () => import('../views/Appointment.vue'),
         meta: {title: `Hairzer | การนัดหมาย`}
       },
+      //location appointment history
       {
         path: '/location/history',
         name: 'LocationHistory',
@@ -198,10 +199,40 @@ const routes = [
   {
     path: '/barber',
     name: 'Barber',
-    //redirect: '/barber/profile',
+    redirect: '/barber/editprofile',
     component: () => import('../views/BarberProfile/Barber.vue'),
     children: [
-
+      //barber profile
+      {
+        path: '/barber/profile/:barb_id',
+        name: 'BarberProfile',
+        component: () => import('../views/BarberProfile/BarberProfile.vue')
+      },
+      //edit barber profile
+      {
+        path: '/barber/editprofile',
+        name: 'BarberEditProfile',
+        component: () => import('../views/BarberProfile/BarberEditProfile.vue')
+      },
+      //appointment barber management
+      {
+        path: '/barber/appointment',
+        name: 'appointmentBarberManagement',
+        component: () => import('../views/BarberProfile/BarberAppointmentManagement.vue')
+      },
+      //appointment detail
+      {
+        path: '/barber/appointment/:appmt_id',
+        name: 'BarberAppointment',
+        component: () => import('../views/Appointment.vue'),
+        meta: {title: `Hairzer | การนัดหมาย`}
+      },
+      //barber appointment history
+      {
+        path: '/barber/history',
+        name: 'BarberHistory',
+        component: () => import('../views/BarberProfile/BarberHistory.vue')
+      },
     ]
   },
 

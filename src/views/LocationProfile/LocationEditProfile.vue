@@ -3,17 +3,17 @@
         <h1>แก้ไขข้อมูลส่วนตัว</h1>
 
         <div class="editBox shadow-sm p-2">
-            <h5>ข้อมูลของฉัน</h5><hr>
+            <h5>ข้อมูลส่วนตัว</h5><hr>
             <b-row class="mb-4 px-4">
                 <!--Edit Profile-->
-                <b-col sm="7" style="border-right: 1px solid #CED4DA;" class="mb-4">
+                <b-col sm="8" style="border-right: 1px solid #CED4DA;" class="mb-4">
                     <!--First Name-->
                     <div class="mb-3">
                         <label for="firstName">ชื่อ</label>
                         <b-input type="text" v-model="lo_firstName" id="firstName"></b-input>
                     </div>
 
-                    <!--First Name-->
+                    <!--Last Name-->
                     <div class="mb-3">
                         <label for="lastName">นามสกุล</label>
                         <b-input type="text" v-model="lo_lastName" id="lastName"></b-input>
@@ -92,7 +92,7 @@
                 </b-col>
 
                 <!--Change image profile-->
-                <b-col sm="5">
+                <b-col sm="4">
                     <center>
                         <img :src="userData.lo_img" width="150px" height="150px" style="object-fit: cover;"> <br>
 
@@ -107,11 +107,10 @@
             </b-row>
 
 
-            <!--Edit Location Info-->
+            <!--Edit Location Service-->
             <h5>ข้อมูลการให้บริการของสถานที่</h5><hr>
             <b-row class="mb-4 px-4">
-                <!--Edit Location Service-->
-                <b-col sm="7" style="border-right: 1px solid #CED4DA;" class="mb-4">
+                <b-col sm="8" style="border-right: 1px solid #CED4DA;" class="mb-4">
                     
                     <!--Location Name-->
                     <div class="mb-3">
@@ -164,7 +163,7 @@
                 </b-col>
 
                 <!--Active Status-->
-                <b-col sm="5" class="text-center ">
+                <b-col sm="4" class="text-center ">
                     <h5>สถานะการให้บริการ</h5>
                     <b-icon class="buttonStatus" v-if="locationStatus" icon="toggle-on" font-scale="3" variant="success" @click="statusOff"></b-icon>
                     <b-icon class="buttonStatus" v-if="!locationStatus" icon="toggle-off" font-scale="3" variant="dark" @click="statusOn"></b-icon>
@@ -216,7 +215,6 @@
         name: 'LocationEditProfile',
         data() {
             return {
-                temp: '',
                 equipment: '',
                 
                 //Data
@@ -243,6 +241,15 @@
         },
         created() {
             this.userData = JSON.parse(localStorage.getItem('userData'))
+            
+            //set userData from firebase
+            firebase.firestore().collection('location').doc(this.userData.lo_id).get()
+            .then(doc => {
+                localStorage.setItem('userData', JSON.stringify(doc.data()))
+                this.loadingStatus = false
+            })
+            .catch(err => {console.log(err)})
+
             this.locationStatus = this.userData.lo_status
             
             //
@@ -258,13 +265,6 @@
             this.lo_equipment = this.userData.lo_equipment
             this.lo_description = this.userData.lo_description
 
-            //set userData from firebase
-            firebase.firestore().collection('location').doc(this.userData.lo_id).get()
-            .then(doc => {
-                localStorage.setItem('userData', JSON.stringify(doc.data()))
-                this.loadingStatus = false
-            })
-            .catch(err => {console.log(err)})
 
         },
         methods: {

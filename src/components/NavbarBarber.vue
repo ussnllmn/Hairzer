@@ -22,7 +22,7 @@
                 <ul class="navbar-nav ml-auto" v-if="user.loggedIn">
                     <li class="nav-item dropdown dropdown" >
                         <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        โปรไฟล์
+                            โปรไฟล์
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <router-link class="dropdown-item" :to="{ path:`/barber/profile/${user.data.uid}`}">โปรไฟล์</router-link>

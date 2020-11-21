@@ -60,14 +60,13 @@
         name: 'LocationProfile',
         data() {
             return {
-                userData: '',
                 locationReviewData: [],
                 locationProfile: '',
                 locationAddress: ''
             }
         },
         created() {
-            //set userData from firebase
+            //get location info from firebase
             firebase.firestore().collection('location').doc(this.$route.params.lo_id).get()
             .then(doc => {
                 this.locationProfile = doc.data()
