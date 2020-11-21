@@ -449,7 +449,6 @@ app.post('/editLocationServiceInfo', (req, res) => {
 
 //Show ppointment list
 app.post('/appointmentLocation', (req, res, next) => {
-    console.log(req.body)
     var appointmentList = []
 
     db.collection('appointment').where("appmt_location.lo_id", "==", req.body.id).where("appmt_status","==","waiting").get()
@@ -468,6 +467,41 @@ app.post('/appointmentLocation', (req, res, next) => {
         console.log(err)
     })
 })
+
+app.post('/appointmentLocationHistory', (req, res, next) => {
+    var appointmentListHistory = []
+
+    db.collection('appointment').where("appmt_location.lo_id", "==", req.body.id).where("appmt_status","in", ['success', 'cancel', 'location reviewed', 'barber reviewed', 'reviewed' ,'delete']).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            appointmentListHistory.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'show appointment',
+            appointmentHistory: appointmentListHistory
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(port, () => {
     console.log(`[Process 1] server running at http://localhost:${port}`)

@@ -1,6 +1,6 @@
 <template>
-    <div class="locationAppointment">
-        <h1>จัดการนัดหมาย</h1>
+    <div class="locationHistory">
+        <h1>ประวัติการให้บริการ</h1>
         <div class="px-2 text-center shadow-sm">
             <!--Title-->
             <b-row class="font-weight-bold h5 py-4 titleAppmt mb-0">
@@ -11,6 +11,7 @@
                 <b-col sm="1">สถานะ</b-col>
                 <b-col></b-col>
             </b-row>
+            
 
             <!--Appointment-->
             <b-row v-for="appointment in appointmentList" :key="appointment.apptmt_id" class="appointmentList py-4 align-items-center">
@@ -24,13 +25,18 @@
                     <b-img :src="appointment.appmt_barber.barb_img" rounded="circle" width="80px" height="80px" style="object-fit: cover;"></b-img>
                     <p> {{appointment.appmt_barber.barb_firstName}} {{appointment.appmt_barber.barb_lastName}}</p>
                 </b-col>
-                <b-col v-if="appointment.appmt_status == 'waiting'" sm="1" class="text-warning">รอใช้บริการ</b-col>
+                <b-col sm="1">
+                    <p v-if="appointment.appmt_status == 'success'" class="text-success">สำเร็จ</p>
+                    <p v-if="appointment.appmt_status == 'cancel'" class="text-danger">ยกเลิก</p>
+                    <p v-if="appointment.appmt_status == 'reviewed'" class="text-primary">ได้รับการรีวิวแล้ว</p>
+                    <p v-if="appointment.appmt_status == 'location reviewed'" class="text-primary">ได้รับการรีวิวแล้ว</p>
+                    <p v-if="appointment.appmt_status == 'barber reviewed'" class="text-primary">ยังไม่ได้รับการรีวิว</p>
+                    <p v-if="appointment.appmt_status == 'delete'" class="text-primary">ได้รับการรีวิวแล้ว</p>
+                </b-col>
                 <b-col >
                     <b-btn v-b-tooltip.hover title="รายละเอียดการนัดหมาย" variant="primary" class="mr-2" v-on:click="appointmentInfo(appointment.appmt_id)"><b-icon icon="info"></b-icon></b-btn>
-                    <b-btn v-b-tooltip.hover title="ยกเลิกนัดหมาย" variant="danger" v-on:click="appointmentCancel(appointment.appmt_id)"><b-icon icon="x"></b-icon></b-btn>
                 </b-col>
             </b-row>
-            
         </div>
     </div>
 </template>
@@ -59,11 +65,11 @@
             }
 
             //request appointment data
-            axios.post('http://localhost:5000/appointmentLocation', data)
+            axios.post('http://localhost:5000/appointmentLocationHistory', data)
             .then(
                 res => {
                     if(res.status === 200) {
-                        this.appointmentList = res.data.appointment
+                        this.appointmentList = res.data.appointmentHistory
                     }
                 }
             )
@@ -78,28 +84,9 @@
             appointmentInfo(appointmentID) {
                 this.$router.push({path: `/location/appointment/${appointmentID}`})
             },
-
-            appointmentCancel(appointmentID) {
-                this.loadingStatus = true
-
-                var appointmentCancel = {
-                    appmt_id: appointmentID
-                }
-
-                axios.post('http://localhost:5000/appointmentCancel', appointmentCancel)
-                .then(
-                    res => {
-                        if(res.status === 200) {
-                            alert('ยกเลิกการนัดหมายสำเร็จ')
-                            this.loadingStatus = false
-                        }
-                    }
-                )
-            }
         }
     }
 </script>
-
 
 <style scoped>
     .titleAppmt {

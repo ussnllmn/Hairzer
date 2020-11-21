@@ -186,11 +186,24 @@ const routes = [
         component: () => import('../views/Appointment.vue'),
         meta: {title: `Hairzer | การนัดหมาย`}
       },
+      {
+        path: '/location/history',
+        name: 'LocationHistory',
+        component: () => import('../views/LocationProfile/LocationHistory.vue')
+      },
     ]
   },
 
   //====================Barber====================//
-  
+  {
+    path: '/barber',
+    name: 'Barber',
+    //redirect: '/barber/profile',
+    component: () => import('../views/BarberProfile/Barber.vue'),
+    children: [
+
+    ]
+  },
 
   //====================Error====================//
   {

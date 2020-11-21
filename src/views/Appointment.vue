@@ -7,18 +7,26 @@
             <router-link :to="{name: 'appointmentLocationManagement'}"><b-icon icon="chevron-left"></b-icon>กลับ</router-link>
         </h3>
         <div class="appointmentBox shadow-sm p-4">
-            <div class="mb-4">
-                <h4>หมายเลขการนัดหมาย: <small>{{appointment.appmt_id}}</small> 
-                    | สถานะ: 
-                    <small v-if="appointment.appmt_status === `success`" style="color: #28A745">สำเร็จ</small>
-                    <small v-if="appointment.appmt_status === `waiting`" style="color: #ffc107">รอใช้บริการ</small>
-                    <small v-if="appointment.appmt_status === `cancel`" style="color: #dc3545">ยกเลิก</small>
-                    <small v-if="appointment.appmt_status === `reviewed`" style="color: #007bff">รีวิวสำเร็จ</small>
-                    <small v-if="appointment.appmt_status === `location reviewed`" style="color: #007bff">รีวิวสถานที่แล้ว</small>
-                    <small v-if="appointment.appmt_status === `barber reviewed`" style="color: #007bff">รีวิวช่างตัดผมแล้ว</small>
-                    
-                </h4>
-            </div>
+            <b-row class="mb-4">
+                <b-col>
+                    <h4>หมายเลขการนัดหมาย: <small>{{appointment.appmt_id}}</small> 
+                        | สถานะ: 
+                        <small v-if="appointment.appmt_status === `success`" style="color: #28A745">สำเร็จ</small>
+                        <small v-if="appointment.appmt_status === `waiting`" style="color: #ffc107">รอใช้บริการ</small>
+                        <small v-if="appointment.appmt_status === `cancel`" style="color: #dc3545">ยกเลิก</small>
+                        <small v-if="appointment.appmt_status === `reviewed`" style="color: #007bff">รีวิวสำเร็จ</small>
+                        <small v-if="appointment.appmt_status === `location reviewed`" style="color: #007bff">รีวิวสถานที่แล้ว</small>
+                        <small v-if="appointment.appmt_status === `barber reviewed`" style="color: #007bff">รีวิวช่างตัดผมแล้ว</small>
+                        <small v-if="appointment.appmt_status === `delete`" style="color: #007bff">รีวิวสำเร็จ</small>
+                    </h4>
+                </b-col>
+
+                <b-col cols="3" class="text-right">
+                    <b-btn v-b-tooltip.hover title="รายงานการนัดหมาย" variant="danger" size="sm" disabled>
+                        รายงานนัดหมาย <b-icon icon="exclamation-triangle-fill"></b-icon>
+                    </b-btn>
+                </b-col>
+            </b-row>
             
             <!--Detail Box-->
             <b-row>
