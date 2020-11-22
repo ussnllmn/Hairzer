@@ -1,21 +1,32 @@
 <template>
     <div class="appointment container">
-        <h3 class="my-1 backBtn">
+        <h3 class="my-1 backBtn" v-if="userType == 'customer'">
             <router-link :to="{name: 'appointmentManagement'}"><b-icon icon="chevron-left"></b-icon>กลับ</router-link>
         </h3>
+        <h3 class="my-1 backBtn" v-if="userType == 'location'">
+            <router-link :to="{name: 'appointmentLocationManagement'}"><b-icon icon="chevron-left"></b-icon>กลับ</router-link>
+        </h3>
         <div class="appointmentBox shadow-sm p-4">
-            <div class="mb-4">
-                <h4>หมายเลขการนัดหมาย: <small>{{appointment.appmt_id}}</small> 
-                    | สถานะ: 
-                    <small v-if="appointment.appmt_status === `success`" style="color: #28A745">สำเร็จ</small>
-                    <small v-if="appointment.appmt_status === `waiting`" style="color: #ffc107">รอใช้บริการ</small>
-                    <small v-if="appointment.appmt_status === `cancel`" style="color: #dc3545">ยกเลิก</small>
-                    <small v-if="appointment.appmt_status === `reviewed`" style="color: #007bff">รีวิวสำเร็จ</small>
-                    <small v-if="appointment.appmt_status === `location reviewed`" style="color: #007bff">รีวิวสถานที่แล้ว</small>
-                    <small v-if="appointment.appmt_status === `barber reviewed`" style="color: #007bff">รีวิวช่างตัดผมแล้ว</small>
-                    
-                </h4>
-            </div>
+            <b-row class="mb-4">
+                <b-col>
+                    <h4>หมายเลขการนัดหมาย: <small>{{appointment.appmt_id}}</small> 
+                        | สถานะ: 
+                        <small v-if="appointment.appmt_status === `success`" style="color: #28A745">สำเร็จ</small>
+                        <small v-if="appointment.appmt_status === `waiting`" style="color: #ffc107">รอใช้บริการ</small>
+                        <small v-if="appointment.appmt_status === `cancel`" style="color: #dc3545">ยกเลิก</small>
+                        <small v-if="appointment.appmt_status === `reviewed`" style="color: #007bff">รีวิวสำเร็จ</small>
+                        <small v-if="appointment.appmt_status === `location reviewed`" style="color: #007bff">รีวิวสถานที่แล้ว</small>
+                        <small v-if="appointment.appmt_status === `barber reviewed`" style="color: #007bff">รีวิวช่างตัดผมแล้ว</small>
+                        <small v-if="appointment.appmt_status === `delete`" style="color: #007bff">รีวิวสำเร็จ</small>
+                    </h4>
+                </b-col>
+
+                <b-col cols="3" class="text-right">
+                    <b-btn v-b-tooltip.hover title="รายงานการนัดหมาย" variant="danger" size="sm" disabled>
+                        รายงานนัดหมาย <b-icon icon="exclamation-triangle-fill"></b-icon>
+                    </b-btn>
+                </b-col>
+            </b-row>
             
             <!--Detail Box-->
             <b-row>
@@ -39,6 +50,11 @@
                     <p><b><b-icon icon="scissors" aria-hidden="true"></b-icon> ช่างตัดผม:</b> 
                         {{appointment.appmt_barber.barb_firstName}} 
                         {{appointment.appmt_barber.barb_lastName}}
+                    </p>
+                    <!--ลูกค้า-->
+                    <p><b><b-icon icon="person-fill" aria-hidden="true"></b-icon> ลูกค้า:</b> 
+                        {{appointment.appmt_customer.cus_firstName}} 
+                        {{appointment.appmt_customer.cus_lastName}}
                     </p>
                 </b-col>
             </b-row>
@@ -77,7 +93,7 @@
         </div>
 
         <!--Confirm-->
-        <div>
+        <div v-if="userType == 'customer'">
             <b-btn class="float-right mt-2 ml-2" variant="dark" v-on:click="barberReview(appointment.appmt_id)">รีวิวช่างตัดผม</b-btn>
             <b-btn class="float-right mt-2" variant="info" v-on:click="locationReview(appointment.appmt_id)">รีวิวสถานที่</b-btn>
         </div>
@@ -89,7 +105,12 @@
 
     export default {
         name: 'AppointmentID',
+        beforeCreate() {
+            this.userType = localStorage.getItem('userType')
+        },
         created() {
+
+            //
             axios.get(`http://localhost:5000/appointment/${this.$route.params.appmt_id}`)
             .then(
                 res => {
@@ -101,7 +122,8 @@
         },
         data() {
             return {
-                appointment: ''
+                appointment: '',
+                userTpye: null
             }
         },
         methods: {

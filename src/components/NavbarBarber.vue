@@ -2,7 +2,7 @@
 
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-right navbar-dark bg-info">
+        <nav class="navbar navbar-expand-lg navbar-right navbar-dark bg-secondary">
             <div class="container">
             <!--Logo-->
             <a class="navbar-brand" href="/">
@@ -22,13 +22,13 @@
                 <ul class="navbar-nav ml-auto" v-if="user.loggedIn">
                     <li class="nav-item dropdown dropdown" >
                         <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        โปรไฟล์
+                            โปรไฟล์
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <router-link class="dropdown-item" :to="{ path:`/location/profile/${user.data.uid}`}">โปรไฟล์</router-link>
-                            <router-link class="dropdown-item" :to="{ name: 'LocationEditProfile' }">แก้ไขข้อมูลส่วนตัว</router-link>
-                            <router-link class="dropdown-item" :to="{ name: 'appointmentLocationManagement' }">จัดการนัดหมาย</router-link>
-                            <router-link class="dropdown-item" :to="{ name: 'LocationHistory' }">ประวัติการให้บริการ</router-link>
+                            <router-link class="dropdown-item" :to="{ path:`/barber/profile/${user.data.uid}`}">โปรไฟล์</router-link>
+                            <router-link class="dropdown-item" :to="{ name: 'BarberEditProfile' }">แก้ไขข้อมูลส่วนตัว</router-link>
+                            <router-link class="dropdown-item" :to="{ name: 'appointmentBarberManagement' }">จัดการนัดหมาย</router-link>
+                            <router-link class="dropdown-item" :to="{ name: 'BarberHistory' }">ประวัติการให้บริการ</router-link>
                             <div class="dropdown-divider"></div>
                             <a style="cursor: pointer;" class="dropdown-item" v-if="user.loggedIn" @click="signOut" >ออกจากระบบ</a>
                         </div>
@@ -55,7 +55,7 @@ import 'firebase/auth';
 import { mapGetters } from "vuex";
 
 export default {
-    name: 'NavbarLocation',
+    name: 'NavbarBarber',
     computed: {
         ...mapGetters({
             user: "user"

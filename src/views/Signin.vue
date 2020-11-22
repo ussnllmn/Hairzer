@@ -29,23 +29,14 @@
 
                             <!--ปุ่มเข้าสู่ระบบ-->
                             <div class="col-xl-12">
-                                <button type="submit" value="submit" class="btn btn-success btn-block mb-4" @click="customerSignin">
-                                    <b-icon icon="box-arrow-in-right" aria-hidden="true"></b-icon> เข้าสู่ระบบลูกค้า
-                                </button>
-
-                                <button type="submit" value="submit" class="btn btn-info btn-block mb-4" @click="locationSignin">
-                                    <b-icon icon="box-arrow-in-right" aria-hidden="true"></b-icon> เข้าสู่ระบบช่างตัดผม
-                                </button>
-                                
-                                <button type="submit" value="submit" class="btn btn-dark btn-block mb-4" @click="barberSignin">
-                                    <b-icon icon="box-arrow-in-right" aria-hidden="true"></b-icon> เข้าสู่ระบบสถานที่
-                                </button>
+                                <button type="submit" value="submit" class="btn btn-success btn-block mb-4" @click="Signin">
+                                    <b-icon icon="box-arrow-in-right" aria-hidden="true"></b-icon> เข้าสู่ระบบ
+                                </button><hr>
                             </div>
                         </div>
-                        <hr>
 
                         <!--สมัครสมาชิก-->
-                        <div class="mt-5 mb-2">
+                        <div class="mt-5 mb-4">
                             <center>
                                 หรือ <router-link :to="{ name: 'Signup' }">สมัครสมาชิก <b-icon icon="person-plus" aria-hidden="true"></b-icon></router-link>
                             </center>
@@ -80,62 +71,57 @@
         },
         methods: {
             //Customer Signin
-            customerSignin() {
+            Signin() {
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                 .then(
                     user => { 
+                        //ถ้า user เป็น customer
                         firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
                         .then(doc => {
-                            localStorage.clear()
-                            localStorage.setItem('userType', 'customer')
-                            localStorage.setItem('userData', JSON.stringify(doc.data()))
-                        }).catch(err => {
-                            console.log(err) 
-                        })
+        
+                            if(doc.data()) {
+                                localStorage.clear()
+                                localStorage.setItem('userType', 'customer')
+                                localStorage.setItem('userData', JSON.stringify(doc.data()))
+                                location.reload()
+                            }
 
-                        this.$router.replace({name: 'Home'}).catch(()=>{}) 
-                    },
-                    error => {
-                        this.showDismissibleAlert = true
-                    }
-                )
-            },
-            //Location Signin
-            locationSignin() {
-                firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-                .then(
-                    user => { 
-                        firebase.firestore().collection('location').doc(firebase.auth().currentUser.uid).get()
-                        .then(doc => {
-                            localStorage.clear()
-                            localStorage.setItem('userType', 'location')
-                            localStorage.setItem('userData', JSON.stringify(doc.data()))
-                        }).catch(err => {
-                            console.log(err) 
                         })
+                        //ถ้า user เป็น location
+                        .then(
+                            firebase.firestore().collection('location').doc(firebase.auth().currentUser.uid).get()
+                            .then(doc => {
+                                
+                                if(doc.data()) {
+                                    localStorage.clear()
+                                    localStorage.setItem('userType', 'location')
+                                    localStorage.setItem('userData', JSON.stringify(doc.data()))
+                                    location.reload()
+                                }
 
-                        this.$router.replace({name: 'Home'}).catch(()=>{}) 
-                    },
-                    error => {
-                        this.showDismissibleAlert = true
-                    }
-                )
-            },
-            //Barber Signin
-            barberSignin() {
-                firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-                .then(
-                    user => { 
-                        firebase.firestore().collection('barber').doc(firebase.auth().currentUser.uid).get()
-                        .then(doc => {
-                            localStorage.clear()
-                            localStorage.setItem('userType', 'barber')
-                            localStorage.setItem('userData', JSON.stringify(doc.data()))
-                        }).catch(err => {
+                            }).catch(err => {
+                                console.log(err) 
+                            }) 
+                        )
+                        //ถ้า user เป็น barber
+                        .then(
+                            firebase.firestore().collection('barber').doc(firebase.auth().currentUser.uid).get()
+                            .then(doc => {
+                                
+                                if(doc.data()) {
+                                    localStorage.clear()
+                                    localStorage.setItem('userType', 'barber')
+                                    localStorage.setItem('userData', JSON.stringify(doc.data()))
+                                    location.reload()
+                                }
+
+                            }).catch(err => {
+                                console.log(err) 
+                            }) 
+                        )
+                        .catch(err => {
                             console.log(err) 
-                        })
-
-                        this.$router.replace({name: 'Home'}).catch(()=>{}) 
+                        }) 
                     },
                     error => {
                         this.showDismissibleAlert = true

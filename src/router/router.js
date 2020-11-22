@@ -156,29 +156,88 @@ const routes = [
 
   //====================Location====================//
   {
-    path: '/location/locationProfile',
+    path: '/location',
     name: 'Location',
-    redirect: '/location/',
+    redirect: '/location/editprofile',
     component: () => import('../views/LocationProfile/Location.vue'),
     children: [
+      //location profile
       {
-        path: '/location/profile',
+        path: '/location/profile/:lo_id',
         name: 'LocationProfile',
         component: () => import('../views/LocationProfile/LocationProfile.vue')
       },
+      //edit location profile
       {
         path: '/location/editprofile',
         name: 'LocationEditProfile',
         component: () => import('../views/LocationProfile/LocationEditProfile.vue')
-      }
+      },
+      //appointment location management
+      {
+        path: '/location/appointment',
+        name: 'appointmentLocationManagement',
+        component: () => import('../views/LocationProfile/LocationAppointmentManagement.vue')
+      },
+      //appointment detail
+      {
+        path: '/location/appointment/:appmt_id',
+        name: 'LocationAppointment',
+        component: () => import('../views/Appointment.vue'),
+        meta: {title: `Hairzer | การนัดหมาย`}
+      },
+      //location appointment history
+      {
+        path: '/location/history',
+        name: 'LocationHistory',
+        component: () => import('../views/LocationProfile/LocationHistory.vue')
+      },
     ]
   },
 
   //====================Barber====================//
-  
+  {
+    path: '/barber',
+    name: 'Barber',
+    redirect: '/barber/editprofile',
+    component: () => import('../views/BarberProfile/Barber.vue'),
+    children: [
+      //barber profile
+      {
+        path: '/barber/profile/:barb_id',
+        name: 'BarberProfile',
+        component: () => import('../views/BarberProfile/BarberProfile.vue')
+      },
+      //edit barber profile
+      {
+        path: '/barber/editprofile',
+        name: 'BarberEditProfile',
+        component: () => import('../views/BarberProfile/BarberEditProfile.vue')
+      },
+      //appointment barber management
+      {
+        path: '/barber/appointment',
+        name: 'appointmentBarberManagement',
+        component: () => import('../views/BarberProfile/BarberAppointmentManagement.vue')
+      },
+      //appointment detail
+      {
+        path: '/barber/appointment/:appmt_id',
+        name: 'BarberAppointment',
+        component: () => import('../views/Appointment.vue'),
+        meta: {title: `Hairzer | การนัดหมาย`}
+      },
+      //barber appointment history
+      {
+        path: '/barber/history',
+        name: 'BarberHistory',
+        component: () => import('../views/BarberProfile/BarberHistory.vue')
+      },
+    ]
+  },
 
   //====================Error====================//
-  /*{
+  {
     path: '*',
     redirect: '/error'
   },
@@ -187,7 +246,7 @@ const routes = [
     name: 'PageNotFound',
     component: () => import('../views/404.vue'),
     meta: {title: 'Hairzer | ขออภัยไม่พบหน้าที่คุณต้องการ'}
-  },*/
+  },
 ]
 
 const router = new VueRouter({

@@ -45,8 +45,8 @@
                             <b-row>
                                 <h3>{{service.service_name}}</h3>
                             </b-row>
-                            <b-row>
-                                <p>{{service.service_description}}</p>
+                            <b-row class="p-2">
+                                <p class="small">" {{service.service_description}} "</p>
                             </b-row>
                             <b-row >
                                 <b-col>
@@ -122,6 +122,7 @@
 
                 if (this.selectedService == ''){
                     alert('โปรดเลือกบริการที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
+                    this.loadingStatus = false
                 }
 
                 else{

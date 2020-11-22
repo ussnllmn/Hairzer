@@ -121,7 +121,7 @@ app.post('/payment',(req, res) => {
 })
 
 
-//====================Edit Profile====================//
+//====================Customer Edit Profile====================//
 //edit customer infomation
 app.post('/editCustomerInfo', (req, res) => {
     var ref = db.collection('customer').doc(req.body.id)
@@ -155,12 +155,12 @@ app.post('/uploadImgProfile', (req, res) => {
 })
 
 
-//====================Appointment Management====================//
+//====================Customer Appointment Management====================//
 //Show ppointment list
 app.post('/appointment', (req, res, next) => {
     var appointmentList = []
 
-    db.collection('appointment').where("appmt_customer", "==", req.body.id).where("appmt_status","==","waiting").get()
+    db.collection('appointment').where("appmt_customer.cus_id", "==", req.body.id).where("appmt_status","==","waiting").get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             appointmentList.push(doc.data())
@@ -237,7 +237,7 @@ app.post('/appointmentCancel', (req, res) => {
 app.post('/appointmentHistory', (req, res, next) => {
     var appointmentListHistory = []
 
-    db.collection('appointment').where("appmt_customer", "==", req.body.id).where("appmt_status","in", ['success', 'cancel', 'location reviewed', 'barber reviewed', 'reviewed']).get()
+    db.collection('appointment').where("appmt_customer.cus_id", "==", req.body.id).where("appmt_status","in", ['success', 'cancel', 'location reviewed', 'barber reviewed', 'reviewed']).get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             appointmentListHistory.push(doc.data())
@@ -385,6 +385,211 @@ app.post('/barberReview', (req, res) => {
         console.log(`[FAIL] ${error}`)
     })
 })
+
+
+//====================Location====================/
+app.post('/changeLocationStatus', (req, res) => {
+    ref = db.collection('location').doc(req.body.lo_id)
+
+    ref.update({
+        lo_status: !req.body.locationStatus
+    })
+    .then(() => {
+        console.log(`[SUCCESS] change status location id: ${req.body.lo_id} to ${req.body.locationStatus}`)
+        return res.status(200).json({
+            title: 'change status location success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+app.post('/editLocationInfo', (req, res) => {
+    console.log(req.body)
+    var ref = db.collection('location').doc(req.body.lo_id)
+
+    ref.update({
+        lo_firstName: req.body.lo_firstName,
+        lo_lastName: req.body.lo_lastName,
+        lo_sex: req.body.lo_sex,
+        lo_phone: req.body.lo_phone,
+        lo_address: req.body.lo_address
+    })
+    .then(() => {
+        console.log(`[SUCCESS] edited location info id: ${req.body.lo_id}`)
+        return res.status(200).json({
+            title: 'edit location info success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+app.post('/editLocationServiceInfo', (req, res) => {
+    var ref = db.collection('location').doc(req.body.lo_id)
+
+    ref.update({
+        lo_locationName: req.body.lo_locationName,
+        lo_cost: req.body.lo_cost,
+        lo_equipment: req.body.lo_equipment,
+        lo_description: req.body.lo_description
+    })
+    .then(() => {
+        console.log(`[SUCCESS] edited location service info id: ${req.body.lo_id}`)
+        return res.status(200).json({
+            title: 'edit location service info success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+//Show ppointment list
+app.post('/appointmentLocation', (req, res, next) => {
+    var appointmentList = []
+
+    db.collection('appointment').where("appmt_location.lo_id", "==", req.body.id).where("appmt_status","==","waiting").get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            console.log(doc.data())
+            appointmentList.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'show location appointment',
+            appointment: appointmentList
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+app.post('/appointmentLocationHistory', (req, res, next) => {
+    var appointmentListHistory = []
+
+    db.collection('appointment').where("appmt_location.lo_id", "==", req.body.id).where("appmt_status","in", ['success', 'cancel', 'location reviewed', 'barber reviewed', 'reviewed' ,'delete']).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            appointmentListHistory.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'show appointment',
+            appointmentHistory: appointmentListHistory
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+
+
+//====================Barber====================/
+app.post('/changeBarberStatus', (req, res) => {
+    var ref = db.collection('barber').doc(req.body.barb_id)
+
+    ref.update({
+        barb_status: !req.body.barberStatus
+    })
+    .then(() => {
+        console.log(`[SUCCESS] change status location id: ${req.body.barb_id} to ${req.body.barberStatus}`)
+        return res.status(200).json({
+            title: 'change status barber success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+app.post('/editBarberInfo', (req, res) => {
+    console.log(req.body)
+    var ref = db.collection('barber').doc(req.body.barb_id)
+
+    ref.update({
+        barb_firstName: req.body.barb_firstName,
+        barb_lastName: req.body.barb_lastName,
+        barb_sex: req.body.barb_sex,
+        barb_phone: req.body.barb_phone,
+        barb_description: req.body.barb_description,
+        barb_addressService: req.body.barb_addressService
+    })
+    .then(() => {
+        console.log(`[SUCCESS] edited barber info id: ${req.body.barb_id}`)
+        return res.status(200).json({
+            title: 'edit barber info success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+app.post('/saveService', (req, res) => {
+    //ถ้าเพิ่มบริการใหม่มา
+    if(req.body.service_id == 'null') {
+        var ref = db.collection('service').doc()
+        ref.set({
+            service_id: ref.id,
+            service_name: req.body.service_name,
+            service_cost: req.body.service_cost,
+            service_img: req.body.service_img,
+            service_barber: req.body.service_barber,
+            service_description: req.body.service_description
+        })
+        .then(() => {
+
+            console.log(`[SUCCESS] update service id: ${ref.id}`)
+            return res.status(200).json({
+                title: 'update service success'
+            })
+        })
+        .catch(error => {
+            console.log(`[FAIL] ${error}`)
+        })
+    }
+
+    //ถ้าอัพเดตบริการเก่า
+    else {
+        var ref = db.collection('service').doc(req.body.service_id)
+        ref.update({
+            service_name: req.body.service_name,
+            service_cost: req.body.service_cost,
+            service_img: req.body.service_img,
+            service_barber: req.body.service_barber,
+            service_description: req.body.service_description
+        })
+        .then(() => {
+            console.log(`[SUCCESS] update service id: ${req.body.service_id}`)
+            return res.status(200).json({
+                title: 'update service success'
+            })
+        })
+        .catch(error => {
+            console.log(`[FAIL] ${error}`)
+        })
+    
+    }
+})
+
+app.post('/deleteService', (req, res) => {
+    db.collection('service').doc(req.body.service_id).delete()
+    .then(() => {
+        return res.status(200).json({
+            title: 'delete service success',
+        })
+    })
+})
+
+
+
+
+
 
 app.listen(port, () => {
     console.log(`[Process 1] server running at http://localhost:${port}`)

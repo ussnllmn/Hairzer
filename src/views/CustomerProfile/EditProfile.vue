@@ -7,7 +7,7 @@
             <h5>ข้อมูลของฉัน</h5> <hr>
             <!--Edit Profile-->
             <b-row class="mb-4 px-4">
-                <b-col sm="7" style="border-right: 1px solid #CED4DA;" class="mb-4">
+                <b-col sm="8" style="border-right: 1px solid #CED4DA;" class="mb-4">
                     <!--First Name-->
                     <div class="mb-2">
                         <label for="firstName">ชื่อ</label>
@@ -47,14 +47,17 @@
                 </b-col>
                 
                 <!--Change image profile-->
-                <b-col sm="5">
+                <b-col sm="4">
                     <center>
                         <img :src="img" width="200px" height="200px" style="object-fit: cover;"> <br>
 
                         <div class="upload mt-2">
-                            <label>Upload file
-                                <input @change="handleImage" type="file" accept="image/*"/>
-                            </label><br>
+                            <b-form-file
+                                    size="sm"
+                                    placeholder="Choose a file or drop it here..."
+                                    drop-placeholder="Drop file here..."
+                                    class="mb-2"
+                            ></b-form-file>
                             <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์" @click="uploadImage">เปลี่ยนรูปโปรไฟล์</b-btn><br>
                         </div>
                     </center>
@@ -64,7 +67,7 @@
             <!--Change Password-->
             <h5>เปลี่ยนรหัสผ่าน</h5> <hr>
             <b-row class="mb-4 p-2">
-                <b-col sm="7">
+                <b-col sm="8">
                     <!--present password-->
                     <div class="mb-2">
                         <label for="presentPWD">รหัสผ่านปัจจุบัน</label>
@@ -169,7 +172,7 @@
                         if(res.status === 200) {
                             alert('แก้ไขข้อมูลสำเร็จ')
                             this.loadingStatus = false
-                            this.$router.replace({name: 'Customer'}).catch(() => {})
+                            location.reload()
                         }
                     }
                 )

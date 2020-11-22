@@ -127,9 +127,10 @@
             searchBarber() {
                 this.loadingStatus = true
 
-                if (!this.selectedLocation) 
+                if (!this.selectedLocation) {
                     alert('โปรดเลือกสถานที่ที่คุณต้องการก่อนคลิกที่ปุ่ม "ถัดไป"')
-                
+                    this.loadingStatus = false
+                }
                 else {
                     let searchData = { 
                         location: this.selectedLocation.lo_address.addr_district
