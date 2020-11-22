@@ -80,7 +80,6 @@
             },
 
             appointmentCancel(appointmentID) {
-                this.loadingStatus = true
 
                 var appointmentCancel = {
                     appmt_id: appointmentID
@@ -91,7 +90,6 @@
                     res => {
                         if(res.status === 200) {
                             alert('ยกเลิกการนัดหมายสำเร็จ')
-                            this.loadingStatus = false
                         }
                     }
                 )

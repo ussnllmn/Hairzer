@@ -388,6 +388,7 @@ app.post('/barberReview', (req, res) => {
 
 
 //====================Location====================/
+//Change Location Status
 app.post('/changeLocationStatus', (req, res) => {
     ref = db.collection('location').doc(req.body.lo_id)
 
@@ -406,7 +407,6 @@ app.post('/changeLocationStatus', (req, res) => {
 })
 
 app.post('/editLocationInfo', (req, res) => {
-    console.log(req.body)
     var ref = db.collection('location').doc(req.body.lo_id)
 
     ref.update({
@@ -447,7 +447,7 @@ app.post('/editLocationServiceInfo', (req, res) => {
     })
 })
 
-//Show ppointment list
+//Show appointment list
 app.post('/appointmentLocation', (req, res, next) => {
     var appointmentList = []
 
@@ -586,7 +586,46 @@ app.post('/deleteService', (req, res) => {
     })
 })
 
+//Get appointment of barber
+app.post('/appointmentBarber', (req, res, next) => {
+    var appointmentList = []
 
+    db.collection('appointment').where("appmt_barber.barb_id", "==", req.body.id).where("appmt_status","==","waiting").get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            console.log(doc.data())
+            appointmentList.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'show barber appointment',
+            appointment: appointmentList
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+//get history appointment of barber
+app.post('/appointmentBarberHistory', (req, res, next) => {
+    var appointmentListHistory = []
+
+    db.collection('appointment').where("appmt_barber.barb_id", "==", req.body.id).where("appmt_status","in", ['success', 'cancel', 'location reviewed', 'barber reviewed', 'reviewed' ,'delete']).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            appointmentListHistory.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'show history appointment of barber',
+            appointmentHistory: appointmentListHistory
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
 
 
 

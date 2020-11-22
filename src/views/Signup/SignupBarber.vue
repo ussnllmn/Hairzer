@@ -124,8 +124,18 @@
                     })
                     .then(() => {
                         localStorage.removeItem('userData')
-                        localStorage.setItem('userType', 'barber')
-                        this.$router.replace({name: 'Barber'}).catch(()=>{})
+
+                        firebase.firestore().collection('barber').doc(firebase.auth().currentUser.uid).get()
+                        .then(doc => {        
+                            if(doc.data()) {
+                                localStorage.clear()
+                                localStorage.setItem('userType', 'barber')
+                                localStorage.setItem('userData', JSON.stringify(doc.data()))
+                                location.reload()
+                            }
+                        }).catch(err => { console.log(err) }) 
+
+                        this.$router.replace({name: 'BarberProfile'}).catch(()=>{})
                     })
                     .catch(err => {
                         console.log('wrong with add user to firestore',err)

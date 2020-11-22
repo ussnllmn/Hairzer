@@ -53,10 +53,12 @@
 
                         <div class="upload mt-2">
                             <b-form-file
-                                    size="sm"
-                                    placeholder="Choose a file or drop it here..."
-                                    drop-placeholder="Drop file here..."
-                                    class="mb-2"
+                                size="sm"
+                                placeholder="เลือกรูปภาพของคุณ . . ."
+                                drop-placeholder="ลากไฟล์มาวางที่นี่..."
+                                class="mb-2"
+                                accept="image/*"
+                                @change="chooseFile"
                             ></b-form-file>
                             <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์" @click="uploadImage">เปลี่ยนรูปโปรไฟล์</b-btn><br>
                         </div>
@@ -150,6 +152,9 @@
                 sex: '',
                 phone: '',
                 img: '',
+
+                //img
+                selectedImage: {}
             }
         },
         methods: {
@@ -180,14 +185,29 @@
             },
 
             //เลือกรูป
-            handleImage(e){
-                const selectedImage = e.target.files[0]
-                console.log(selectedImage.name)
+            chooseFile(event){
+                this.selectedImage = event.target.files[0]
             },
 
             //เปลี่ยนรูป 
             uploadImage() {
-                console.log('upload sucess')
+                firebase.storage().ref('customer/' + this.userData.cus_id + '/profile.jpg').put(this.selectedImage)
+                .then(() => {
+
+                    firebase.storage().ref('customer/' + this.userData.cus_id + '/profile.jpg').getDownloadURL()
+                    .then(imgURL => {
+                        this.img = imgURL
+
+                        firebase.firestore().collection('customer').doc(this.userData.cus_id).update({
+                            cus_img: imgURL
+                        })
+                        .catch(err => { console.log(err) })
+                    })
+                    .catch(err => {console.log(err)})
+
+                    alert('เปลี่ยนรูปสำเร็จ')
+                })
+                .catch(err => {console.log(err)})
             }
         },
         computed: {

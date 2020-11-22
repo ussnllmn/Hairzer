@@ -1,11 +1,11 @@
 <template>
-    <div class="profileBar shadow-sm p-4">
+    <div class="profileBar shadow-sm p-2">
         <!--Image-->
-        <center><img :src="userData.lo_img" width="90%" rounded="circle" style="object-fit: cover; border-radius: 100%;" class="p-3"></center>
-        <center><h4>{{userData.lo_locationName}}</h4></center>
+        <center><img :src="userData.lo_img" width="120px" height="120px" rounded="circle" style="object-fit: cover; border-radius: 100%;" class="p-3"></center>
+        <center><h5>{{userData.lo_locationName}}</h5></center>
         
         <!--Menu-->
-        <div class="mt-4 menu">
+        <div class="mt-4 menu small">
             <hr>
             <router-link :to="{path:`/location/profile/${userData.lo_id}`}">โปรไฟล์</router-link> <hr>
             <router-link :to="{name: 'LocationEditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>

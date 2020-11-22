@@ -1,11 +1,12 @@
 <template>
-    <div class="profileBar shadow-sm p-4">
+    <div class="profileBar shadow-sm p-2">
         <!--Image-->
-        <center><img :src="userData.barb_img" width="90%" rounded="circle" style="object-fit: cover; border-radius: 100%;" class="p-3"></center>
-        <center><h4>{{userData.barb_firstName}} {{userData.barb_lastName}}</h4></center>
+        <center><img :src="userData.barb_img" width="120px" height="120px" rounded="circle" style="object-fit: cover; border-radius: 100%;" class="p-3"></center>
+        <center><h5>{{userData.barb_firstName}}</h5></center>
+        <center><h5>{{userData.barb_lastName}}</h5></center>
         
         <!--Menu-->
-        <div class="mt-4 menu">
+        <div class="mt-4 menu small">
             <hr>
             <router-link :to="{path:`/barber/profile/${userData.barb_id}`}">โปรไฟล์</router-link> <hr>
             <router-link :to="{name: 'BarberEditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>

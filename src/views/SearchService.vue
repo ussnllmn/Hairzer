@@ -149,8 +149,8 @@
             },
             totalCost() {
                 var sum = 0
-                for(var el in this.selectedService){
-                    sum += this.selectedService[el].service_cost
+                for(var el in this.selectedService) {
+                    sum += parseInt(this.selectedService[el].service_cost)
                 }
                 sum += this.selectedLocation.lo_cost
                 return sum

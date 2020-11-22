@@ -166,7 +166,17 @@
                     })
                     .then(() => {
                         localStorage.removeItem('userData')
-                        localStorage.setItem('userType', 'location')
+
+                        firebase.firestore().collection('location').doc(firebase.auth().currentUser.uid).get()
+                        .then(doc => {        
+                            if(doc.data()) {
+                                localStorage.clear()
+                                localStorage.setItem('userType', 'location')
+                                localStorage.setItem('userData', JSON.stringify(doc.data()))
+                                location.reload()
+                            }
+                        }).catch(err => { console.log(err) }) 
+
                         this.$router.replace({name: 'LocationProfile'}).catch(()=>{})
                     })
                     .catch(err => {

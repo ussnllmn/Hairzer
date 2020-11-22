@@ -49,6 +49,8 @@
 <style>
   #app {
     color: #495057;
+    /*background: url("../src/assets/Barber/joy.jpg") no-repeat center center fixed;
+    background-size: cover;*/
   }
   .backBtn a{
     text-decoration: none;

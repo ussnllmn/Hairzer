@@ -85,12 +85,14 @@
 
                         <div class="upload mt-2">
                             <b-form-file
-                                    size="sm"
-                                    placeholder="Choose a file or drop it here..."
-                                    drop-placeholder="Drop file here..."
-                                    class="mb-2"
+                                size="sm"
+                                placeholder="เลือกรูปภาพของคุณ . . ."
+                                drop-placeholder="ลากไฟล์มาวางที่นี่..."
+                                class="mb-2"
+                                accept="image/*"
+                                @change="chooseFile"
                             ></b-form-file>
-                            <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์">เปลี่ยนรูปโปรไฟล์</b-btn><br>
+                            <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์" @click="uploadImage">เปลี่ยนรูปโปรไฟล์</b-btn><br>
                         </div>
                     </center>
                 </b-col>
@@ -112,9 +114,10 @@
                                 <!--upload service image-->
                                 <b-form-file
                                     size="sm"
-                                    placeholder="Choose a file or drop it here..."
-                                    drop-placeholder="Drop file here..."
+                                    placeholder="เลือกรูปภาพบริการของคุณ . . ."
+                                    drop-placeholder="ลากไฟล์มาวางที่นี่..."
                                     class="mb-2"
+                                    @change="chooseFile"
                                 ></b-form-file>
                             </b-col>
 
@@ -164,6 +167,8 @@
                     <h5>สถานะการให้บริการ</h5>
                     <b-icon class="buttonStatus" v-if="barberStatus" icon="toggle-on" font-scale="3" variant="success" @click="statusOff"></b-icon>
                     <b-icon class="buttonStatus" v-if="!barberStatus" icon="toggle-off" font-scale="3" variant="dark" @click="statusOn"></b-icon>
+                    <p v-if="locationStatus" class="text-success">สถานะ: เปิดการให้บริการ</p>
+                    <p v-if="!locationStatus"  class="text-secondary">สถานะ: ปิดการบริการ</p>
                 </b-col>
             </b-row>
 
@@ -208,11 +213,14 @@
     import axios from 'axios'
     import firebase from 'firebase/app';
     import 'firebase/auth';
+    import 'firebase/storage';
 
     export default {
         name: 'BarberEditProfile',
         data() {
             return {
+                img: '',
+                selectedImage: {},
                 
                 //Data
                 districts: [
@@ -269,6 +277,34 @@
             .catch(err => {console.log(err)})
         },
         methods: {
+            //เลือกรูป
+            chooseFile(event){
+                this.selectedImage = event.target.files[0]
+            },
+
+            //เปลี่ยนรูป 
+            uploadImage() {
+                firebase.storage().ref('barber/' + this.userData.barb_id + '/profile.jpg').put(this.selectedImage)
+                .then(() => {
+
+                    firebase.storage().ref('barber/' + this.userData.barb_id + '/profile.jpg').getDownloadURL()
+                    .then(imgURL => {
+                        this.img = imgURL
+
+                        firebase.firestore().collection('barber').doc(this.userData.barb_id).update({
+                            barb_img: imgURL
+                        })
+                        .then(() => {alert('เปลี่ยนรูปสำเร็จ')})
+                        .catch(err => { console.log(err) })
+                    })
+                    .catch(err => {console.log(err)})
+                })
+                .catch(err => {console.log(err)})
+            },
+
+            //เปลี่ยนรูป 
+            uploadImageService(serviceID) {
+            },
             //แก้ไขข้อมูลส่วนตัว
             editInfo() {
                 var info = this.userData
@@ -287,11 +323,27 @@
             //บันทึกบริการ
             saveService(index) {
                 var service =  this.barb_service[index]
+                var serviceID = service.service_id
+
                 axios.post('http://localhost:5000/saveService', service)
                 .then(
                     res => {
                         if(res.status === 200) {
-                            alert('บันทึกข้อมูลบริการสำเร็จ')
+                            //upload service img
+                            firebase.storage().ref('service/' + serviceID + '/serviceImg.jpg').put(this.selectedImage)
+                            .then(() => {
+
+                                firebase.storage().ref('service/' + serviceID + '/serviceImg.jpg').getDownloadURL()
+                                .then(imgURL => {
+                                    firebase.firestore().collection('service').doc(serviceID).update({
+                                        service_img: imgURL
+                                    })
+                                    .then(() => {alert('บันทึกข้อมูลบริการสำเร็จ')})
+                                    .catch(err => { console.log(err) })
+                                })
+                                .catch(err => {console.log(err)})
+                            })
+                            .catch(err => {console.log(err)})
                         }
                     }
                 )
