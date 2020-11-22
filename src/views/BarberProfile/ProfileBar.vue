@@ -6,6 +6,7 @@
         
         <!--Menu-->
         <div class="mt-4 menu">
+            <hr>
             <router-link :to="{path:`/barber/profile/${userData.barb_id}`}">โปรไฟล์</router-link> <hr>
             <router-link :to="{name: 'BarberEditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>
             <router-link :to="{name: 'appointmentBarberManagement'}">จัดการนัดหมาย</router-link> <hr>

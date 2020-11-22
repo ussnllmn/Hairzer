@@ -52,9 +52,12 @@
                         <img :src="img" width="200px" height="200px" style="object-fit: cover;"> <br>
 
                         <div class="upload mt-2">
-                            <label>Upload file
-                                <input @change="handleImage" type="file" accept="image/*"/>
-                            </label><br>
+                            <b-form-file
+                                    size="sm"
+                                    placeholder="Choose a file or drop it here..."
+                                    drop-placeholder="Drop file here..."
+                                    class="mb-2"
+                            ></b-form-file>
                             <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์" @click="uploadImage">เปลี่ยนรูปโปรไฟล์</b-btn><br>
                         </div>
                     </center>

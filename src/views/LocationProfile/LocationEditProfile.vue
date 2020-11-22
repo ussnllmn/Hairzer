@@ -97,9 +97,12 @@
                         <img :src="userData.lo_img" width="150px" height="150px" style="object-fit: cover;"> <br>
 
                         <div class="upload mt-2">
-                            <label>Upload file
-                                <input type="file" accept="image/*"/>
-                            </label><br>
+                            <b-form-file
+                                    size="sm"
+                                    placeholder="Choose a file or drop it here..."
+                                    drop-placeholder="Drop file here..."
+                                    class="mb-2"
+                            ></b-form-file>
                             <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์">เปลี่ยนรูปโปรไฟล์</b-btn><br>
                         </div>
                     </center>

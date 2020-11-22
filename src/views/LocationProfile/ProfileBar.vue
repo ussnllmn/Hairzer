@@ -6,6 +6,7 @@
         
         <!--Menu-->
         <div class="mt-4 menu">
+            <hr>
             <router-link :to="{path:`/location/profile/${userData.lo_id}`}">โปรไฟล์</router-link> <hr>
             <router-link :to="{name: 'LocationEditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>
             <router-link :to="{name: 'appointmentLocationManagement'}">จัดการนัดหมาย</router-link> <hr>

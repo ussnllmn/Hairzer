@@ -84,9 +84,12 @@
                         <img :src="userData.barb_img" width="150px" height="150px" style="object-fit: cover;"> <br>
 
                         <div class="upload mt-2">
-                            <label>Upload file
-                                <input type="file" accept="image/*"/>
-                            </label><br>
+                            <b-form-file
+                                    size="sm"
+                                    placeholder="Choose a file or drop it here..."
+                                    drop-placeholder="Drop file here..."
+                                    class="mb-2"
+                            ></b-form-file>
                             <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์">เปลี่ยนรูปโปรไฟล์</b-btn><br>
                         </div>
                     </center>
@@ -99,15 +102,16 @@
             <b-row class="mb-4 px-2">
                 <!--Service-->
                 <b-col sm="8" style="border-right: 1px solid #CED4DA;" class="mb-4">
-                    <div v-for="(service,index) in barb_service" :key="index" class="serviceBox mb-3 p-2">
+                    <div v-for="(service,index) in barb_service" :key="index" class="serviceBox mb-4 p-2">
                         <h6 class="font-weight-bold">บริการที่ {{index+1}}</h6>
                         <b-row>
                             <b-col sm="4">
                                 <!--Service Image-->
-                                <img :src="service.service_img" width="100%" height="175px" style="object-fit: cover;" class="mb-2">
+                                <img :src="service.service_img" width="100%" height="225px" style="object-fit: cover;" class="mb-2">
                                 
                                 <!--upload service image-->
                                 <b-form-file
+                                    size="sm"
                                     placeholder="Choose a file or drop it here..."
                                     drop-placeholder="Drop file here..."
                                     class="mb-2"
@@ -136,14 +140,18 @@
                                     >
                                     </b-form-textarea>
                                 </b-input-group>
+
+                                <div class="text-right">
+                                    <!--Save Service-->
+                                    <b-button class="mx-2" v-b-tooltip.hover title="บันทึกบริการ" variant="success" size="sm" v-on:click="saveService(index)">บันทึก</b-button>
+
+                                    <!--Delete Service-->
+                                    <b-button v-b-tooltip.hover title="ลบบริการ" variant="danger" size="sm" v-on:click="deleteService(index)">ลบ</b-button>
+                                </div>
                             </b-col>
                         </b-row>
 
-                        <!--Save Service-->
-                        <b-button v-b-tooltip.hover title="บันทึกบริการ" variant="success" block v-on:click="saveService(index)">บันทึก</b-button>
-
-                        <!--Delete Service-->
-                        <b-button v-b-tooltip.hover title="ลบบริการ" variant="danger" block v-on:click="deleteService(index)">ลบ</b-button>
+                        
                     </div>
 
                     <b-button v-b-tooltip.hover title="เพิ่มบริการ" variant="outline-dark" block v-on:click="addService">
@@ -309,7 +317,7 @@
                 if(this.barb_service.length < 10) {
                     this.barb_service.push({
                         service_name: '',
-                        service_cost: 0,
+                        service_cost: '',
                         service_img: 'https://firebasestorage.googleapis.com/v0/b/aboutheadproject.appspot.com/o/service%2Fhaircut.jpg?alt=media&token=7a38e76a-3340-4894-a6d0-9ee9af246348',
                         service_id: 'null',
                         service_barber: this.userData.barb_id,
