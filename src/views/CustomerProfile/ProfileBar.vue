@@ -1,11 +1,11 @@
 <template>
-    <div class="profileBar shadow-sm p-4">
+    <div class="profileBar shadow-sm p-2">
         <!--Image-->
-        <center><img :src="userData.cus_img" width="200px" height="200px" rounded="circle" style="object-fit: cover; border-radius: 100%;" class="p-3"></center>
-        <center><h4>{{userData.cus_firstName}} {{userData.cus_lastName}}</h4></center>
+        <center><img :src="userData.cus_img" width="120px" height="120px" rounded="circle" style="object-fit: cover; border-radius: 100%;" class="p-3"></center>
+        <center><h5>{{userData.cus_firstName}} {{userData.cus_lastName}}</h5></center>
         
         <!--Menu-->
-        <div class="mt-4 menu">
+        <div class="mt-4 menu small">
             <router-link :to="{name: 'EditProfile'}">แก้ไขข้อมูลส่วนตัว</router-link> <hr>
             <router-link :to="{name: 'appointmentManagement'}">จัดการนัดหมาย</router-link> <hr>
             <router-link :to="{name: 'History'}">ประวัติการใช้บริการ</router-link> <hr>

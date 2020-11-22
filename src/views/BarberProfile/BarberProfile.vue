@@ -4,13 +4,13 @@
         <div class="profileBox shadow-sm p-4">
             <b-row>
                 <!--รูปโปรไฟล์-->
-                <b-col sm="2" class="align-self-center text-center p-2">
-                    <img :src="barberProfile.barb_img" rounded="circle" width="145px" height="145px" style="object-fit: cover; border-radius: 100%;"/>
+                <b-col sm="2" class="align-self-start text-center p-2">
+                    <img :src="barberProfile.barb_img" rounded="circle" width="130px" height="130px" style="object-fit: cover; border-radius: 100%;"/>
                 </b-col>
 
                 <!--ชื่อและคำอธิบาย-->
                 <b-col sm="6" class="pl-5">
-                    <h3><b>{{barberProfile.barb_firstName}} {{barberProfile.barb_lastName}}</b></h3>
+                    <h4><b>{{barberProfile.barb_firstName}} {{barberProfile.barb_lastName}}</b></h4>
                     <p><b>พื้นที่ให้บริการ:</b> เขต{{barberProfile.barb_addressService}}</p>
                     <p class="font-weight-bold m-0 p-0">คำอธิบายเกี่ยวกับช่างตัดผม:</p>
                     <p >" {{barberProfile.barb_description}} "</p>

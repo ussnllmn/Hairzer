@@ -172,6 +172,8 @@
                     <h5>สถานะการให้บริการ</h5>
                     <b-icon class="buttonStatus" v-if="locationStatus" icon="toggle-on" font-scale="3" variant="success" @click="statusOff"></b-icon>
                     <b-icon class="buttonStatus" v-if="!locationStatus" icon="toggle-off" font-scale="3" variant="dark" @click="statusOn"></b-icon>
+                    <p v-if="locationStatus" class="text-success">สถานะ: เปิดการให้บริการ</p>
+                    <p v-if="!locationStatus"  class="text-secondary">สถานะ: ปิดการบริการ</p>
                 </b-col>
             </b-row>
 

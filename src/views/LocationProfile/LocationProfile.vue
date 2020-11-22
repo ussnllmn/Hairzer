@@ -4,13 +4,13 @@
         <div class="profileBox shadow-sm p-4">
             <b-row>
                 <!--รูปโปรไฟล์-->
-                <b-col sm="2" class="align-self-center p-2">
-                    <img :src="locationProfile.lo_img" rounded="circle" width="100%" height="150px" style="object-fit: cover; border-radius: 100%;"/>
+                <b-col sm="2" class="align-self-start p-2">
+                    <img :src="locationProfile.lo_img" rounded="circle" width="130px" height="130px" style="object-fit: cover; border-radius: 100%;"/>
                 </b-col>
 
                 <!--ชื่อและคำอธิบาย-->
                 <b-col sm="6" class="pl-5">
-                    <h3><b>{{locationProfile.lo_locationName}}</b></h3>
+                    <h4><b>{{locationProfile.lo_locationName}}</b></h4>
                     <p><b>ที่อยู่:</b> 
                         {{locationAddress.addr_no}}
                         ซอย{{locationAddress.addr_soi}}

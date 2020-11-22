@@ -447,7 +447,7 @@ app.post('/editLocationServiceInfo', (req, res) => {
     })
 })
 
-//Show ppointment list
+//Show appointment list
 app.post('/appointmentLocation', (req, res, next) => {
     var appointmentList = []
 
@@ -607,6 +607,25 @@ app.post('/appointmentBarber', (req, res, next) => {
     })
 })
 
+//get history appointment of barber
+app.post('/appointmentBarberHistory', (req, res, next) => {
+    var appointmentListHistory = []
+
+    db.collection('appointment').where("appmt_barber.barb_id", "==", req.body.id).where("appmt_status","in", ['success', 'cancel', 'location reviewed', 'barber reviewed', 'reviewed' ,'delete']).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            appointmentListHistory.push(doc.data())
+        })
+
+        return res.status(200).json({
+            title: 'show history appointment of barber',
+            appointmentHistory: appointmentListHistory
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
 
 
 

@@ -94,7 +94,18 @@
                     })
                     .then(() => {
                         localStorage.removeItem('userData')
-                        localStorage.setItem('userType', 'customer')
+                        
+                        firebase.firestore().collection('customer').doc(firebase.auth().currentUser.uid).get()
+                        .then(doc => {
+        
+                            if(doc.data()) {
+                                localStorage.clear()
+                                localStorage.setItem('userType', 'customer')
+                                localStorage.setItem('userData', JSON.stringify(doc.data()))
+                                location.reload()
+                            }
+                        })
+
                         this.$router.replace({name: 'Customer'}).catch(()=>{})
                     })
                     .catch(err => {
