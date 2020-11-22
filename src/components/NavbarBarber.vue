@@ -2,7 +2,7 @@
 
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-right navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-right navbar-dark bg-secondary">
             <div class="container">
             <!--Logo-->
             <a class="navbar-brand" href="/">

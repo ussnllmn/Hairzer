@@ -45,8 +45,8 @@
                             <b-row>
                                 <h3>{{service.service_name}}</h3>
                             </b-row>
-                            <b-row>
-                                <p>{{service.service_description}}</p>
+                            <b-row class="p-2">
+                                <p class="small">" {{service.service_description}} "</p>
                             </b-row>
                             <b-row >
                                 <b-col>

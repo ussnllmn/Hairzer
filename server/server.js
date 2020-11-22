@@ -491,7 +491,7 @@ app.post('/appointmentLocationHistory', (req, res, next) => {
 
 //====================Barber====================/
 app.post('/changeBarberStatus', (req, res) => {
-    ref = db.collection('barber').doc(req.body.barb_id)
+    var ref = db.collection('barber').doc(req.body.barb_id)
 
     ref.update({
         barb_status: !req.body.barberStatus
@@ -505,6 +505,78 @@ app.post('/changeBarberStatus', (req, res) => {
     .catch(error => {
         console.log(`[FAIL] ${error}`)
     })
+})
+
+app.post('/editBarberInfo', (req, res) => {
+    console.log(req.body)
+    var ref = db.collection('barber').doc(req.body.barb_id)
+
+    ref.update({
+        barb_firstName: req.body.barb_firstName,
+        barb_lastName: req.body.barb_lastName,
+        barb_sex: req.body.barb_sex,
+        barb_phone: req.body.barb_phone,
+        barb_description: req.body.barb_description,
+        barb_addressService: req.body.barb_addressService
+    })
+    .then(() => {
+        console.log(`[SUCCESS] edited barber info id: ${req.body.barb_id}`)
+        return res.status(200).json({
+            title: 'edit barber info success'
+        })
+    })
+    .catch(error => {
+        console.log(`[FAIL] ${error}`)
+    })
+})
+
+
+
+app.post('/saveService', (req, res) => {
+    //ถ้าเพิ่มบริการใหม่มา
+    if(req.body.service_id == 'null') {
+        var ref = db.collection('service').doc()
+        ref.set({
+            service_id: ref.id,
+            service_name: req.body.service_name,
+            service_cost: req.body.service_cost,
+            service_img: req.body.service_img,
+            service_barber: req.body.service_barber,
+            service_description: req.body.service_description
+        })
+        .then(() => {
+
+            console.log(`[SUCCESS] update service id: ${ref.id}`)
+            return res.status(200).json({
+                title: 'update service success'
+            })
+        })
+        .catch(error => {
+            console.log(`[FAIL] ${error}`)
+        })
+    }
+
+    //ถ้าอัพเดตบริการเก่า
+    else {
+        var ref = db.collection('service').doc(req.body.service_id)
+        ref.update({
+            service_name: req.body.service_name,
+            service_cost: req.body.service_cost,
+            service_img: req.body.service_img,
+            service_barber: req.body.service_barber,
+            service_description: req.body.service_description
+        })
+        .then(() => {
+            console.log(`[SUCCESS] update service id: ${req.body.service_id}`)
+            return res.status(200).json({
+                title: 'update service success'
+            })
+        })
+        .catch(error => {
+            console.log(`[FAIL] ${error}`)
+        })
+    
+    }
 })
 
 

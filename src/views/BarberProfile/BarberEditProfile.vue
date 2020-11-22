@@ -1,7 +1,6 @@
 <template>
     <div class="BarberEditProfile">
         <h1>แก้ไขข้อมูลส่วนตัว</h1>
-        
         <div class="editBox shadow-sm p-2">
             <h5>ข้อมูลส่วนตัว</h5><hr>
             <b-row class="mb-4 px-4">
@@ -10,26 +9,26 @@
                     <!--First Name-->
                     <div class="mb-3">
                         <label for="firstName">ชื่อ</label>
-                        <b-input type="text" v-model="barb_firstName" id="firstName"></b-input>
+                        <b-input type="text" v-model="userData.barb_firstName" id="firstName"></b-input>
                     </div>
 
                     <!--Last Name-->
                     <div class="mb-3">
                         <label for="lastName">นามสกุล</label>
-                        <b-input type="text" v-model="barb_lastName" id="lastName"></b-input>
+                        <b-input type="text" v-model="userData.barb_lastName" id="lastName"></b-input>
                     </div>
 
                     <!--Sex-->
                     <div class="mb-3">
                         <label >เพศ</label> 
                         <br>
-                        <input type="radio" id="male" value="male" v-model="barb_sex" class="mr-1" required />
+                        <input type="radio" id="male" value="male" v-model="userData.barb_sex" class="mr-1" required />
                         <label for="male" class="mr-4 font-weight-normal">ชาย</label>
 
-                        <input type="radio" id="female" value="female" v-model="barb_sex" class="mr-1" required />
+                        <input type="radio" id="female" value="female" v-model="userData.barb_sex" class="mr-1" required />
                         <label for="female" class="mr-4 font-weight-normal">หญิง</label>
 
-                        <input type="radio" id="other" value="other" v-model="barb_sex" class="mr-1" checked required />
+                        <input type="radio" id="other" value="other" v-model="userData.barb_sex" class="mr-1" checked required />
                         <label for="other" class="mr-4 font-weight-normal">อื่นๆ</label>
                         <br>
                     </div>
@@ -37,7 +36,40 @@
                     <!--Phone-->
                     <div class="mb-3">
                         <label for="Phone">เบอร์โทรศัพท์</label>
-                        <b-input type="text" v-model="barb_phone" id="Phone"></b-input>
+                        <b-input type="text" v-model="userData.barb_phone" id="Phone"></b-input>
+                    </div>
+
+                    <!--Description-->
+                    <div class="mb-3">
+                        <label>คำอธิบาย</label>
+                        <b-form-textarea
+                            required
+                            id="descriptionText"
+                            v-model="userData.barb_description"
+                            placeholder="เขียนคำอธิบายเกี่ยวกับบริการได้ที่นี่ . . . "
+                            rows="5"
+                            max-rows="5"
+                        >
+                        </b-form-textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="addr_road">พื้นที่ให้บริการ</label>
+                        <b-dropdown id="district" 
+                            :text="userData.barb_addressService"
+                            block
+                            split
+                            right
+                            variant="outline-secondary"
+                        >
+                            <b-dropdown-item 
+                                v-for="district in districts" 
+                                :key="district.id" 
+                                v-model="userData.barb_addressService" 
+                            >
+                                {{district.name}}
+                            </b-dropdown-item>
+                        </b-dropdown>
                     </div>
 
                     <!--Button-->
@@ -64,13 +96,11 @@
 
             <!--Edit Barber Service-->
             <h5>ข้อมูลการให้บริการของช่างตัดผม</h5><hr>
-            <b-row class="mb-4 px-4">
-
+            <b-row class="mb-4 px-2">
                 <!--Service-->
                 <b-col sm="8" style="border-right: 1px solid #CED4DA;" class="mb-4">
                     <div v-for="(service,index) in barb_service" :key="index" class="serviceBox mb-3 p-2">
                         <h6 class="font-weight-bold">บริการที่ {{index+1}}</h6>
-
                         <b-row>
                             <b-col sm="4">
                                 <!--Service Image-->
@@ -175,7 +205,6 @@
         name: 'BarberEditProfile',
         data() {
             return {
-                service: '',
                 
                 //Data
                 districts: [
@@ -191,11 +220,10 @@
                 barb_sex: '',
                 barb_addressService: [],
                 barb_phone: '',
+                barb_description: '',
 
                 //
-                barb_cost: '',
                 barb_service: [],
-                barb_description: '',
             }
         },
         created() {
@@ -218,12 +246,9 @@
             this.barb_sex = this.userData.barb_sex
             this.barb_addressService = this.userData.barb_addressService
             this.barb_phone = this.userData.barb_phone
-
-            //
-            this.barb_cost = this.userData.barb_cost
-            this.barb_equipment = this.userData.barb_equipment
             this.barb_description = this.userData.barb_description
 
+            //
             var service = []
 
             //get service of barber from firebase
@@ -236,19 +261,59 @@
             .catch(err => {console.log(err)})
         },
         methods: {
+            //แก้ไขข้อมูลส่วนตัว
             editInfo() {
+                var info = this.userData
 
+                axios.post('http://localhost:5000/editBarberInfo', info)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('แก้ไขข้อมูลส่วนตัวสำเร็จ')
+                            location.reload()
+                        }
+                    }
+                )
             },
+
+            //บันทึกบริการ
+            saveService(index) {
+                var service =  this.barb_service[index]
+                
+                
+                console.log(service)
+
+                axios.post('http://localhost:5000/saveService', service)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('บันทึกข้อมูลบริการสำเร็จ')
+                        }
+                    }
+                )
+            },
+
+            //ลบบริการ
             deleteService(index) {
                 this.barb_service.splice(index, 1)
             },
+
+            //เพิ่มบริการ
             addService() {
                 if(this.barb_service.length < 10) {
-                    this.barb_service.push('')
+                    this.barb_service.push({
+                        service_name: '',
+                        service_cost: 0,
+                        service_img: 'https://firebasestorage.googleapis.com/v0/b/aboutheadproject.appspot.com/o/service%2Fhaircut.jpg?alt=media&token=7a38e76a-3340-4894-a6d0-9ee9af246348',
+                        service_id: 'null',
+                        service_barber: this.userData.barb_id,
+                        service_description: ''
+                    })
                 }
                 else
                     alert('เพิ่มจำนวนบริการได้ไม่เกิน 10 ชิ้นเท่านั้น')
             },
+
             //ไม่พร้อมให้บริการ = search ไม่เจอ
             statusOff() {
                 var info = {

@@ -46,6 +46,7 @@
                         <b-row class="p-2 pt-4 mb-5">
                             <b-col sm="12" >
                                 <h4>{{barber.barb_firstName}} {{barber.barb_lastName}}</h4>
+                                <span class="small">" {{barber.barb_description}} "</span>
                                 <p><b-icon icon="star-fill" aria-hidden="true" variant="warning"></b-icon> คะแนน {{barber.barb_score}}/10</p>
                                 <li v-for="service in barber.barb_service" :key="service">{{service}}</li>
                             </b-col>
