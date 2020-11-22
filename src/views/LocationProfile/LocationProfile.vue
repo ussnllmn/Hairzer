@@ -1,6 +1,7 @@
 <template>
     <div class="LocationProfile">
-        <div class="profileBox shadow-sm p-4 m-4">
+        <h1>โปรไฟล์สถานที่</h1>
+        <div class="profileBox shadow-sm p-4">
             <b-row>
                 <!--รูปโปรไฟล์-->
                 <b-col sm="2" class="align-self-center p-2">
@@ -8,7 +9,7 @@
                 </b-col>
 
                 <!--ชื่อและคำอธิบาย-->
-                <b-col sm="7">
+                <b-col sm="6" class="pl-5">
                     <h3><b>{{locationProfile.lo_locationName}}</b></h3>
                     <p><b>ที่อยู่:</b> 
                         {{locationAddress.addr_no}}
@@ -18,13 +19,13 @@
                         เขต{{locationAddress.addr_district}}
                         {{locationAddress.addr_province}}
                     </p>
-                    <p class="font-weight-bold m-0 p-0">คำอธิบายเกี่ยวกับร้าน:</p>
-                    <p class="">" {{locationProfile.lo_description}} "</p>
+                    <p class="font-weight-bold m-0 p-0">คำอธิบายเกี่ยวกับสถานที่:</p>
+                    <p >" {{locationProfile.lo_description}} "</p>
                     <p><b>คะแนน:</b> {{locationProfile.lo_score}}</p>
                 </b-col>
 
                 <!--ราคาและรายการอุปกรณ์-->
-                <b-col sm="3">
+                <b-col sm="4">
                     <h3>ราคา: {{locationProfile.lo_cost}}</h3>
                     <li v-for="equipment in locationProfile.lo_equipment" :key="equipment">{{equipment}}</li>
                 </b-col>
@@ -32,17 +33,17 @@
 
             <!--รีวิว-->
             <hr>
-            <h3>รีวิว</h3>
+            <h3>รีวิวจากลูกค้า</h3>
             <b-row class="reviewBox mx-4 my-3 align-items-top" v-for="review in locationReviewData" :key="review.lo_review_id">
-                <b-col md="3" class="m-0 p-0" style="border: 1px solid black">
+                <b-col md="3" class="m-0 p-0">
                     <img :src="review.lo_review_customer.cus_img" width="100%" style="object-fit: cover;">
                 </b-col>
 
                 <b-col class="p-4">
                     <h4>{{review.lo_review_customer.cus_firstName}} {{review.lo_review_customer.cus_lastName}}</h4>
-                    <p class="small p-0 m-0"><b>รหัสการนัดหมาย: </b>{{review.lo_review_appointment}}</p>
-                    <p class="small p-0 m-0"><b>วันที่:</b> {{review.lo_review_date}} | <b>เวลา:</b> {{review.lo_review_time}}</p>
-                    <p class="my-1">" {{review.lo_review_text}} "</p>
+                    <p class="small p-0 m-0 mb-2"><b>รหัสการนัดหมาย: </b>{{review.lo_review_appointment}}</p>
+                    <p class="small p-0 m-0 mb-2"><b>วันที่:</b> {{review.lo_review_date}} | <b>เวลา:</b> {{review.lo_review_time}}</p>
+                    <p class="my-3">"<i> {{review.lo_review_text}} "</i></p>
                     <p class="my-1"><b>คะแนน:</b> {{review.lo_review_score}}/5</p>
                 </b-col>
             </b-row>
