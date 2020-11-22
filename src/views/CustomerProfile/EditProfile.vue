@@ -54,8 +54,8 @@
                         <div class="upload mt-2">
                             <b-form-file
                                 size="sm"
-                                placeholder="Choose a file or drop it here..."
-                                drop-placeholder="Drop file here..."
+                                placeholder="เลือกรูปภาพของคุณ . . ."
+                                drop-placeholder="ลากไฟล์มาวางที่นี่..."
                                 class="mb-2"
                                 accept="image/*"
                                 @change="chooseFile"
@@ -125,12 +125,6 @@
             this.phone = this.userData.cus_phone
             this.img = this.userData.cus_img
 
-            firebase.storage().ref('users/' + this.userData.cus_id + '/profile.jpg').getDownloadURL()
-            .then(imgURL => {
-                this.img = imgURL
-            })
-            .catch(err => {console.log(err)})
-
             //set userData from firebase
             firebase.firestore().collection('customer').doc(this.userData.cus_id).get()
             .then(doc => {
@@ -197,8 +191,20 @@
 
             //เปลี่ยนรูป 
             uploadImage() {
-                firebase.storage().ref('users/' + this.userData.cus_id + '/profile.jpg').put(this.selectedImage)
+                firebase.storage().ref('customer/' + this.userData.cus_id + '/profile.jpg').put(this.selectedImage)
                 .then(() => {
+
+                    firebase.storage().ref('customer/' + this.userData.cus_id + '/profile.jpg').getDownloadURL()
+                    .then(imgURL => {
+                        this.img = imgURL
+
+                        firebase.firestore().collection('customer').doc(this.userData.cus_id).update({
+                            cus_img: imgURL
+                        })
+                        .catch(err => { console.log(err) })
+                    })
+                    .catch(err => {console.log(err)})
+
                     alert('เปลี่ยนรูปสำเร็จ')
                 })
                 .catch(err => {console.log(err)})

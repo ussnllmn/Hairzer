@@ -98,12 +98,14 @@
 
                         <div class="upload mt-2">
                             <b-form-file
-                                    size="sm"
-                                    placeholder="Choose a file or drop it here..."
-                                    drop-placeholder="Drop file here..."
-                                    class="mb-2"
+                                size="sm"
+                                placeholder="เลือกรูปภาพของคุณ . . ."
+                                drop-placeholder="ลากไฟล์มาวางที่นี่..."
+                                class="mb-2"
+                                accept="image/*"
+                                @change="chooseFile"
                             ></b-form-file>
-                            <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์">เปลี่ยนรูปโปรไฟล์</b-btn><br>
+                            <b-btn v-b-tooltip.hover title="เปลี่ยนรูปโปรไฟล์" @click="uploadImage">เปลี่ยนรูปโปรไฟล์</b-btn><br>
                         </div>
                     </center>
                 </b-col>
@@ -213,12 +215,14 @@
     import axios from 'axios'
     import firebase from 'firebase/app';
     import 'firebase/auth';
+    import 'firebase/storage';
 
     export default {
         name: 'LocationEditProfile',
         data() {
             return {
                 equipment: '',
+                img: '',
                 
                 //Data
                 districts: [
@@ -271,6 +275,31 @@
 
         },
         methods: {
+            //เลือกรูป
+            chooseFile(event){
+                this.selectedImage = event.target.files[0]
+            },
+
+            //เปลี่ยนรูป 
+            uploadImage() {
+                firebase.storage().ref('location/' + this.userData.lo_id + '/profile.jpg').put(this.selectedImage)
+                .then(() => {
+
+                    firebase.storage().ref('location/' + this.userData.lo_id + '/profile.jpg').getDownloadURL()
+                    .then(imgURL => {
+                        this.img = imgURL
+
+                        firebase.firestore().collection('location').doc(this.userData.lo_id).update({
+                            lo_img: imgURL
+                        })
+                        .catch(err => { console.log(err) })
+                    })
+                    .catch(err => {console.log(err)})
+
+                    alert('เปลี่ยนรูปสำเร็จ')
+                })
+                .catch(err => {console.log(err)})
+            },
             //ไม่พร้อมให้บริการ = search ไม่เจอ
             statusOff() {
                 var info = {
