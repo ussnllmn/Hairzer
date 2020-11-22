@@ -279,10 +279,6 @@
             //บันทึกบริการ
             saveService(index) {
                 var service =  this.barb_service[index]
-                
-                
-                console.log(service)
-
                 axios.post('http://localhost:5000/saveService', service)
                 .then(
                     res => {
@@ -295,6 +291,16 @@
 
             //ลบบริการ
             deleteService(index) {
+                var service =  this.barb_service[index]
+                axios.post('http://localhost:5000/deleteService', service)
+                .then(
+                    res => {
+                        if(res.status === 200) {
+                            alert('ลบรายการบริการสำเร็จ')
+                        }
+                    }
+                )
+
                 this.barb_service.splice(index, 1)
             },
 

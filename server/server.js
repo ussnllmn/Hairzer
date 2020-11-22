@@ -530,8 +530,6 @@ app.post('/editBarberInfo', (req, res) => {
     })
 })
 
-
-
 app.post('/saveService', (req, res) => {
     //ถ้าเพิ่มบริการใหม่มา
     if(req.body.service_id == 'null') {
@@ -579,8 +577,14 @@ app.post('/saveService', (req, res) => {
     }
 })
 
-
-
+app.post('/deleteService', (req, res) => {
+    db.collection('service').doc(req.body.service_id).delete()
+    .then(() => {
+        return res.status(200).json({
+            title: 'delete service success',
+        })
+    })
+})
 
 
 
