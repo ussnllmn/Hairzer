@@ -223,6 +223,7 @@
             return {
                 equipment: '',
                 img: '',
+                selectedImage: {},
                 
                 //Data
                 districts: [
