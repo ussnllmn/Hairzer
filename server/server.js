@@ -406,7 +406,6 @@ app.post('/changeLocationStatus', (req, res) => {
 })
 
 app.post('/editLocationInfo', (req, res) => {
-    console.log(req.body)
     var ref = db.collection('location').doc(req.body.lo_id)
 
     ref.update({
