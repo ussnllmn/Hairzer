@@ -114,8 +114,8 @@
                                 <!--upload service image-->
                                 <b-form-file
                                     size="sm"
-                                    placeholder="Choose a file or drop it here..."
-                                    drop-placeholder="Drop file here..."
+                                    placeholder="เลือกรูปภาพบริการของคุณ . . ."
+                                    drop-placeholder="ลากไฟล์มาวางที่นี่..."
                                     class="mb-2"
                                     @change="chooseFile"
                                 ></b-form-file>

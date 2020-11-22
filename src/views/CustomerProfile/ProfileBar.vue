@@ -1,7 +1,7 @@
 <template>
     <div class="profileBar shadow-sm p-4">
         <!--Image-->
-        <center><img :src="userData.cus_img" width="90%" height="155px" rounded="circle" style="object-fit: cover; border-radius: 100%;" class="p-3"></center>
+        <center><img :src="userData.cus_img" width="200px" height="200px" rounded="circle" style="object-fit: cover; border-radius: 100%;" class="p-3"></center>
         <center><h4>{{userData.cus_firstName}} {{userData.cus_lastName}}</h4></center>
         
         <!--Menu-->

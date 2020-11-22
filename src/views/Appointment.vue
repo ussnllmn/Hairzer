@@ -6,6 +6,9 @@
         <h3 class="my-1 backBtn" v-if="userType == 'location'">
             <router-link :to="{name: 'appointmentLocationManagement'}"><b-icon icon="chevron-left"></b-icon>กลับ</router-link>
         </h3>
+        <h3 class="my-1 backBtn" v-if="userType == 'barber'">
+            <router-link :to="{name: 'appointmentBarberManagement'}"><b-icon icon="chevron-left"></b-icon>กลับ</router-link>
+        </h3>
         <div class="appointmentBox shadow-sm p-4">
             <b-row class="mb-4">
                 <b-col>

@@ -4,8 +4,8 @@
         <div class="profileBox shadow-sm p-4">
             <b-row>
                 <!--รูปโปรไฟล์-->
-                <b-col sm="2" class="align-self-center p-2">
-                    <img :src="barberProfile.barb_img" rounded="circle" width="100%" style="object-fit: cover; border-radius: 100%;"/>
+                <b-col sm="2" class="align-self-center text-center p-2">
+                    <img :src="barberProfile.barb_img" rounded="circle" width="145px" height="145px" style="object-fit: cover; border-radius: 100%;"/>
                 </b-col>
 
                 <!--ชื่อและคำอธิบาย-->
@@ -28,7 +28,7 @@
             <hr>
             <h3>รีวิวจากลูกค้า</h3>
             <b-row class="reviewBox mx-4 my-3 align-items-top" v-for="review in barberReviewData" :key="review.barb_review_id">
-                <b-col md="3" class="m-0 p-0">
+                <b-col md="3" class="m-0 p-0 align-self-center">
                     <img :src="review.barb_review_customer.cus_img" width="100%" style="object-fit: cover;">
                 </b-col>
 
