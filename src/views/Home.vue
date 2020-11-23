@@ -63,6 +63,18 @@
 
         <!--Promotion 4-->
         <div class="col-sm m-1">
+          <b-card 
+            title="ส่วนลด 50%"
+            :img-src="require('../assets/promotion/promotion1.jpg')"
+            img-alt="promotion1"
+            img-top
+            style="width: 100%;"
+            class="shadow-sm"
+          >
+            <b-card-text>
+                ลด 50% ทั้งสถานที่และบริการสำหรับเด็ก
+            </b-card-text>
+          </b-card>
         </div>
       </div>
     </div>
@@ -77,15 +89,15 @@
         <!--Barber 1-->
         <div class="col-sm m-1">
           <b-card 
-            title="ช่างตัดผมสานตอก"
-            :img-src="require('../assets/Barber/santok.jpg')"
+            title="ซึเนโอ โนบิตะ"
+            :img-src="require('../assets/Barber/Tsuneo Nobita.png')"
             img-alt="barber1"
             img-top
             style="width: 100%;"
             class="shadow-sm"
           >
             <b-card-text>
-              บริการทุกระดับประทับใจ
+              ช่างตัดผมมืออาชีพชื่อดังจากประเทศญี่ปุ่น 
             </b-card-text>
           </b-card>
         </div>
@@ -93,15 +105,15 @@
         <!--Barber 2-->
         <div class="col-sm m-1">
           <b-card 
-            title="ช่างตัดผมเสกสัน"
-            :img-src="require('../assets/Barber/sekson.jpg')"
+            title="เจนนิเฟอร์ กิโลเมตร"
+            :img-src="require('../assets/Barber/Jennifer Kilometer.jpg')"
             img-alt="barber2"
             img-top
             style="width: 100%;"
             class="shadow-sm"
           >
             <b-card-text>
-              ตัด สระ ซอย ย้อม ทำได้หมด
+              ช่างตัดผมสาวสวย กรรไกรคู่ มากประสบการณ์
             </b-card-text>
           </b-card>
         </div>
@@ -109,15 +121,15 @@
         <!--Barber 3-->
         <div class="col-sm m-1">
           <b-card 
-            title="ช่างตัดผมจ้อย"
-            :img-src="require('../assets/Barber/joy.jpg')"
+            title="อลัน วอร์คแมน"
+            :img-src="require('../assets/Barber/Alan Walkman.jpg')"
             img-alt="barber3"
             img-top
             style="width: 100%;"
             class="shadow-sm"
           >
             <b-card-text>
-              นิ่งเป็นหลับ ขยับเป็นตัด
+              ช่างตัดผมสไตล์วินเทจจากประเทศแคนาดา
             </b-card-text>
           </b-card>
         </div>
@@ -125,15 +137,15 @@
         <!--Barber 4-->
         <div class="col-sm m-1">
           <b-card 
-            title="ช่างตัดผมชิบะสาน"
-            :img-src="require('../assets/Barber/shibasan.jpg')"
+            title="ชี่ เฉี่ยว ฮัว"
+            :img-src="require('../assets/Barber/ChiSyouHua.jpg')"
             img-alt="barber4"
             img-top
             style="width: 100%;"
             class="shadow-sm"
           >
             <b-card-text>
-              ตัดได้ทุกอย่างยันคอนกรีต
+              ช่างตัดผมมือทองจากแดนมังกรทอง
             </b-card-text>
           </b-card>
         </div>
@@ -149,15 +161,15 @@
         <!--Location 1-->
         <div class="col-sm m-1">
           <b-card 
-            title="ร้านตัดผม 1"
-            :img-src="require('../assets/hairzer-image/location.jpg')"
+            title="Vintage Cut"
+            :img-src="require('../assets/Location/location-1.jpg')"
             img-alt="location1"
             img-top
             style="width: 100%;"
             class="shadow-sm"
           >
             <b-card-text>
-              อุปกรณ์ครบครัน ครบกว่านี้ไม่มีอีกแล้ว
+              ร้านตัดผมสไตล์วินเทจ รองรับลูกค้ามากมาย
             </b-card-text>
           </b-card>
         </div>
@@ -165,15 +177,15 @@
         <!--Location 2-->
         <div class="col-sm m-1">
           <b-card 
-            title="ร้านตัดผม 2"
-            :img-src="require('../assets/hairzer-image/location.jpg')"
+            title="Modern Combat"
+            :img-src="require('../assets/Location/location-2.jpg')"
             img-alt="location2"
             img-top
             style="width: 100%;"
             class="shadow-sm"
           >
             <b-card-text>
-              มีแค่เก้าอี้กับกระจก ที่เหลือหามาเอง
+              อุปกรณ์ทันสมัย ครบครัน มีพร้อมบริการคุณ
             </b-card-text>
           </b-card>
         </div>
@@ -181,15 +193,15 @@
         <!--Location 3-->
         <div class="col-sm m-1">
           <b-card 
-            title="ร้านตัดผม 3"
-            :img-src="require('../assets/hairzer-image/location.jpg')"
+            title="See Saw"
+            :img-src="require('../assets/Location/location-3.jpg')"
             img-alt="location3"
             img-top
             style="width: 100%;"
             class="shadow-sm"
           >
             <b-card-text>
-              มีอุปกรณ์ทุกอย่าง ขาดเหลืออะไรเดี๋ยวไปซื้อให้
+              ร้านตัดผมตกแต่งสไดล์ Loft ที่เหมาะกับคุณ
             </b-card-text>
           </b-card>
         </div>
@@ -197,15 +209,15 @@
         <!--Location 4-->
         <div class="col-sm m-1">
           <b-card 
-            title="ร้านตัดผม 4"
-            :img-src="require('../assets/hairzer-image/location.jpg')"
+            title="ร้านตัดผมโชคดี"
+            :img-src="require('../assets/Location/location-4.jpg')"
             img-alt="location4"
             img-top
             style="width: 100%;"
             class="shadow-sm"
           >
             <b-card-text>
-              อุปกรณ์พร้อม ต้องร้านตัดผม 4 ที่นี่ที่เดียว
+              ใช้บริการร้านนี้แล้วจะโชคดีมีชัยในต่างแดน
             </b-card-text>
           </b-card>
         </div>

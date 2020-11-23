@@ -20,7 +20,7 @@
                         {{locationAddress.addr_province}}
                     </p>
                     <p class="font-weight-bold m-0 p-0">คำอธิบายเกี่ยวกับสถานที่:</p>
-                    <p >" {{locationProfile.lo_description}} "</p>
+                    <p ><i>" {{locationProfile.lo_description}} "</i></p>
                     <p><b>คะแนน:</b> {{locationProfile.lo_score}}</p>
                 </b-col>
 

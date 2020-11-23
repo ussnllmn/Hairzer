@@ -229,7 +229,7 @@
                 
                 //Data
                 districts: [
-                    {id:1, name: 'ลาดกระบัง'}
+                    {id:1, name: 'ลาดกระบัง'},
                 ],
 
                 userData: '',
