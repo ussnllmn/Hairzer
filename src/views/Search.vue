@@ -96,6 +96,9 @@
                 //Example Data
                 districts: [
                     {id:1, name: 'ลาดกระบัง'},
+                    {id:2, name: 'มีนบุรี'},
+                    {id:3, name: 'หนองจอก'},
+                    {id:4, name: 'คลองสามวา'}
                 ],
                 services: [
                     {id:1, name: 'ตัดผม'},

@@ -64,7 +64,7 @@
         <!--Promotion 4-->
         <div class="col-sm m-1">
           <b-card 
-            title="ส่วนลด 25%"
+            title="ส่วนลด 50%"
             :img-src="require('../assets/promotion/promotion1.jpg')"
             img-alt="promotion1"
             img-top
