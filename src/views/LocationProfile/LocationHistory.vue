@@ -65,7 +65,7 @@
             }
 
             //request appointment data
-            axios.post('http://localhost:5000/appointmentLocationHistory', data)
+            axios.post('http://128.199.236.172:5000/appointmentLocationHistory', data)
             .then(
                 res => {
                     if(res.status === 200) {

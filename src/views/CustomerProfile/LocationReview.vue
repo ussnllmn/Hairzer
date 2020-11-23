@@ -99,7 +99,7 @@
         created() {
             this.userData = JSON.parse(localStorage.getItem('userData'))
 
-            axios.get(`http://localhost:5000/appointment/${this.$route.params.appmt_id}`)
+            axios.get(`http://128.199.236.172:5000/appointment/${this.$route.params.appmt_id}`)
             .then(
                 res => {
                     if (res.status === 200) {
@@ -117,7 +117,7 @@
                     score: this.score,
                 }
 
-                axios.post('http://localhost:5000/locationReview', locationReview)
+                axios.post('http://128.199.236.172:5000/locationReview', locationReview)
                 .then(
                     res => {
                         if(res.status === 200) {

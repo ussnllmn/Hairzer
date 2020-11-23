@@ -309,7 +309,7 @@
             editInfo() {
                 var info = this.userData
 
-                axios.post('http://localhost:5000/editBarberInfo', info)
+                axios.post('http://128.199.236.172:5000/editBarberInfo', info)
                 .then(
                     res => {
                         if(res.status === 200) {
@@ -325,7 +325,7 @@
                 var service =  this.barb_service[index]
                 var serviceID = service.service_id
 
-                axios.post('http://localhost:5000/saveService', service)
+                axios.post('http://128.199.236.172:5000/saveService', service)
                 .then(
                     res => {
                         if(res.status === 200) {
@@ -352,7 +352,7 @@
             //ลบบริการ
             deleteService(index) {
                 var service =  this.barb_service[index]
-                axios.post('http://localhost:5000/deleteService', service)
+                axios.post('http://128.199.236.172:5000/deleteService', service)
                 .then(
                     res => {
                         if(res.status === 200) {
@@ -386,7 +386,7 @@
                     barberStatus: this.barberStatus,
                     barb_id: this.userData.barb_id
                 }
-                axios.post('http://localhost:5000/changeBarberStatus', info)
+                axios.post('http://128.199.236.172:5000/changeBarberStatus', info)
                 .then(
                     res => {
                         if(res.status === 200) {
@@ -402,7 +402,7 @@
                     barberStatus: this.locationStatus,
                     barb_id: this.userData.barb_id
                 }
-                axios.post('http://localhost:5000/changeBarberStatus', info)
+                axios.post('http://128.199.236.172:5000/changeBarberStatus', info)
                 .then(
                     res => {
                         if(res.status === 200) {
