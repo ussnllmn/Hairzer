@@ -309,7 +309,7 @@
                     locationStatus: this.locationStatus,
                     lo_id: this.userData.lo_id
                 }
-                axios.post('http://localhost:5000/changeLocationStatus', info)
+                axios.post('http://128.199.236.172:5000/changeLocationStatus', info)
                 .then(
                     res => {
                         if(res.status === 200) {
@@ -325,7 +325,7 @@
                     locationStatus: this.locationStatus,
                     lo_id: this.userData.lo_id
                 }
-                axios.post('http://localhost:5000/changeLocationStatus', info)
+                axios.post('http://128.199.236.172:5000/changeLocationStatus', info)
                 .then(
                     res => {
                         if(res.status === 200) {
@@ -345,7 +345,7 @@
                     lo_phone: this.lo_phone,
                     lo_address: this.lo_address
                 }
-                axios.post('http://localhost:5000/editLocationInfo', info)
+                axios.post('http://128.199.236.172:5000/editLocationInfo', info)
                 .then(
                     res => {
                         if(res.status === 200) {
@@ -364,7 +364,7 @@
                     lo_equipment: this.lo_equipment,
                     lo_description: this.lo_description
                 }
-                axios.post('http://localhost:5000/editLocationServiceInfo', info)
+                axios.post('http://128.199.236.172:5000/editLocationServiceInfo', info)
                 .then(
                     res => {
                         if(res.status === 200) {

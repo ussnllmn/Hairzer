@@ -97,7 +97,7 @@
 
                 let appointment = this.appointment
                 
-                axios.post('http://localhost:5000/payment', appointment)
+                axios.post('http://128.199.236.172:5000/payment', appointment)
                 .then(
                     res => {
                         if(res.status === 200) {

@@ -70,7 +70,7 @@
             }
 
             //request appointment data
-            axios.post('http://localhost:5000/appointmentBarber', data)
+            axios.post('http://128.199.236.172:5000/appointmentBarber', data)
             .then(
                 res => {
                     if(res.status === 200) {
@@ -89,7 +89,7 @@
                     appmt_id: appointmentID
                 }
 
-                axios.post('http://localhost:5000/appointmentCancel', appointmentCancel)
+                axios.post('http://128.199.236.172:5000/appointmentCancel', appointmentCancel)
                 .then(
                     res => {
                         if(res.status === 200) {

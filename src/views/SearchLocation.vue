@@ -136,7 +136,7 @@
                         location: this.selectedLocation.lo_address.addr_district
                     }
 
-                    axios.post('http://localhost:5000/barber', searchData)
+                    axios.post('http://128.199.236.172:5000/barber', searchData)
                     .then(
                         res => {
                             if(res.status === 200) {

@@ -122,7 +122,7 @@
                     date: this.selectedDate
                 }
 
-                axios.post('http://localhost:5000/location', searchData)
+                axios.post('http://128.199.236.172:5000/location', searchData)
                 .then(
                     res => {
                         if(res.status === 200) {

@@ -114,7 +114,7 @@
         created() {
 
             //
-            axios.get(`http://localhost:5000/appointment/${this.$route.params.appmt_id}`)
+            axios.get(`http://128.199.236.172:5000/appointment/${this.$route.params.appmt_id}`)
             .then(
                 res => {
                     if (res.status === 200) {
